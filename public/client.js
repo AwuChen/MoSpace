@@ -32,12 +32,23 @@ window.addEventListener('load', function() {
 		
 	});
 	
-    socket.on('UPDATE_MOVE_AND_ROTATE', function(id,position,rotation) {
+    socket.on('REPLAY_HISTORY', function(history) {
+	     var currentUserAtr = history;
+		gameInstance.SendMessage ('NetworkManager', 'OnReplayHistory',currentUserAtr);
+		//execInUnity('Update_messages', currentUser);
+	});
+
+	socket.on('UPDATE_MOVE_AND_ROTATE', function(id,position,rotation) {
 	     var currentUserAtr = id+','+position+','+rotation;
 		gameInstance.SendMessage ('NetworkManager', 'OnUpdateMoveAndRotate',currentUserAtr);
 		//execInUnity('Update_messages', currentUser);
 	});
 	
+	socket.on('REPLAY', function(id,position,rotation) {
+	     var currentUserAtr = id+','+position+','+rotation;
+		gameInstance.SendMessage ('NetworkManager', 'OnReplay',currentUserAtr);
+		//execInUnity('Update_messages', currentUser);
+	});
 	
 	 socket.on('UPDATE_PLAYER_ANIMATOR', function(id,animation) {
 	     var currentUserAtr = id+','+animation;
