@@ -33,7 +33,7 @@ window.addEventListener('load', function() {
 	});
 	
     socket.on('REPLAY_HISTORY', function(history) {
-	     var currentUserAtr = history;
+    	var currentUserAtr = "PlayerHistory" + history;
 		gameInstance.SendMessage ('NetworkManager', 'OnReplayHistory',currentUserAtr);
 		//execInUnity('Update_messages', currentUser);
 	});
