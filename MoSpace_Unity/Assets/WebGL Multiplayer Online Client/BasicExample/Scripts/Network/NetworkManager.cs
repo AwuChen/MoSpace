@@ -57,6 +57,7 @@ public class NetworkManager : MonoBehaviour {
 
 	public bool isGameOver;
 
+    string playerHistory;
 
 	void Awake()
 	{
@@ -125,6 +126,68 @@ public class NetworkManager : MonoBehaviour {
 
 
 	}
+
+    //send the getHistory call to server
+    public void GetHistory()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        //store "ping!!!" message in msg field
+        data["RoomNum"] = "1";
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "GET_HISTORY", new JSONObject(data));
+
+    }
+
+    // receives the movement history from client.js
+    void OnReplayHistory(string data)
+    {
+        /*
+		 * data.pack[0] = id (network player id)
+		 * data.pack[1] = position.x
+		 * data.pack[2] = position.y
+		 * data.pack[3] = position.z
+		 * data.pack[4] = rotation.x
+		 * data.pack[5] = rotation.y
+		 * data.pack[6] = rotation.z
+		 * data.pack[7] = rotation.w
+		*/
+
+        Debug.Log("OnReplayHistory:" + data);
+        //var pack = data.Split(Delimiter);
+
+        //if (networkPlayers[pack[0]] != null)
+        //{
+        //    PlayerManager netPlayer = networkPlayers[pack[0]];
+
+        //    //update with the new position
+        //    netPlayer.UpdatePosition(new Vector3(
+        //        float.Parse(pack[1]), float.Parse(pack[2]), float.Parse(pack[3])));
+
+        //    Vector4 rot = new Vector4(
+        //        float.Parse(pack[4]), float.Parse(pack[5]), float.Parse(pack[6]),
+        //        float.Parse(pack[7]));// atualiza a posicao
+
+        //    //update new player rotation
+        //    netPlayer.UpdateRotation(new Quaternion(rot.x, rot.y, rot.z, rot.w));
+
+        //    //IsAtack?
+        //    if (bool.Parse(pack[8]))
+        //    {
+        //        netPlayer.UpdateAnimator("IsAtack");
+        //    }
+
+        //    Debug.Log("Update Player Pos & Rot");
+        //}
+
+
+    }
+
 
     public void FriendOfAwu()
     {

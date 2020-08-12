@@ -40,7 +40,8 @@ io.on('connection', function(socket){
 		socket.emit('PONG', socket.id,pack.msg);
      
 	});
-	
+
+
 	//create a callback fuction to listening EmitJoin() method in NetworkMannager.cs unity script
 	socket.on('LOGIN', function (_data)
 	{
@@ -143,7 +144,21 @@ io.on('connection', function(socket){
        }
 	});//END_SOCKET_ON
 	
+	//create a callback fuction to listening GetHistory() method in NetworkMannager.cs unity script
+	socket.on('GET_HISTORY', function (_pack)
+	{
+	  //console.log('Room# '+_pack);
+	    var pack = "test";	
+
+	    console.log('RoomNum '+socket.id+": "+pack);
+        
+
+		// send history string to this client 
+       socket.emit('REPLAY_HISTORY', pack);
+      console.log('[INFO] history '+ pack);
+	});
 	
+
 	//create a callback fuction to listening EmitAnimation() method in NetworkMannager.cs unity script
 	socket.on('ANIMATION', function (_data)
 	{
