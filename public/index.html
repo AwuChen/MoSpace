@@ -100,7 +100,10 @@
   </body>
 
   <script src="Build/UnityLoader.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="client.js"></script>
   <script>
+  	 UnityLoader.compatibilityCheck=function(e,t,r){t();};
   var gameInstance = UnityLoader.instantiate("gameContainer", "Build/public.json", {onProgress: UnityProgress});
   function UnityProgress(gameInstance, progress) {
     if (!gameInstance.Module) {
