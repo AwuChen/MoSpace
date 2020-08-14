@@ -34,21 +34,21 @@ public class MoveCamera : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        Vector3 currentPos = Positions[mCurrentIndex];
+        //Vector3 currentPos = Positions[mCurrentIndex];
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            if (mCurrentIndex < Positions.Length -1)
-                mCurrentIndex++;
-        }
+        //if (Input.GetKeyUp(KeyCode.RightArrow))
+        //{
+        //    if (mCurrentIndex < Positions.Length -1)
+        //        mCurrentIndex++;
+        //}
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (mCurrentIndex > 0)
-                mCurrentIndex--;
-        }
+        //if(Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    if (mCurrentIndex > 0)
+        //        mCurrentIndex--;
+        //}
 
-        transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
 
     }
 
