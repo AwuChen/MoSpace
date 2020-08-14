@@ -24,31 +24,31 @@ public class MoveCamera : MonoBehaviour {
     {
         if (isMobile())
         {
-            transform.position = new Vector3(15f, 23.7f, -25f);
+            transform.position = new Vector3(15f, 22f, -25f);
         }
         else
         {
-            transform.position = new Vector3(20f, 23.7f, -20f);
+            transform.position = new Vector3(20f, 22f, -20f);
         }
     }
     // Update is called once per frame
     void Update () {
 
-        Vector3 currentPos = Positions[mCurrentIndex];
+        //Vector3 currentPos = Positions[mCurrentIndex];
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            if (mCurrentIndex < Positions.Length -1)
-                mCurrentIndex++;
-        }
+        //if (Input.GetKeyUp(KeyCode.RightArrow))
+        //{
+        //    if (mCurrentIndex < Positions.Length -1)
+        //        mCurrentIndex++;
+        //}
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (mCurrentIndex > 0)
-                mCurrentIndex--;
-        }
+        //if(Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    if (mCurrentIndex > 0)
+        //        mCurrentIndex--;
+        //}
 
-        transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
 
     }
 
