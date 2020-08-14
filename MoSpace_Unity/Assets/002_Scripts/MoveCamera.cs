@@ -24,11 +24,11 @@ public class MoveCamera : MonoBehaviour {
     {
         if (isMobile())
         {
-            transform.position = new Vector3(15f, 22f, -25f);
+            mCurrentIndex = 0;
         }
         else
         {
-            transform.position = new Vector3(20f, 22f, -20f);
+            mCurrentIndex = 1;
         }
     }
     // Update is called once per frame
