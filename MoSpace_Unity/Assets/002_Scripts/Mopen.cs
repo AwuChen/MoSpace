@@ -10,10 +10,12 @@ public class Mopen : MonoBehaviour
     public bool pri = false;
     public bool pub = true;
     public bool per = false;
+    public bool cin = false;
 
     public GameObject[] privateSpace;
     public GameObject[] publicSpace;
     public GameObject[] personalSpace;
+    public GameObject cinemaSpace;
     void Start()
     {
         
@@ -73,6 +75,23 @@ public class Mopen : MonoBehaviour
             if (other.tag == "NetworkPlayer")
             {
                 other.gameObject.GetComponent<PlayerManager>().HidePlayer(false);
+            }
+        }
+
+        if(cin)
+        {
+            if (other.tag == "LocalPlayer")
+            {
+                if(cinemaSpace.activeSelf)
+                {
+                    cinemaSpace.SetActive(false);
+                    publicSpace[0].SetActive(true);
+                }
+                else
+                {
+                    cinemaSpace.SetActive(true);
+                    publicSpace[0].SetActive(false);
+                }
             }
         }
     }
