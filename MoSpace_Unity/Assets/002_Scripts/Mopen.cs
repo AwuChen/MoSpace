@@ -16,6 +16,7 @@ public class Mopen : MonoBehaviour
     public GameObject[] publicSpace;
     public GameObject[] personalSpace;
     public GameObject cinemaSpace;
+
     void Start()
     {
         
@@ -117,15 +118,6 @@ public class Mopen : MonoBehaviour
             }
         }
 
-    }
-
-    IEnumerator Wait()
-    {
-        //yield on a new YieldInstruction that waits for 3 seconds.
-        yield return new WaitForSeconds(3);
-
-        Application.OpenURL("https://shimo.im/boards/Vv7dJxrHziYmYUVC/");
-        runOnce = true;
     }
 
 }
