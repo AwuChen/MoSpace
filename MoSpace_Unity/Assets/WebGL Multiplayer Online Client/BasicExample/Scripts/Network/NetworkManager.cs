@@ -506,6 +506,8 @@ public class NetworkManager : MonoBehaviour {
 			//update new player rotation
 			netPlayer.UpdateRotation(new Quaternion (rot.x,rot.y,rot.z,rot.w));
 
+            netPlayer.UpdateMoji(int.Parse(pack[8]));
+
 			//IsAtack?
 			if (bool.Parse (pack [8]))
 			{

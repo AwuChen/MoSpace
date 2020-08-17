@@ -10,50 +10,50 @@ using DG.Tweening;
 /// </summary>
 public class PlayerManager : MonoBehaviour {
 
-	public string	id;
+    public string id;
 
-	public string name;
+    public string name;
 
-	public string avatar;
+    public string avatar;
 
-	public bool isOnline;
+    public bool isOnline;
 
-	public bool isLocalPlayer;
+    public bool isLocalPlayer;
 
-	//Animator myAnim;
+    //Animator myAnim;
 
-	//Rigidbody myRigidbody;
+    //Rigidbody myRigidbody;
 
-	public enum state : int {idle,walk,attack,damage,dead};//cada estado representa um estado do inimigo
+    public enum state : int { idle, walk, attack, damage, dead };//cada estado representa um estado do inimigo
 
-	public state currentState;
+    public state currentState;
 
-	public float verticalSpeed = 3f;
+    public float verticalSpeed = 3f;
 
-	public float rotateSpeed = 60f;
+    public float rotateSpeed = 60f;
 
-	//distances low to arrive close to the player
-	[Range(1f, 200f)][SerializeField] float minDistanceToPlayer = 10f ;
+    //distances low to arrive close to the player
+    [Range(1f, 200f)] [SerializeField] float minDistanceToPlayer = 10f;
 
-	public bool onGrounded;
+    public bool onGrounded;
 
-	[SerializeField] float m_GroundCheckDistance = 1f;
+    [SerializeField] float m_GroundCheckDistance = 1f;
 
-	public float jumpPower = 12f;
+    public float jumpPower = 12f;
 
-	public float jumpTime=0.4f;
+    public float jumpTime = 0.4f;
 
-	public float jumpdelay=0.4f;
+    public float jumpdelay = 0.4f;
 
-	public bool m_jump;
+    public bool m_jump;
 
-	public bool isJumping;
+    public bool isJumping;
 
-	public float lastVelocityX =0f;
+    public float lastVelocityX = 0f;
 
-	public Transform cameraTotarget;
+    public Transform cameraTotarget;
 
-	public bool isAtack;
+    public bool isAtack;
 
     // START OF MONUMENTO
 
@@ -72,6 +72,11 @@ public class PlayerManager : MonoBehaviour {
     private float blend;
 
     public SkinnedMeshRenderer[] playerMR;
+
+    [Space]
+
+    public GameObject[] mojis;
+    int mojiCount = 0;
 
     void Start()
     {
@@ -108,6 +113,7 @@ public class PlayerManager : MonoBehaviour {
 
 			//Atack ();
 			Move ();
+            Moji();
 		}
         else
         {
@@ -403,7 +409,39 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-	void UpdateStatusToServer ()
+    void Moji()
+    {
+        RayCastDown();
+
+        // CLICK ON Player
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); RaycastHit mouseHit;
+
+            if (Physics.Raycast(mouseRay, out mouseHit))
+            {
+                if (mouseHit.transform.GetComponent<PlayerManager>() != null)
+                {
+                    if (mojiCount < mojis.Length - 1)
+                    {
+                        mojis[mojiCount].SetActive(false);
+                        mojiCount++;
+                    }else
+                    {
+                        mojis[mojiCount].SetActive(false);
+                        mojiCount = 0;
+                    }
+                    mojis[mojiCount].SetActive(true);
+                    UpdateStatusToServer();
+                }
+            }
+        }
+        
+    }
+
+
+    void UpdateStatusToServer ()
 	{
         Debug.Log("Right at the start of Update Status to Server");
 
@@ -420,9 +458,9 @@ public class PlayerManager : MonoBehaviour {
 
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
+        data["moji"] = mojiCount.ToString();
 
-
-		NetworkManager.instance.EmitMoveAndRotate(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        NetworkManager.instance.EmitMoveAndRotate(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
         print("updatedPos");
         Debug.Log("Right at the end of Update Status to Server");
 
@@ -462,9 +500,24 @@ public class PlayerManager : MonoBehaviour {
 
     }
 
+    public void UpdateMoji(int mojiCount)
+    {
+        if (!isLocalPlayer)
+        {
+            if (mojiCount - 1 >= 0)
+            {
+                mojis[mojiCount - 1].SetActive(false);
+            }
+            else
+            {
+                mojis[mojis.Length].SetActive(false);
+            }
+            mojis[mojiCount].SetActive(true);
+        }
 
+    }
 
-	public void UpdateAnimator(string _animation)
+    public void UpdateAnimator(string _animation)
 	{
 
 

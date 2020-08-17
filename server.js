@@ -62,7 +62,8 @@ io.on('connection', function(socket){
 			       maxHealth:100,
 			       kills:0,
 				   timeOut:0,
-				   isDead:false
+				   isDead:false,
+				   moji:'0'
 				   };//new user  in clients list
 					
 		console.log('[INFO] player '+currentUser.name+': logged!');
@@ -137,10 +138,13 @@ io.on('connection', function(socket){
        currentUser.position = data.position;
 	   
 	   currentUser.rotation = data.rotation;
+
+	   currentUser.moji = data.moji;
 	  
 	   // send current user position and  rotation in broadcast to all clients in game
-       socket.broadcast.emit('UPDATE_MOVE_AND_ROTATE', currentUser.id,currentUser.position,currentUser.rotation);
+       socket.broadcast.emit('UPDATE_MOVE_AND_ROTATE', currentUser.id,currentUser.position,currentUser.rotation,currentUser.moji);
       console.log('[INFO] currentUser.position '+currentUser.position);
+      console.log('[INFO] currentUser.moji '+currentUser.moji);
        }
 	});//END_SOCKET_ON
 	
