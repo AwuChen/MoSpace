@@ -504,13 +504,9 @@ public class PlayerManager : MonoBehaviour {
     {
         if (!isLocalPlayer)
         {
-            if (mojiCount - 1 >= 0)
+            for(int i = 0; i < mojis.Length; i++)
             {
-                mojis[mojiCount - 1].SetActive(false);
-            }
-            else
-            {
-                mojis[mojis.Length].SetActive(false);
+                mojis[i].SetActive(false);
             }
             mojis[mojiCount].SetActive(true);
         }
