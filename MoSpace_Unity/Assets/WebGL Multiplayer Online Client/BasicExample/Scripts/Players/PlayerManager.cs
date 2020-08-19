@@ -494,7 +494,19 @@ public class PlayerManager : MonoBehaviour {
 
 	public void UpdatePosition(Vector3 position)
 	{
+
 		if (!isLocalPlayer) {
+
+            RayCastDown();
+
+            if (currentCube.GetComponent<Walkable>().movingGround)
+            {
+                transform.parent = currentCube.parent;
+            }
+            else
+            {
+                transform.parent = null;
+            }
 
             if (position != transform.position)
             {
