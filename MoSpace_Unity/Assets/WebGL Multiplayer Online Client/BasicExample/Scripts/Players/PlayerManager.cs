@@ -463,15 +463,8 @@ public class PlayerManager : MonoBehaviour {
         Dictionary<string, string> data = new Dictionary<string, string>();
 
 		data["local_player_id"] = id;
-        if (!runOnce)
-        {
-            data["position"] = clickedCube.position.x + "," + clickedCube.position.y + "," + clickedCube.position.z;
-            runOnce = true;
-        }
-        else
-        {
-            data["position"] = transform.position.x + "," + transform.position.y + "," + transform.position.z;
-        }
+
+        data["position"] = clickedCube.position.x + "," + clickedCube.position.y + "," + clickedCube.position.z;
 
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
