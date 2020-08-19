@@ -488,25 +488,25 @@ public class PlayerManager : MonoBehaviour {
                 currentState = state.walk;
                 //UpdateAnimator ("IsWalk");
                 Debug.Log("player move to:" + position);
-                //transform.position = new Vector3(position.x, position.y, position.z);
+                transform.position = new Vector3(position.x, position.y, position.z);
 
-                Vector3 downward = transform.TransformDirection(Vector3.down);
-                RaycastHit targetBlock;
-                Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
-                Physics.Raycast(targetPosition, downward, out targetBlock);
-                if (targetBlock.transform.GetComponent<Walkable>() != null)
-                {
-                    print("found cube at " + position);
-                    clickedCube = targetBlock.transform;
-                    DOTween.Kill(gameObject.transform);
-                    finalPath.Clear();
-                    FindPath();
-                    blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
-                }
-                else
-                {
-                    print("didn't find cube at " + position);
-                }
+                //Vector3 downward = transform.TransformDirection(Vector3.down);
+                //RaycastHit targetBlock;
+                //Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
+                //Physics.Raycast(targetPosition, downward, out targetBlock);
+                //if (targetBlock.transform.GetComponent<Walkable>() != null)
+                //{
+                //    print("found cube at " + position);
+                //    clickedCube = targetBlock.transform;
+                //    DOTween.Kill(gameObject.transform);
+                //    finalPath.Clear();
+                //    FindPath();
+                //    blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+                //}
+                //else
+                //{
+                //    print("didn't find cube at " + position);
+                //}
             }
 		}
 
