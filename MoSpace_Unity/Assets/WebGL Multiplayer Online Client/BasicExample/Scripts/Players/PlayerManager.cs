@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviour {
 
     public GameObject[] mojis;
     int mojiCount = 0;
+    public Vector3 testPos;
 
     void Start()
     {
@@ -89,6 +90,7 @@ public class PlayerManager : MonoBehaviour {
         {
             gameObject.tag = "NetworkPlayer";
         }
+        UpdatePosition(testPos);
     }
     // Use this for initialization
     void Awake () {
@@ -257,7 +259,7 @@ public class PlayerManager : MonoBehaviour {
         finalPath.Clear();
         walking = false;
         Debug.Log("Right before Update Status to Server");
-        //UpdateStatusToServer();
+        UpdateStatusToServer();
         Debug.Log("Right after Update Status to Server");
     }
 
@@ -398,8 +400,8 @@ public class PlayerManager : MonoBehaviour {
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.black, .3f).SetDelay(.2f));
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.clear, .3f));
                     Destroy(((indicatorC as Transform).gameObject), 1);
-
-                    UpdateStatusToServer(clickedCube);
+                    //if(clickedCube != null)
+                    //UpdateStatusToServer(clickedCube);
                 }
                 //else if (mouseHit.transform.GetComponent<Walkable>(). != null)
             }
@@ -435,7 +437,7 @@ public class PlayerManager : MonoBehaviour {
                         mojiCount = 0;
                     }
                     mojis[mojiCount].SetActive(true);
-                    UpdateStatusToServer(transform);
+                    UpdateStatusToServer();
                 }
             }
         }
@@ -443,7 +445,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
 
-    void UpdateStatusToServer (Transform target)
+    void UpdateStatusToServer ()
 	{
         Debug.Log("Right at the start of Update Status to Server");
 
@@ -456,7 +458,7 @@ public class PlayerManager : MonoBehaviour {
 
 		data["local_player_id"] = id;
 
-		data["position"] = target.position.x+","+ target.position.y+","+ target.position.z;
+		data["position"] = transform.position.x+","+ transform.position.y+","+ transform.position.z;
 
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
@@ -481,7 +483,7 @@ public class PlayerManager : MonoBehaviour {
 	{
 		if (!isLocalPlayer) {
 
-            if (!isJumping)
+            if (position != transform.position)
             {
                 currentState = state.walk;
                 //UpdateAnimator ("IsWalk");
@@ -490,7 +492,7 @@ public class PlayerManager : MonoBehaviour {
 
                 Vector3 downward = transform.TransformDirection(Vector3.down);
                 RaycastHit targetBlock;
-                Vector3 targetPosition = new Vector3(position.x, position.y + 0.5f, position.z);
+                Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
                 Physics.Raycast(targetPosition, downward, out targetBlock);
                 if (targetBlock.transform.GetComponent<Walkable>() != null)
                 {
