@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour {
         {
             gameObject.tag = "NetworkPlayer";
         }
-        UpdatePosition(testPos);
+        //UpdatePosition(testPos);
     }
     // Use this for initialization
     void Awake () {
