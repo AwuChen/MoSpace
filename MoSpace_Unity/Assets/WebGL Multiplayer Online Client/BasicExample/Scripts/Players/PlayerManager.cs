@@ -257,7 +257,7 @@ public class PlayerManager : MonoBehaviour {
         finalPath.Clear();
         walking = false;
         Debug.Log("Right before Update Status to Server");
-        UpdateStatusToServer();
+        //UpdateStatusToServer();
         Debug.Log("Right after Update Status to Server");
     }
 
@@ -398,6 +398,8 @@ public class PlayerManager : MonoBehaviour {
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.black, .3f).SetDelay(.2f));
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.clear, .3f));
                     Destroy(((indicatorC as Transform).gameObject), 1);
+
+                    UpdateStatusToServer(clickedCube);
                 }
                 //else if (mouseHit.transform.GetComponent<Walkable>(). != null)
             }
@@ -433,7 +435,7 @@ public class PlayerManager : MonoBehaviour {
                         mojiCount = 0;
                     }
                     mojis[mojiCount].SetActive(true);
-                    UpdateStatusToServer();
+                    UpdateStatusToServer(transform);
                 }
             }
         }
@@ -441,7 +443,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
 
-    void UpdateStatusToServer ()
+    void UpdateStatusToServer (Transform target)
 	{
         Debug.Log("Right at the start of Update Status to Server");
 
@@ -454,7 +456,7 @@ public class PlayerManager : MonoBehaviour {
 
 		data["local_player_id"] = id;
 
-		data["position"] = transform.position.x+","+transform.position.y+","+transform.position.z;
+		data["position"] = target.position.x+","+ target.position.y+","+ target.position.z;
 
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
@@ -479,13 +481,31 @@ public class PlayerManager : MonoBehaviour {
 	{
 		if (!isLocalPlayer) {
 
-			if (!isJumping)
-			{
-				currentState = state.walk;
-				//UpdateAnimator ("IsWalk");
-				Debug.Log ("player move to:" + position);
-				transform.position = new Vector3 (position.x, position.y, position.z);
-			}
+            if (!isJumping)
+            {
+                currentState = state.walk;
+                //UpdateAnimator ("IsWalk");
+                Debug.Log("player move to:" + position);
+                //transform.position = new Vector3(position.x, position.y, position.z);
+
+                Vector3 downward = transform.TransformDirection(Vector3.down);
+                RaycastHit targetBlock;
+                Vector3 targetPosition = new Vector3(position.x, position.y + 0.5f, position.z);
+                Physics.Raycast(targetPosition, downward, out targetBlock);
+                if (targetBlock.transform.GetComponent<Walkable>() != null)
+                {
+                    print("found cube at " + position);
+                    clickedCube = targetBlock.transform;
+                    DOTween.Kill(gameObject.transform);
+                    finalPath.Clear();
+                    FindPath();
+                    blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+                }
+                else
+                {
+                    print("didn't find cube at " + position);
+                }
+            }
 		}
 
 	}
@@ -494,7 +514,7 @@ public class PlayerManager : MonoBehaviour {
 	{
         if (!isLocalPlayer)
         {
-            transform.rotation = _rotation;
+            //transform.rotation = _rotation;
 
         }
 
