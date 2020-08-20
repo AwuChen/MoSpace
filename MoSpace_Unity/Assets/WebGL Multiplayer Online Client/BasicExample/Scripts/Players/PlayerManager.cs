@@ -122,7 +122,7 @@ public class PlayerManager : MonoBehaviour {
         else
         {
             // added this so that net player will always be raycasting and parenting 
-            RayCastDown();
+            //RayCastDown();
 
             
             //if (myRigidbody.velocity.x != lastVelocityX)
@@ -175,13 +175,11 @@ public class PlayerManager : MonoBehaviour {
 
     void FindPath()
     {
-        Debug.Log("Start of FindPath");
         List<Transform> nextCubes = new List<Transform>();
         List<Transform> pastCubes = new List<Transform>();
-        Debug.Log("Start of foreach");
-        // here is where the null ref is found 
+        // here is where the null ref is found (currentcube) 
         // think we need to have a raycast down before this 
-        RayCastDown();
+        // ray cast down is not giving our currentCube for older networked players 
         if (currentCube != null)
         {
             foreach (WalkPath path in currentCube.GetComponent<Walkable>().possiblePaths)
@@ -192,14 +190,10 @@ public class PlayerManager : MonoBehaviour {
                     path.target.GetComponent<Walkable>().previousBlock = currentCube;
                 }
             }
-            Debug.Log("End of foreach");
             pastCubes.Add(currentCube);
-            Debug.Log("start of clickedcube");
             if (clickedCube != null)
             {
-                Debug.Log("start of expl");
                 ExploreCube(nextCubes, pastCubes);
-                Debug.Log("start of buidpa");
                 BuildPath();
             }
             else
@@ -214,64 +208,46 @@ public class PlayerManager : MonoBehaviour {
 
     void ExploreCube(List<Transform> nextCubes, List<Transform> visitedCubes)
     {
-        Debug.Log("start of explorecube");
         Transform current = nextCubes.First();
-        Debug.Log("start of nextcubes");
         nextCubes.Remove(current);
-        Debug.Log("start of current");
         if (current == clickedCube)
         {
             return;
         }
-        Debug.Log("start of foreach");
         foreach (WalkPath path in current.GetComponent<Walkable>().possiblePaths)
         {
-            Debug.Log("2");
             if (!visitedCubes.Contains(path.target) && path.active)
             {
-                Debug.Log("3");
                 nextCubes.Add(path.target);
                 path.target.GetComponent<Walkable>().previousBlock = current;
             }
         }
-        Debug.Log("4");
         visitedCubes.Add(current);
-        Debug.Log("5");
         if (nextCubes.Any())
         {
-            Debug.Log("6");
             ExploreCube(nextCubes, visitedCubes);
         }
     }
 
     void BuildPath()
     {
-        Debug.Log("7");
         Transform cube = clickedCube;
-        Debug.Log("8");
         while (cube != currentCube)
         {
-            Debug.Log("9");
             finalPath.Add(cube);
-            Debug.Log("10");
             if (cube.GetComponent<Walkable>().previousBlock != null)
                 cube = cube.GetComponent<Walkable>().previousBlock;
             else
                 return;
         }
-        Debug.Log("11");
         finalPath.Insert(0, clickedCube);
-        Debug.Log("12");
         FollowPath();
     }
 
     void FollowPath()
     {
-        Debug.Log("13");
         Sequence s = DOTween.Sequence();
-        Debug.Log("14");
         walking = true;
-        Debug.Log("15");
         for (int i = finalPath.Count - 1; i > 0; i--)
         {
             float time = finalPath[i].GetComponent<Walkable>().isStair ? 1.5f : 1;
@@ -281,25 +257,20 @@ public class PlayerManager : MonoBehaviour {
             if (!finalPath[i].GetComponent<Walkable>().dontRotate)
                 s.Join(transform.DOLookAt(finalPath[i].position, .1f, AxisConstraint.Y, Vector3.up));
         }
-        Debug.Log("16");
         if (clickedCube.GetComponent<Walkable>().isButton)
         {
             s.AppendCallback(() => GM.instance.RotateRightPivot());
         }
-        Debug.Log("17");
         s.AppendCallback(() => Clear());
     }
 
     void Clear()
     {
-        Debug.Log("18");
         foreach (Transform t in finalPath)
         {
             t.GetComponent<Walkable>().previousBlock = null;
         }
-        Debug.Log("19");
         finalPath.Clear();
-        Debug.Log("20");
         walking = false;
         //Debug.Log("Right before Update Status to Server");
         //UpdateStatusToServer();
@@ -551,7 +522,26 @@ public class PlayerManager : MonoBehaviour {
 
         // this is because of the history error 
         // if all player wait until everyone is here then begin to move then there is no issue 
-        RayCastDown();
+        //RayCastDown();
+        Ray playerRay = new Ray(transform.GetChild(0).position, -transform.up);
+        RaycastHit playerHit;
+
+        if (Physics.Raycast(playerRay, out playerHit))
+        {
+            if (playerHit.transform.GetComponent<Walkable>() != null)
+            {
+                currentCube = playerHit.transform;
+                Debug.Log("currentCube is playerhit.transform");
+                //if (playerHit.transform.GetComponent<Walkable>().isStair)
+                //{
+                //    DOVirtual.Float(GetBlend(), blend, .1f, SetBlend);
+                //}
+                //else
+                //{
+                //    DOVirtual.Float(GetBlend(), 0, .1f, SetBlend);
+                //}
+            }
+        }
 
         Vector3 downward = transform.TransformDirection(Vector3.down);
         RaycastHit targetBlock;
@@ -561,14 +551,19 @@ public class PlayerManager : MonoBehaviour {
         clickedCube = targetBlock.transform;
         //DOTween.Kill(gameObject.transform);
         //finalPath.Clear();
-        // FindPath is causing the null ref
-        FindPath();
+        if (currentCube != null)
+        {
+            FindPath();
+        }
+        else
+        {
+            Debug.Log("CURRENT CUBE is null");
+            transform.position = new Vector3(position.x, position.y, position.z);
+        }
 
         blend = transform.position.y - position.y > 0 ? -1 : 1;
 
         Debug.Log("NET Player move to:" + clickedCube.position);
-        transform.position = new Vector3(position.x, position.y, position.z);
-
 
     }
 
