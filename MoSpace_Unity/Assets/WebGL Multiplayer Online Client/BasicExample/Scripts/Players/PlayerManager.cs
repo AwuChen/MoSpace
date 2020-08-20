@@ -132,10 +132,10 @@ public class PlayerManager : MonoBehaviour {
             //}
         }
         //test 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdatePosition(testPos);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UpdatePosition(testPos);
+        //}
 
         //Move();
 
@@ -185,8 +185,14 @@ public class PlayerManager : MonoBehaviour {
 
         pastCubes.Add(currentCube);
 
-        ExploreCube(nextCubes, pastCubes);
-        BuildPath();
+        if (clickedCube != null)
+        {
+            ExploreCube(nextCubes, pastCubes);
+            BuildPath();
+        }else
+        {
+            Debug.Log("CLICKED CUBE IS NULL");
+        }
     }
 
     void ExploreCube(List<Transform> nextCubes, List<Transform> visitedCubes)
@@ -525,8 +531,8 @@ public class PlayerManager : MonoBehaviour {
         clickedCube = targetBlock.transform;
         //DOTween.Kill(gameObject.transform);
         //finalPath.Clear();
-        // check if FindPath is causing the null ref exception
-        //FindPath();
+        // FindPath is causing the null ref
+        FindPath();
 
         blend = transform.position.y - position.y > 0 ? -1 : 1;
 
