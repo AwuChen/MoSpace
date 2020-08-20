@@ -523,10 +523,11 @@ public class PlayerManager : MonoBehaviour {
         // this is because of the history error 
         // if all player wait until everyone is here then begin to move then there is no issue 
         //RayCastDown();
-        Ray playerRay = new Ray(transform.GetChild(0).position, -transform.up);
+        Vector3 downwardPlayer = transform.TransformDirection(Vector3.down);
+        Vector3 targetPositionPlayer = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         RaycastHit playerHit;
 
-        if (Physics.Raycast(playerRay, out playerHit))
+        if (Physics.Raycast(targetPositionPlayer, downwardPlayer, out playerHit))
         {
             if (playerHit.transform.GetComponent<Walkable>() != null)
             {
