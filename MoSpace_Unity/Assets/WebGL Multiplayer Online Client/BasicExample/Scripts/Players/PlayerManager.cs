@@ -497,41 +497,41 @@ public class PlayerManager : MonoBehaviour {
             currentState = state.walk;
             //UpdateAnimator ("IsWalk");
 
-            //transform.position = new Vector3(position.x, position.y, position.z);
+            transform.position = new Vector3(position.x, position.y, position.z);
 
             //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
             //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
             //the update doesnt come through below 
-            RayCastDown();
+            //RayCastDown();
 
-            if (currentCube.GetComponent<Walkable>().movingGround)
-            {
-                transform.parent = currentCube.parent;
-            }
-            else
-            {
-                transform.parent = null;
-            }
+            //if (currentCube.GetComponent<Walkable>().movingGround)
+            //{
+            //    transform.parent = currentCube.parent;
+            //}
+            //else
+            //{
+            //    transform.parent = null;
+            //}
 
-            Vector3 downward = transform.TransformDirection(Vector3.down);
-            RaycastHit targetBlock;
-            Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
-            Physics.Raycast(targetPosition, downward, out targetBlock);
-            if (targetBlock.transform.GetComponent<Walkable>() != null)
-            {
-                Debug.Log("found cube at " + position);
-                clickedCube = targetBlock.transform;
-                DOTween.Kill(gameObject.transform);
-                finalPath.Clear();
-                FindPath();
-                blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+            //Vector3 downward = transform.TransformDirection(Vector3.down);
+            //RaycastHit targetBlock;
+            //Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
+            //Physics.Raycast(targetPosition, downward, out targetBlock);
+            //if (targetBlock.transform.GetComponent<Walkable>() != null)
+            //{
+            //    Debug.Log("found cube at " + position);
+            //    clickedCube = targetBlock.transform;
+            //    //DOTween.Kill(gameObject.transform);
+            //    finalPath.Clear();
+            //    FindPath();
+            //    blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
 
-                Debug.Log("NET Player move to:" + clickedCube.position);
-            }
-            else
-            {
-                print("didn't find cube at " + position);
-            }
+            //    Debug.Log("NET Player move to:" + clickedCube.position);
+            //}
+            //else
+            //{
+            //    print("didn't find cube at " + position);
+            //}
         }
 
 	}
