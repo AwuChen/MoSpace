@@ -490,9 +490,9 @@ public class PlayerManager : MonoBehaviour {
 
 	}
 
-	public void UpdatePosition(Vector3 position)
-	{
-        RayCastDown();
+    public void UpdatePosition(Vector3 position)
+    {
+
 
         //if (currentCube.GetComponent<Walkable>().movingGround)
         //{
@@ -502,34 +502,35 @@ public class PlayerManager : MonoBehaviour {
         //{
         //    transform.parent = null;
         //}
-        if (!isLocalPlayer)
-        {
-            currentState = state.walk;
-            //UpdateAnimator ("IsWalk");
 
-            // works fine with multiple users 
-            //transform.position = new Vector3(position.x, position.y, position.z);
+        currentState = state.walk;
+        //UpdateAnimator ("IsWalk");
 
-            //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
-            //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
-            //the update doesnt come through below 
+        // works fine with multiple users 
 
 
-            Vector3 downward = transform.TransformDirection(Vector3.down);
-            RaycastHit targetBlock;
-            Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
-            Physics.Raycast(targetPosition, downward, out targetBlock);
-            Debug.Log("found cube at " + position);
-            clickedCube = targetBlock.transform;
-            //DOTween.Kill(gameObject.transform);
-            //finalPath.Clear();
-            FindPath();
-            blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+        //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
+        //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
+        //the update doesnt come through below 
+        RayCastDown();
 
-            Debug.Log("NET Player move to:" + clickedCube.position);
-        }
+        Vector3 downward = transform.TransformDirection(Vector3.down);
+        RaycastHit targetBlock;
+        Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
+        Physics.Raycast(targetPosition, downward, out targetBlock);
+        Debug.Log("found cube at " + position);
+        clickedCube = targetBlock.transform;
+        //DOTween.Kill(gameObject.transform);
+        //finalPath.Clear();
+        FindPath();
 
-	}
+        blend = transform.position.y - position.y > 0 ? -1 : 1;
+
+        Debug.Log("NET Player move to:" + clickedCube.position);
+        transform.position = new Vector3(position.x, position.y, position.z);
+
+
+    }
 
 	public void UpdateRotation(Quaternion _rotation)
 	{
