@@ -512,6 +512,9 @@ public class PlayerManager : MonoBehaviour {
         //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
         //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
         //the update doesnt come through below 
+
+        // this is because of the history error 
+        // if all player wait until everyone is here then begin to move then there is no issue 
         RayCastDown();
 
         Vector3 downward = transform.TransformDirection(Vector3.down);
@@ -522,7 +525,8 @@ public class PlayerManager : MonoBehaviour {
         clickedCube = targetBlock.transform;
         //DOTween.Kill(gameObject.transform);
         //finalPath.Clear();
-        FindPath();
+        // check if FindPath is causing the null ref exception
+        //FindPath();
 
         blend = transform.position.y - position.y > 0 ? -1 : 1;
 
