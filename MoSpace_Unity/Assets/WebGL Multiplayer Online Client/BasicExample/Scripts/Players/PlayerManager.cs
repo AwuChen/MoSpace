@@ -121,16 +121,10 @@ public class PlayerManager : MonoBehaviour {
 		}
         else
         {
+            // added this so that net player will always be raycasting and parenting 
             RayCastDown();
 
-            if (currentCube.GetComponent<Walkable>().movingGround)
-            {
-                transform.parent = currentCube.parent;
-            }
-            else
-            {
-                transform.parent = null;
-            }
+            
             //if (myRigidbody.velocity.x != lastVelocityX)
             //{
             //    lastVelocityX = myRigidbody.velocity.x;
@@ -142,10 +136,10 @@ public class PlayerManager : MonoBehaviour {
             //}
         }
         //test 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    UpdatePosition(testPos);
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdatePosition(testPos);
+        }
 
         //Move();
 
@@ -185,26 +179,36 @@ public class PlayerManager : MonoBehaviour {
         List<Transform> nextCubes = new List<Transform>();
         List<Transform> pastCubes = new List<Transform>();
         Debug.Log("Start of foreach");
-        foreach (WalkPath path in currentCube.GetComponent<Walkable>().possiblePaths)
+        // here is where the null ref is found 
+        // think we need to have a raycast down before this 
+        RayCastDown();
+        if (currentCube != null)
         {
-            if (path.active)
+            foreach (WalkPath path in currentCube.GetComponent<Walkable>().possiblePaths)
             {
-                nextCubes.Add(path.target);
-                path.target.GetComponent<Walkable>().previousBlock = currentCube;
+                if (path.active)
+                {
+                    nextCubes.Add(path.target);
+                    path.target.GetComponent<Walkable>().previousBlock = currentCube;
+                }
             }
-        }
-        Debug.Log("End of foreach");
-        pastCubes.Add(currentCube);
-        Debug.Log("start of clickedcube");
-        if (clickedCube != null)
-        {
-            Debug.Log("start of expl");
-            ExploreCube(nextCubes, pastCubes);
-            Debug.Log("start of buidpa");
-            BuildPath();
+            Debug.Log("End of foreach");
+            pastCubes.Add(currentCube);
+            Debug.Log("start of clickedcube");
+            if (clickedCube != null)
+            {
+                Debug.Log("start of expl");
+                ExploreCube(nextCubes, pastCubes);
+                Debug.Log("start of buidpa");
+                BuildPath();
+            }
+            else
+            {
+                Debug.Log("CLICKED CUBE IS NULL");
+            }
         }else
         {
-            Debug.Log("CLICKED CUBE IS NULL");
+            Debug.Log("CURRENT CUBE = NULL");
         }
     }
 
