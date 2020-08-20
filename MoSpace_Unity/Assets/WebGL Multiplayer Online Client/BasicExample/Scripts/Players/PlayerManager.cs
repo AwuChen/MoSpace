@@ -131,11 +131,11 @@ public class PlayerManager : MonoBehaviour {
             //    UpdateIdle();
             //}
         }
-        ////test 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    UpdatePosition(testPos);
-        //}
+        //test 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdatePosition(testPos);
+        }
 
         //Move();
 
@@ -519,21 +519,14 @@ public class PlayerManager : MonoBehaviour {
             RaycastHit targetBlock;
             Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
             Physics.Raycast(targetPosition, downward, out targetBlock);
-            if (targetBlock.transform.GetComponent<Walkable>() != null)
-            {
-                Debug.Log("found cube at " + position);
-                clickedCube = targetBlock.transform;
-                DOTween.Kill(gameObject.transform);
-                finalPath.Clear();
-                FindPath();
-                blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+            Debug.Log("found cube at " + position);
+            clickedCube = targetBlock.transform;
+            //DOTween.Kill(gameObject.transform);
+            //finalPath.Clear();
+            FindPath();
+            blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
 
-                Debug.Log("NET Player move to:" + clickedCube.position);
-            }
-            else
-            {
-                print("didn't find cube at " + position);
-            }
+            Debug.Log("NET Player move to:" + clickedCube.position);
         }
 
 	}
