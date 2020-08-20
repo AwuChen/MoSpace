@@ -260,9 +260,9 @@ public class PlayerManager : MonoBehaviour {
         }
         finalPath.Clear();
         walking = false;
-        //Debug.Log("Right before Update Status to Server");
-        //UpdateStatusToServer();
-        //Debug.Log("Right after Update Status to Server");
+        Debug.Log("Right before Update Status to Server");
+        UpdateStatusToServer();
+        Debug.Log("Right after Update Status to Server");
     }
 
     private void OnDrawGizmos()
@@ -402,12 +402,12 @@ public class PlayerManager : MonoBehaviour {
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.black, .3f).SetDelay(.2f));
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.clear, .3f));
                     Destroy(((indicatorC as Transform).gameObject), 1);
-                    if (clickedCube != null)
-                    {
-                        runOnce = false;
-                        cubeTrans = clickedCube;
-                        UpdateStatusToServer();
-                    }
+                    //if (clickedCube != null)
+                    //{
+                    //    runOnce = false;
+                    //    cubeTrans = clickedCube;
+                    //    UpdateStatusToServer();
+                    //}
                 }
                 //else if (mouseHit.transform.GetComponent<Walkable>(). != null)
             }
@@ -464,7 +464,7 @@ public class PlayerManager : MonoBehaviour {
 
 		data["local_player_id"] = id;
 
-        data["position"] = clickedCube.position.x + "," + clickedCube.position.y + "," + clickedCube.position.z;
+        data["position"] = transform.position.x + "," + transform.position.y + "," + transform.position.z;
 
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
@@ -489,39 +489,41 @@ public class PlayerManager : MonoBehaviour {
 	{
 
 		if (!isLocalPlayer) {
-
-            RayCastDown();
-
-            if (currentCube.GetComponent<Walkable>().movingGround)
-            {
-                transform.parent = currentCube.parent;
-            }
-            else
-            {
-                transform.parent = null;
-            }
-
             if (position != transform.position)
             {
                 currentState = state.walk;
                 //UpdateAnimator ("IsWalk");
-                Debug.Log("player move to:" + position);
+                
                 //transform.position = new Vector3(position.x, position.y, position.z);
 
-                //somehow this is changing the local player position as well
-                    
+                //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
+                //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
+                //the update doesnt come through below 
+                RayCastDown();
+
+                if (currentCube.GetComponent<Walkable>().movingGround)
+                {
+                    transform.parent = currentCube.parent;
+                }
+                else
+                {
+                    transform.parent = null;
+                }
+
                 Vector3 downward = transform.TransformDirection(Vector3.down);
                 RaycastHit targetBlock;
                 Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
                 Physics.Raycast(targetPosition, downward, out targetBlock);
                 if (targetBlock.transform.GetComponent<Walkable>() != null)
                 {
-                    print("found cube at " + position);
+                    Debug.Log("found cube at " + position);
                     clickedCube = targetBlock.transform;
                     DOTween.Kill(gameObject.transform);
                     finalPath.Clear();
                     FindPath();
                     blend = transform.position.y - clickedCube.position.y > 0 ? -1 : 1;
+
+                    Debug.Log("NET Player move to:" + clickedCube.position);
                 }
                 else
                 {
