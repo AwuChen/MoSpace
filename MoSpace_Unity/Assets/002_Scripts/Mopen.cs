@@ -13,6 +13,8 @@ public class Mopen : MonoBehaviour
     public bool cin = false;
     public bool evt = false;
 
+    bool kSwitch = false;
+
     public GameObject[] privateSpace;
     public GameObject[] publicSpace;
     public GameObject[] personalSpace;
@@ -29,7 +31,7 @@ public class Mopen : MonoBehaviour
 
         print("checkAccess");
         //only active for awu & friends 
-        if (userName == "Awu" || userName == "awu" || userName == "friend")
+        if (userName == "Awu" || userName == "awu" || userName == "friend" || userName == "kwu" || userName == "Kwu")
         {
             print("checkAccess2");
             for (int i = 0; i < personalSpace.Length; i++)
@@ -39,7 +41,7 @@ public class Mopen : MonoBehaviour
             }
         }
 
-        if(per && (userName == "kwu" || userName == "Kwu"))
+        if(userName == "kwu" || userName == "Kwu")
         {
             for (int i = 0; i < eventSpace.Length; i++)
             {
@@ -71,7 +73,7 @@ public class Mopen : MonoBehaviour
         if (per)
         {
             //not awu but see awu and awu friend 
-            if (userName != "Awu" && userName != "awu" && userName != "friend")
+            if (userName != "Awu" && userName != "awu" && userName != "friend" && userName != "kwu" && userName != "Kwu")
             {
                 other.gameObject.GetComponent<PlayerManager>().HidePlayer(true);
             }
@@ -110,7 +112,8 @@ public class Mopen : MonoBehaviour
         {
             if (other.tag == "LocalPlayer")
             {
-                if (!eventSpace[0].activeSelf)
+                print("collided");
+                if (!kSwitch)
                 {
                     for (int i = 0; i < eventSpace.Length; i++)
                     {
@@ -120,6 +123,7 @@ public class Mopen : MonoBehaviour
                     {
                         privateSpace[i].SetActive(false);
                     }
+                    kSwitch = true;
                 }
                 else
                 {
@@ -131,6 +135,7 @@ public class Mopen : MonoBehaviour
                     {
                         privateSpace[i].SetActive(true);
                     }
+                    kSwitch = false;
                 }
             }
         }
