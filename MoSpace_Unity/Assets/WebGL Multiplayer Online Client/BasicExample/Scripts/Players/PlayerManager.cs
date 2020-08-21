@@ -455,7 +455,7 @@ public class PlayerManager : MonoBehaviour {
                         mojiCount = 0;
                     }
                     mojis[mojiCount].SetActive(true);
-                    //UpdateStatusToServer();
+                    UpdateStatusToServer(transform);
                 }
             }
         }
@@ -544,6 +544,7 @@ public class PlayerManager : MonoBehaviour {
             }
         }
 
+
         Vector3 downward = transform.TransformDirection(Vector3.down);
         RaycastHit targetBlock;
         Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
@@ -554,7 +555,10 @@ public class PlayerManager : MonoBehaviour {
         //finalPath.Clear();
         if (currentCube != null)
         {
-            FindPath();
+            if (currentCube != clickedCube)
+            {
+                FindPath();
+            }
         }
         else
         {
