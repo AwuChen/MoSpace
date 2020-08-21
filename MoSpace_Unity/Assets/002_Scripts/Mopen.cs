@@ -39,6 +39,14 @@ public class Mopen : MonoBehaviour
             }
         }
 
+        if(per && (userName == "kwu" || userName == "Kwu"))
+        {
+            for (int i = 0; i < eventSpace.Length; i++)
+            {
+                eventSpace[i].SetActive(true);
+            }
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)

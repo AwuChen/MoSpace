@@ -500,75 +500,77 @@ public class PlayerManager : MonoBehaviour {
     public void UpdatePosition(Vector3 position)
     {
 
-
-        //if (currentCube.GetComponent<Walkable>().movingGround)
-        //{
-        //    transform.parent = currentCube.parent;
-        //}
-        //else
-        //{
-        //    transform.parent = null;
-        //}
-
-        currentState = state.walk;
-        //UpdateAnimator ("IsWalk");
-
-        // works fine with multiple users 
-
-
-        //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
-        //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
-        //the update doesnt come through below 
-
-        // this is because of the history error 
-        // if all player wait until everyone is here then begin to move then there is no issue 
-        //RayCastDown();
-        Vector3 downwardPlayer = transform.TransformDirection(Vector3.down);
-        Vector3 targetPositionPlayer = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-        RaycastHit playerHit;
-
-        if (Physics.Raycast(targetPositionPlayer, downwardPlayer, out playerHit))
+        if (!isLocalPlayer)
         {
-            if (playerHit.transform.GetComponent<Walkable>() != null)
+            //if (currentCube.GetComponent<Walkable>().movingGround)
+            //{
+            //    transform.parent = currentCube.parent;
+            //}
+            //else
+            //{
+            //    transform.parent = null;
+            //}
+
+            currentState = state.walk;
+            //UpdateAnimator ("IsWalk");
+
+            // works fine with multiple users 
+
+
+            //somehow the player who joined earlier, their movement will not be updated to the player who joined later 
+            //player who joined late can see the network player stuck at their initial spawn point, these network players are having a nullreference whenever they receive input to move
+            //the update doesnt come through below 
+
+            // this is because of the history error 
+            // if all player wait until everyone is here then begin to move then there is no issue 
+            //RayCastDown();
+            Vector3 downwardPlayer = transform.TransformDirection(Vector3.down);
+            Vector3 targetPositionPlayer = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            RaycastHit playerHit;
+
+            if (Physics.Raycast(targetPositionPlayer, downwardPlayer, out playerHit))
             {
-                currentCube = playerHit.transform;
-                Debug.Log("currentCube is playerhit.transform");
-                //if (playerHit.transform.GetComponent<Walkable>().isStair)
-                //{
-                //    DOVirtual.Float(GetBlend(), blend, .1f, SetBlend);
-                //}
-                //else
-                //{
-                //    DOVirtual.Float(GetBlend(), 0, .1f, SetBlend);
-                //}
+                if (playerHit.transform.GetComponent<Walkable>() != null)
+                {
+                    currentCube = playerHit.transform;
+                    Debug.Log("currentCube is playerhit.transform");
+                    //if (playerHit.transform.GetComponent<Walkable>().isStair)
+                    //{
+                    //    DOVirtual.Float(GetBlend(), blend, .1f, SetBlend);
+                    //}
+                    //else
+                    //{
+                    //    DOVirtual.Float(GetBlend(), 0, .1f, SetBlend);
+                    //}
+                }
             }
-        }
 
 
-        Vector3 downward = transform.TransformDirection(Vector3.down);
-        RaycastHit targetBlock;
-        Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
-        Physics.Raycast(targetPosition, downward, out targetBlock);
-        Debug.Log("found cube at " + position);
-        clickedCube = targetBlock.transform;
-        //DOTween.Kill(gameObject.transform);
-        //finalPath.Clear();
-        if (currentCube != null)
-        {
-            if (currentCube != clickedCube)
+            Vector3 downward = transform.TransformDirection(Vector3.down);
+            RaycastHit targetBlock;
+            Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
+            Physics.Raycast(targetPosition, downward, out targetBlock);
+            Debug.Log("found cube at " + position);
+            clickedCube = targetBlock.transform;
+            //DOTween.Kill(gameObject.transform);
+            //finalPath.Clear();
+            if (currentCube != null)
             {
-                FindPath();
+                if (currentCube != clickedCube)
+                {
+                    FindPath();
+                }
             }
-        }
-        else
-        {
-            Debug.Log("CURRENT CUBE is null");
-            //transform.position = new Vector3(position.x, position.y, position.z);
-        }
+            else
+            {
+                Debug.Log("CURRENT CUBE is null");
+                //transform.position = new Vector3(position.x, position.y, position.z);
+            }
 
-        blend = transform.position.y - position.y > 0 ? -1 : 1;
+            blend = transform.position.y - position.y > 0 ? -1 : 1;
 
-        Debug.Log("NET Player move to:" + clickedCube.position);
+            Debug.Log("NET Player move to:" + clickedCube.position);
+        }
 
     }
 
