@@ -136,10 +136,10 @@ public class PlayerManager : MonoBehaviour {
             //}
         }
         //test 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdatePosition(testPos);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UpdatePosition(testPos);
+        //}
 
         //Move();
 
@@ -563,7 +563,7 @@ public class PlayerManager : MonoBehaviour {
         else
         {
             Debug.Log("CURRENT CUBE is null");
-            transform.position = new Vector3(position.x, position.y, position.z);
+            //transform.position = new Vector3(position.x, position.y, position.z);
         }
 
         blend = transform.position.y - position.y > 0 ? -1 : 1;
