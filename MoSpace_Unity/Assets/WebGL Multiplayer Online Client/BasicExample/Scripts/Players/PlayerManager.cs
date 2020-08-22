@@ -136,10 +136,10 @@ public class PlayerManager : MonoBehaviour {
             //}
         }
         //test 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    UpdatePosition(testPos);
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UpdatePosition(testPos);
+        }
 
         //Move();
 
@@ -556,9 +556,15 @@ public class PlayerManager : MonoBehaviour {
             //finalPath.Clear();
             if (currentCube != null)
             {
-                if (currentCube != clickedCube)
+                
+                if (currentCube != clickedCube && currentCube != clickedCube)
                 {
                     FindPath();
+                    blend = transform.position.y - position.y > 0 ? -1 : 1;
+                }
+                else
+                {
+                    print(currentCube + " == " + clickedCube);
                 }
             }
             else
@@ -566,10 +572,6 @@ public class PlayerManager : MonoBehaviour {
                 Debug.Log("CURRENT CUBE is null");
                 //transform.position = new Vector3(position.x, position.y, position.z);
             }
-
-            blend = transform.position.y - position.y > 0 ? -1 : 1;
-
-            Debug.Log("NET Player move to:" + clickedCube.position);
         }
 
     }
