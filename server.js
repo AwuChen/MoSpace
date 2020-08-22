@@ -152,13 +152,13 @@ io.on('connection', function(socket){
 	socket.on('GET_HISTORY', function (_pack)
 	{
 	  //console.log('Room# '+_pack);
-	    var pack = "test";	
+	    var pack = JSON.parse(_pack);	
 
 	    console.log('RoomNum '+socket.id+": "+pack);
         
 
 		// send history string to this client 
-       socket.emit('REPLAY_HISTORY', pack);
+       socket.broadcast.emit('REPLAY_HISTORY', pack);
       console.log('[INFO] history '+ pack);
 	});
 	

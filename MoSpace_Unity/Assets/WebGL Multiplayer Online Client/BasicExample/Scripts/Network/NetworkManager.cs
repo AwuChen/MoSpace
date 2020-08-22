@@ -59,6 +59,9 @@ public class NetworkManager : MonoBehaviour {
 
     string playerHistory;
 
+    int slide = 0;
+    public GameObject[] slides;
+
 	void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -130,12 +133,19 @@ public class NetworkManager : MonoBehaviour {
     //send the getHistory call to server
     public void GetHistory()
     {
-
+        if (slide < slides.Length)
+        {
+            slide++;
+        }
+        else
+        {
+            slide = 0;
+        }
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
         //store "ping!!!" message in msg field
-        data["RoomNum"] = "1";
+        data["RoomNum"] = slide.ToString();
 
         JSONObject jo = new JSONObject(data);
 
@@ -147,43 +157,15 @@ public class NetworkManager : MonoBehaviour {
     // receives the movement history from client.js
     void OnReplayHistory(string data)
     {
-        /*
-		 * data.pack[0] = id (network player id)
-		 * data.pack[1] = position.x
-		 * data.pack[2] = position.y
-		 * data.pack[3] = position.z
-		 * data.pack[4] = rotation.x
-		 * data.pack[5] = rotation.y
-		 * data.pack[6] = rotation.z
-		 * data.pack[7] = rotation.w
-		*/
+        var pack = data.Split(Delimiter);
+        int slideNum = int.Parse(pack[1]);
+        Debug.Log("OnReplayHistory:" + slideNum);
 
-        Debug.Log("OnReplayHistory:" + data);
-        //var pack = data.Split(Delimiter);
-
-        //if (networkPlayers[pack[0]] != null)
+        //for(int i = 0; i < slides.Length; i++)
         //{
-        //    PlayerManager netPlayer = networkPlayers[pack[0]];
-
-        //    //update with the new position
-        //    netPlayer.UpdatePosition(new Vector3(
-        //        float.Parse(pack[1]), float.Parse(pack[2]), float.Parse(pack[3])));
-
-        //    Vector4 rot = new Vector4(
-        //        float.Parse(pack[4]), float.Parse(pack[5]), float.Parse(pack[6]),
-        //        float.Parse(pack[7]));// atualiza a posicao
-
-        //    //update new player rotation
-        //    netPlayer.UpdateRotation(new Quaternion(rot.x, rot.y, rot.z, rot.w));
-
-        //    //IsAtack?
-        //    if (bool.Parse(pack[8]))
-        //    {
-        //        netPlayer.UpdateAnimator("IsAtack");
-        //    }
-
-        //    Debug.Log("Update Player Pos & Rot");
+        //    slides[i].SetActive(false);
         //}
+        slides[slideNum].SetActive(true);
 
 
     }

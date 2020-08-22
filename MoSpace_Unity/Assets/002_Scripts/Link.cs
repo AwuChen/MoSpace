@@ -35,7 +35,7 @@ public class Link : MonoBehaviour
                 {
                     if(!runOnce)
                     {
-                        StartCoroutine(OpenLink());
+                        StartCoroutine(LoadLink());
                     }
                 }
                 //else if (mouseHit.transform.GetComponent<Walkable>(). != null)
@@ -43,7 +43,15 @@ public class Link : MonoBehaviour
         }
     }
 
-    IEnumerator OpenLink()
+    public void OpenLink()
+    {
+        if (!runOnce)
+        {
+            StartCoroutine(LoadLink());
+        }
+    }
+
+    IEnumerator LoadLink()
     {
         //yield on a new YieldInstruction that waits for 3 seconds.
         yield return new WaitForSeconds(2);
