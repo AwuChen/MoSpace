@@ -54,7 +54,7 @@ public class Link : MonoBehaviour
     IEnumerator LoadLink()
     {
         //yield on a new YieldInstruction that waits for 3 seconds.
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0);
 
         Application.OpenURL("https://youtu.be/dtla_S8lXIc");
         runOnce = true;
