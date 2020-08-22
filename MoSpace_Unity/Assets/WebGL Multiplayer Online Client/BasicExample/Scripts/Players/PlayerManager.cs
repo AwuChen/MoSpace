@@ -272,9 +272,7 @@ public class PlayerManager : MonoBehaviour {
         }
         finalPath.Clear();
         walking = false;
-        //Debug.Log("Right before Update Status to Server");
-        //UpdateStatusToServer();
-        //Debug.Log("Right after Update Status to Server");
+        runOnce = false;
     }
 
     private void OnDrawGizmos()
@@ -416,7 +414,6 @@ public class PlayerManager : MonoBehaviour {
                     Destroy(((indicatorC as Transform).gameObject), 1);
                     if (clickedCube != null)
                     {
-                        runOnce = false;
                         cubeTrans = clickedCube;
                         UpdateStatusToServer(cubeTrans);
                     }
@@ -557,8 +554,13 @@ public class PlayerManager : MonoBehaviour {
             if (currentCube != null)
             {
                 
-                if (currentCube != clickedCube && currentCube != clickedCube)
+                if (currentCube != clickedCube && !runOnce)
                 {
+                    runOnce = true;
+                    //added
+                    DOTween.Kill(gameObject.transform);
+                    finalPath.Clear();
+                    //added 
                     FindPath();
                     blend = transform.position.y - position.y > 0 ? -1 : 1;
                 }
