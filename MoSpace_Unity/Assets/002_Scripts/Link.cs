@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Link : MonoBehaviour
 {
-
+    public string link;
     bool runOnce = false;
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,7 @@ public class Link : MonoBehaviour
         //yield on a new YieldInstruction that waits for 3 seconds.
         yield return new WaitForSeconds(0);
 
-        Application.OpenURL("https://youtu.be/dtla_S8lXIc");
+        Application.OpenURL(link);
         runOnce = true;
     }
 }
