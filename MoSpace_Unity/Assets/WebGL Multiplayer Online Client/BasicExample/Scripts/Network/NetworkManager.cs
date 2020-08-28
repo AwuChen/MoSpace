@@ -62,6 +62,7 @@ public class NetworkManager : MonoBehaviour {
 
     public TextMeshPro tmp;
     public InputField inputText;
+    public AudioSource notificationSound;
 
     void Awake()
 	{
@@ -140,7 +141,7 @@ public class NetworkManager : MonoBehaviour {
             Dictionary<string, string> data = new Dictionary<string, string>();
 
             //store "ping!!!" message in msg field
-            data["RoomNum"] = inputText.ToString();
+            data["RoomNum"] = inputText.text.ToString();
 
             JSONObject jo = new JSONObject(data);
 
@@ -153,10 +154,10 @@ public class NetworkManager : MonoBehaviour {
     // receives the movement history from client.js
     void OnReplayHistory(string data)
     {
-        var pack = data.Split(Delimiter);
-        string message = pack[1];
+        //var pack = data.Split(Delimiter);
+        string message = data;
         Debug.Log("display message:" + message);
-
+        notificationSound.Play();
         tmp.text = message;
     }
 
