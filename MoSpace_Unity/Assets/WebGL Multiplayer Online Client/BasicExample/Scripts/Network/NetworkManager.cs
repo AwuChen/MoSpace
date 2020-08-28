@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using UnityEngine.UI;
 using System.Runtime.InteropServices;
+using TMPro;
 
 /// <summary>
 /// Network Manager class.
@@ -59,10 +60,10 @@ public class NetworkManager : MonoBehaviour {
 
     string playerHistory;
 
-    int slide = 0;
-    public GameObject[] slides;
+    public TextMeshPro tmp;
+    public InputField inputText;
 
-	void Awake()
+    void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
 
@@ -133,24 +134,19 @@ public class NetworkManager : MonoBehaviour {
     //send the getHistory call to server
     public void GetHistory()
     {
-        if (slide < slides.Length)
+        if (inputText != null)
         {
-            slide++;
+            //hash table <key, value>
+            Dictionary<string, string> data = new Dictionary<string, string>();
+
+            //store "ping!!!" message in msg field
+            data["RoomNum"] = inputText.ToString();
+
+            JSONObject jo = new JSONObject(data);
+
+            //sends to the nodejs server through socket the json package
+            Application.ExternalCall("socket.emit", "GET_HISTORY", new JSONObject(data));
         }
-        else
-        {
-            slide = 0;
-        }
-        //hash table <key, value>
-        Dictionary<string, string> data = new Dictionary<string, string>();
-
-        //store "ping!!!" message in msg field
-        data["RoomNum"] = slide.ToString();
-
-        JSONObject jo = new JSONObject(data);
-
-        //sends to the nodejs server through socket the json package
-        Application.ExternalCall("socket.emit", "GET_HISTORY", new JSONObject(data));
 
     }
 
@@ -158,16 +154,10 @@ public class NetworkManager : MonoBehaviour {
     void OnReplayHistory(string data)
     {
         var pack = data.Split(Delimiter);
-        int slideNum = int.Parse(pack[1]);
-        Debug.Log("OnReplayHistory:" + slideNum);
+        string message = pack[1];
+        Debug.Log("display message:" + message);
 
-        //for(int i = 0; i < slides.Length; i++)
-        //{
-        //    slides[i].SetActive(false);
-        //}
-        slides[slideNum].SetActive(true);
-
-
+        tmp.text = message;
     }
 
 

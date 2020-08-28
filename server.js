@@ -157,7 +157,7 @@ io.on('connection', function(socket){
 	    console.log('RoomNum '+socket.id+": "+pack);
         
 
-		// send history string to this client 
+		// send history string to all clients 
        socket.broadcast.emit('REPLAY_HISTORY', pack);
       console.log('[INFO] history '+ pack);
 	});
