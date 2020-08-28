@@ -63,7 +63,8 @@ io.on('connection', function(socket){
 			       kills:0,
 				   timeOut:0,
 				   isDead:false,
-				   moji:'0'
+				   moji:'0',
+				   msg:""
 				   };//new user  in clients list
 					
 		console.log('[INFO] player '+currentUser.name+': logged!');
@@ -156,9 +157,10 @@ io.on('connection', function(socket){
 
 	    console.log('RoomNum '+socket.id+": "+pack.msg);
         
+        currentUser.msg = pack.msg;
 
 		// send history string to all clients 
-       socket.broadcast.emit('REPLAY_HISTORY', pack.msg);
+       socket.broadcast.emit('REPLAY_HISTORY', currentUser.msg);
       console.log('[INFO] history '+ pack);
 	});
 	
