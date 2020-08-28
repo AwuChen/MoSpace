@@ -63,6 +63,7 @@ public class NetworkManager : MonoBehaviour {
     public TextMeshPro tmp;
     public InputField inputText;
     public AudioSource notificationSound;
+    string userName;
 
     void Awake()
 	{
@@ -158,7 +159,8 @@ public class NetworkManager : MonoBehaviour {
         string message = data;
         Debug.Log("display message:" + message);
         notificationSound.Play();
-        tmp.text = message;
+
+        tmp.text = tmp.text + "\n" + userName + ": " + message;
     }
 
 
@@ -185,9 +187,10 @@ public class NetworkManager : MonoBehaviour {
 
 		//player's name
 		data["name"] = CanvasManager.instance.inputLogin.text;
+        userName = CanvasManager.instance.inputLogin.text;
 
-		//makes the draw of a point for the player to be spawn
-		int index = Random.Range (0, spawnPoints.Length);
+        //makes the draw of a point for the player to be spawn
+        int index = Random.Range (0, spawnPoints.Length);
 
 		//send the position point to server
 		string msg = string.Empty;
