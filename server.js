@@ -156,7 +156,7 @@ io.on('connection', function(socket){
 	    var pack = JSON.parse(_pack);	
 
 		// send history string to all clients 
-       socket.broadcast.emit('REPLAY_HISTORY', pack.RoomNum);
+       socket.broadcast.emit('REPLAY_HISTORY', currentUser.name, pack.RoomNum);
       console.log('[INFO] history '+ pack.RoomNum);
 	});
 	

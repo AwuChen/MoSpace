@@ -32,8 +32,8 @@ window.addEventListener('load', function() {
 		
 	});
 	
-    socket.on('REPLAY_HISTORY', function(history) {
-    	var currentUserAtr = history;
+    socket.on('REPLAY_HISTORY', function(name,history) {
+    	var currentUserAtr = name+','+history;
 		gameInstance.SendMessage ('NetworkManager', 'OnReplayHistory',currentUserAtr);
 		//execInUnity('Update_messages', currentUser);
 	});

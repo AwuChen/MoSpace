@@ -63,7 +63,7 @@ public class NetworkManager : MonoBehaviour {
     public TextMeshPro tmp;
     public InputField inputText;
     public AudioSource notificationSound;
-    string userName;
+    string myName;
 
     void Awake()
 	{
@@ -143,11 +143,13 @@ public class NetworkManager : MonoBehaviour {
 
             //store "ping!!!" message in msg field
             data["RoomNum"] = inputText.text.ToString();
-
+            
             JSONObject jo = new JSONObject(data);
 
             //sends to the nodejs server through socket the json package
             Application.ExternalCall("socket.emit", "GET_HISTORY", new JSONObject(data));
+
+            tmp.text = tmp.text + "\n" + myName + ": " + inputText.text.ToString();
         }
 
     }
@@ -155,8 +157,9 @@ public class NetworkManager : MonoBehaviour {
     // receives the movement history from client.js
     void OnReplayHistory(string data)
     {
-        //var pack = data.Split(Delimiter);
-        string message = data;
+        var pack = data.Split(Delimiter);
+        string userName = pack[0];
+        string message = pack[1];
         Debug.Log("display message:" + message);
         notificationSound.Play();
 
@@ -187,7 +190,7 @@ public class NetworkManager : MonoBehaviour {
 
 		//player's name
 		data["name"] = CanvasManager.instance.inputLogin.text;
-        userName = CanvasManager.instance.inputLogin.text;
+        myName = CanvasManager.instance.inputLogin.text;
 
         //makes the draw of a point for the player to be spawn
         int index = Random.Range (0, spawnPoints.Length);
