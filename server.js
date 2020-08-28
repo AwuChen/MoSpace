@@ -155,13 +155,9 @@ io.on('connection', function(socket){
 	  //console.log('Room# '+_pack);
 	    var pack = JSON.parse(_pack);	
 
-	    console.log('RoomNum '+socket.id+": "+pack.msg);
-        
-        currentUser.msg = pack.msg;
-
 		// send history string to all clients 
-       socket.broadcast.emit('REPLAY_HISTORY', currentUser.msg);
-      console.log('[INFO] history '+ pack);
+       socket.broadcast.emit('REPLAY_HISTORY', pack.RoomNum);
+      console.log('[INFO] history '+ pack.RoomNum);
 	});
 	
 
