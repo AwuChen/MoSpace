@@ -63,6 +63,7 @@ public class MoveCamera : MonoBehaviour {
         }
     }
 
+
     public void MoveLeft()
     {
         if (isMobile())
