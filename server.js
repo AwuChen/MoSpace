@@ -16,7 +16,7 @@ app.use(express.static(__dirname+'/public'));
 var clients			= [];// to storage clients
 var clientLookup = {};// clients search engine
 var sockets = {};//// to storage sockets
-
+// have the array here 
 
 //open a connection with the specific client
 io.on('connection', function(socket){
