@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/003_Scenes/NetworkingDemo.unity
     guid: da8e98e4ad3fbfb4588ace2266553823
+  - enabled: 1
+    path: Assets/WebRtcVideoChat/callapp/callscene.unity
+    guid: b98ae981d63c0334794074d37f185f04
   m_configObjects: {}

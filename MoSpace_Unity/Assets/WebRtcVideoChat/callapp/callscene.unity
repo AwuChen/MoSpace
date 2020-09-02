@@ -116,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 176}
   - component: {fileID: 177}
-  - component: {fileID: 179}
   - component: {fileID: 181}
   - component: {fileID: 178}
   m_Layer: 0
@@ -184,9 +183,10 @@ Camera:
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.6447059, g: 0.6801994, b: 0.78431374, a: 1}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -216,14 +216,6 @@ Camera:
   m_StereoSeparation: 0.022
 --- !u!81 &178
 AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141}
-  m_Enabled: 1
---- !u!92 &179
-Behaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -282,7 +274,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 10
+    serializedVersion: 12
     m_Resolution: 2
     m_BakeResolution: 40
     m_AtlasSize: 1024
@@ -290,6 +282,7 @@ LightmapSettings:
     m_AOMaxDistance: 1
     m_CompAOExponent: 0
     m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
@@ -304,10 +297,16 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 500
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 2
+    m_PVRDenoiserTypeDirect: 0
+    m_PVRDenoiserTypeIndirect: 0
+    m_PVRDenoiserTypeAO: 0
     m_PVRFilterTypeDirect: 0
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
-    m_PVRFilteringMode: 1
+    m_PVREnvironmentMIS: 0
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
@@ -315,7 +314,9 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 0
 --- !u!222 &226
@@ -453,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 82}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -468,7 +469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 55}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -485,7 +486,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 55}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
@@ -507,12 +508,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 63}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -539,12 +541,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 80}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -572,7 +575,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 82}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d49b7c1bcd2e07499844da127be038d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ForceModuleActive: 0
@@ -585,7 +588,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 82}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -604,12 +607,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.934}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -622,6 +626,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &739808514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -637,6 +642,36 @@ PrefabInstance:
         type: 3}
       propertyPath: uForceSecureSignaling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServerUser
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServerPassword
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServer2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uSignalingUrl
+      value: ws://mospace-videocall.herokuapp.com/
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uSecureSignalingUrl
+      value: wss://mospace-videocall.herokuapp.com/
       objectReference: {fileID: 0}
     - target: {fileID: 224040229336280632, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
@@ -821,7 +856,7 @@ PrefabInstance:
     - target: {fileID: 224469193533178148, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 224661790658075176, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
@@ -870,6 +905,36 @@ PrefabInstance:
         type: 3}
       propertyPath: uForceSecureSignaling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServerUser
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServerPassword
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uIceServer2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uSecureSignalingUrl
+      value: wss://mospace-videocall.herokuapp.com/
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269414159358770, guid: f40071bb3b9da854d85ad3c363192151,
+        type: 3}
+      propertyPath: uSignalingUrl
+      value: ws://mospace-videocall.herokuapp.com/
       objectReference: {fileID: 0}
     - target: {fileID: 224040229336280632, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
@@ -1194,7 +1259,7 @@ PrefabInstance:
     - target: {fileID: 224469193533178148, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 224547042570866814, guid: f40071bb3b9da854d85ad3c363192151,
         type: 3}
