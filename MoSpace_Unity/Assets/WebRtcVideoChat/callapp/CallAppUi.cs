@@ -261,7 +261,7 @@ public class CallAppUi : MonoBehaviour
         uVideoToggle.isOn = PlayerPrefsGetBool(mPrefix + PREF_VIDEO, true);
         //can't select this immediately because we don't know if it is valid yet
         mStoredVideoDevice = PlayerPrefs.GetString(mPrefix + PREF_VIDEODEVICE, null);
-        uRoomNameInputField.text = PlayerPrefs.GetString(mPrefix + PREF_ROOMNAME, Application.productName + "_address");
+        //uRoomNameInputField.text = PlayerPrefs.GetString(mPrefix + PREF_ROOMNAME, Application.productName + "_address");
         uIdealWidth.text = PlayerPrefs.GetString(mPrefix + PREF_IDEALWIDTH, "320");
         uIdealHeight.text = PlayerPrefs.GetString(mPrefix + PREF_IDEALHEIGHT, "240");
         uIdealFps.text = PlayerPrefs.GetString(mPrefix + PREF_IDEALFPS, "30");
