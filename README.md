@@ -1,5 +1,5 @@
 # MoSpace
-http://www.mospace.io/
+https://www.mospace.io/
 
 Think Myspace but in 3D 
 
