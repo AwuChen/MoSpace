@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Byn.Awrtc;
 using Byn.Awrtc.Unity;
+using System.Runtime.InteropServices;
 
 namespace Byn.Unity.Examples
 {
@@ -48,6 +49,17 @@ namespace Byn.Unity.Examples
     /// </summary>
     public class ConferenceApp : MonoBehaviour
     {
+        [DllImport("__Internal")]
+        private static extern bool IsMobile();
+        public bool isMobile()
+        {
+#if !UNITY_EDITOR && UNITY_WEBGL
+         return IsMobile();
+#endif
+            return false;
+        }
+
+
         public string uSecureSignalingUrl = "wss://signaling.because-why-not.com/callapp";
         /// <summary>
         /// Length limit of signaling server address
@@ -165,17 +177,19 @@ namespace Byn.Unity.Examples
         /// </summary>
         private void Start()
         {
-            //to trigger android permission requests
-            StartCoroutine(ExampleGlobals.RequestPermissions());
-            //use video and audio by default (the UI is toggled on by default as well it will change on click )
-            MediaConfig.Video = true;
-            MediaConfig.Audio = true;
-            MediaConfig.VideoDeviceName = UnityCallFactory.Instance.GetDefaultVideoDevice();
-            // awu uncommented below 
-            NetConfig.IceServers.Add(ExampleGlobals.DefaultIceServer);
-            NetConfig.SignalingUrl = ExampleGlobals.SignalingConference;
-            NetConfig.IsConference = true;
-
+            if (!isMobile())
+            {
+                //to trigger android permission requests
+                StartCoroutine(ExampleGlobals.RequestPermissions());
+                //use video and audio by default (the UI is toggled on by default as well it will change on click )
+                MediaConfig.Video = true;
+                MediaConfig.Audio = true;
+                MediaConfig.VideoDeviceName = UnityCallFactory.Instance.GetDefaultVideoDevice();
+                // awu uncommented below 
+                NetConfig.IceServers.Add(ExampleGlobals.DefaultIceServer);
+                NetConfig.SignalingUrl = ExampleGlobals.SignalingConference;
+                NetConfig.IsConference = true;
+            }
 
         }
 
