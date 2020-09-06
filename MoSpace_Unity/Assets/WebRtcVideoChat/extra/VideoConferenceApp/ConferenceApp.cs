@@ -48,6 +48,7 @@ namespace Byn.Unity.Examples
     /// </summary>
     public class ConferenceApp : MonoBehaviour
     {
+        public string uSecureSignalingUrl = "wss://signaling.because-why-not.com/callapp";
         /// <summary>
         /// Length limit of signaling server address
         /// </summary>
@@ -170,10 +171,12 @@ namespace Byn.Unity.Examples
             MediaConfig.Video = false;
             MediaConfig.Audio = false;
             MediaConfig.VideoDeviceName = UnityCallFactory.Instance.GetDefaultVideoDevice();
-
-            //NetConfig.IceServers.Add(ExampleGlobals.DefaultIceServer);
+            // awu uncommented below 
+            NetConfig.IceServers.Add(ExampleGlobals.DefaultIceServer);
             NetConfig.SignalingUrl = ExampleGlobals.SignalingConference;
             NetConfig.IsConference = true;
+
+
         }
 
 
