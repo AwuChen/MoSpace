@@ -12,6 +12,7 @@ public class Mopen : MonoBehaviour
     public bool per = false;
     public bool cin = false;
     public bool evt = false;
+    public bool con = false;
 
     bool kSwitch = false;
 
@@ -20,7 +21,11 @@ public class Mopen : MonoBehaviour
     public GameObject[] personalSpace;
     public GameObject[] eventSpace;
     public GameObject cinemaSpace;
+    public GameObject conferenceSpace;
+    public GameObject inCallUI;
 
+    public Byn.Unity.Examples.ConferenceApp conScript;
+    bool joinedOnce = false;
     void Start()
     {
         
@@ -54,7 +59,7 @@ public class Mopen : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // get local player name and check access 
-        if ( !runOnce && other.tag == "LocalPlayer")
+        if (!runOnce && other.tag == "LocalPlayer")
         {
             userName = other.gameObject.GetComponentInChildren<TextMesh>().text;
             print(userName);
@@ -91,11 +96,11 @@ public class Mopen : MonoBehaviour
             }
         }
         //cinema
-        if(cin)
+        if (cin)
         {
             if (other.tag == "LocalPlayer")
             {
-                if(cinemaSpace.activeSelf)
+                if (cinemaSpace.activeSelf)
                 {
                     cinemaSpace.SetActive(false);
                     publicSpace[0].SetActive(true);
@@ -139,6 +144,17 @@ public class Mopen : MonoBehaviour
                 }
             }
         }
+
+        if (con && other.tag == "LocalPlayer" && inCallUI.activeInHierarchy == false)
+        {
+
+            conferenceSpace.SetActive(true);
+            conScript.uRoomName.text = "retreat";
+            conScript.VideoToggle(true);
+            conScript.AudioToggle(true);
+            conScript.JoinButtonPressed();
+            inCallUI.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -161,6 +177,7 @@ public class Mopen : MonoBehaviour
                 other.gameObject.GetComponent<PlayerManager>().HidePlayer(false);
             }
         }
+
 
     }
 

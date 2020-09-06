@@ -168,8 +168,8 @@ namespace Byn.Unity.Examples
             //to trigger android permission requests
             StartCoroutine(ExampleGlobals.RequestPermissions());
             //use video and audio by default (the UI is toggled on by default as well it will change on click )
-            MediaConfig.Video = false;
-            MediaConfig.Audio = false;
+            MediaConfig.Video = true;
+            MediaConfig.Audio = true;
             MediaConfig.VideoDeviceName = UnityCallFactory.Instance.GetDefaultVideoDevice();
             // awu uncommented below 
             NetConfig.IceServers.Add(ExampleGlobals.DefaultIceServer);
