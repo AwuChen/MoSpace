@@ -136,10 +136,10 @@ public class PlayerManager : MonoBehaviour {
             //}
         }
         //test 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdatePosition(testPos);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    UpdatePosition(testPos);
+        //}
 
         //Move();
 

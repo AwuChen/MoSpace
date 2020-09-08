@@ -546,7 +546,7 @@ public class CallAppUi : MonoBehaviour
         {
             uVideoPanel.GetComponent<RectTransform>().SetParent(uVideoBase, false);
             uChatPanel.GetComponent<RectTransform>().SetParent(uChatBase, false);
-            uInCallBase.gameObject.SetActive(true);
+            //uInCallBase.gameObject.SetActive(true);
             uFullscreenPanel.gameObject.SetActive(false);
         }
     }

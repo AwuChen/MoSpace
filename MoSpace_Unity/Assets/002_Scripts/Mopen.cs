@@ -24,7 +24,7 @@ public class Mopen : MonoBehaviour
     public GameObject conferenceSpace;
     public GameObject inCallUI;
 
-    public Byn.Unity.Examples.ConferenceApp conScript;
+    public CallAppUi callScript;
     bool joinedOnce = false;
     void Start()
     {
@@ -145,15 +145,12 @@ public class Mopen : MonoBehaviour
             }
         }
 
-        if (con && other.tag == "LocalPlayer" && inCallUI.activeInHierarchy == false)
+        if (con && other.tag == "LocalPlayer" && !joinedOnce)
         {
-
             conferenceSpace.SetActive(true);
-            conScript.uRoomName.text = "retreat";
-            conScript.VideoToggle(true);
-            conScript.AudioToggle(true);
-            conScript.JoinButtonPressed();
-            inCallUI.SetActive(true);
+            callScript.uRoomNameInputField.text = "retreat";
+            callScript.JoinButtonPressed();
+            joinedOnce = true;
         }
     }
 
