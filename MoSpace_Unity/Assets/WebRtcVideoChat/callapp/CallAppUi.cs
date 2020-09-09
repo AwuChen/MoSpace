@@ -250,6 +250,7 @@ public class CallAppUi : MonoBehaviour
 
     public void OnJoined()
     {
+        uRemoteVideoImage.gameObject.SetActive(true);
         uVideoPanel.gameObject.SetActive(true);
     }
 
