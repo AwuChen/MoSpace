@@ -7,6 +7,6 @@ public class AudioOn : MonoBehaviour
     public AudioSource aud;
     public void AudioToggle(bool state)
     {
-        aud.mute = !state;
+        aud.mute = state;
     }
 }

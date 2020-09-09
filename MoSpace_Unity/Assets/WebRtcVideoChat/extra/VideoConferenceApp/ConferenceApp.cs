@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Byn.Awrtc;
 using Byn.Awrtc.Unity;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 namespace Byn.Unity.Examples
 {
@@ -192,7 +193,18 @@ namespace Byn.Unity.Examples
             }
 
         }
+        public void Joined()
+        {
+            StartCoroutine(WaitToJoin());
+        }
 
+        IEnumerator WaitToJoin()
+        {
+            yield return new WaitForSeconds(1);
+            Setup();
+            EnsureLength();
+            mCall.Listen(uRoomName.text);
+        }
 
         /// <summary>
         /// Creates the call object and uses the configure method to activate the 

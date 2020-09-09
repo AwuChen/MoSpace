@@ -11,6 +11,7 @@ using Byn.Awrtc;
 using Byn.Awrtc.Unity;
 using Byn.Unity.Examples;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// This class + prefab is a complete app allowing to call another app using a shared text or password
@@ -34,7 +35,15 @@ using System.Collections;
 /// </summary>
 public class CallAppUi : MonoBehaviour
 {
-
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+    public bool isMobile()
+    {
+#if !UNITY_EDITOR && UNITY_WEBGL
+         return IsMobile();
+#endif
+        return false;
+    }
     /// <summary>
     /// Texture of the local video
     /// </summary>
@@ -200,39 +209,49 @@ public class CallAppUi : MonoBehaviour
 
     protected virtual void Awake()
     {
-        mApp = GetComponent<CallApp>();
-        mPrefix += this.gameObject.name + "_";
-        
-
-        if(uMessageOutput != null)
+        if (!isMobile())
         {
-            //this object is kept deactivated to avoid a bug in the unity editor that causes the scene to change
-            //every time it is opened
-            uMessageOutput.gameObject.SetActive(true);
+            mApp = GetComponent<CallApp>();
+            mPrefix += this.gameObject.name + "_";
+
+
+            if (uMessageOutput != null)
+            {
+                //this object is kept deactivated to avoid a bug in the unity editor that causes the scene to change
+                //every time it is opened
+                uMessageOutput.gameObject.SetActive(true);
+            }
         }
 
     }
 
     protected virtual void Start()
     {
-        if (Application.isMobilePlatform == false || Application.platform == RuntimePlatform.WebGLPlayer)
+        if (!isMobile())
         {
-            //deactivate the toggle for non-mobile platforms
-            //also deactivate if there is an attempt to use a WebGL player via a mobile platform (there is no access to this from the browser)
-            uLoudspeakerToggle.gameObject.SetActive(false);
-        }
-        InitFormatDropdown();
-        if (uLoadSettings)
-        {
-            LoadSettings();
-        }
-        CheckSettings();
-        if (this.uVideoOverlay != null)
-        {
-            this.uVideoOverlay.gameObject.SetActive(false);
+            if (Application.isMobilePlatform == false || Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                //deactivate the toggle for non-mobile platforms
+                //also deactivate if there is an attempt to use a WebGL player via a mobile platform (there is no access to this from the browser)
+                uLoudspeakerToggle.gameObject.SetActive(false);
+            }
+            InitFormatDropdown();
+            if (uLoadSettings)
+            {
+                LoadSettings();
+            }
+            CheckSettings();
+            if (this.uVideoOverlay != null)
+            {
+                this.uVideoOverlay.gameObject.SetActive(false);
+            }
         }
     }
 
+    public void OnJoined()
+    {
+        uVideoPanel.gameObject.SetActive(true);
+    }
 
     private void SaveSettings()
     {

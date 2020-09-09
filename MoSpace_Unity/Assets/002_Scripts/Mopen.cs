@@ -145,12 +145,11 @@ public class Mopen : MonoBehaviour
             }
         }
 
-        if (con && other.tag == "LocalPlayer" && !joinedOnce)
+        if (con && other.tag == "LocalPlayer" && !conferenceSpace.activeSelf)
         {
             conferenceSpace.SetActive(true);
             callScript.uRoomNameInputField.text = "retreat";
             callScript.JoinButtonPressed();
-            joinedOnce = true;
         }
     }
 

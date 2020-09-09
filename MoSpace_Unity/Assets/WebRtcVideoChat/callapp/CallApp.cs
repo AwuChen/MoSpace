@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Main example and test app for usage of WebRTC Video Chat.
@@ -12,6 +13,16 @@ using UnityEngine;
 /// </summary>
 public class CallApp : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+    public bool isMobile()
+    {
+#if !UNITY_EDITOR && UNITY_WEBGL
+         return IsMobile();
+#endif
+        return false;
+    }
+
     /// <summary>
     /// This is a test server. Don't use in production! The server code is in a zip file in WebRtcNetwork
     /// </summary>
@@ -105,16 +116,22 @@ public class CallApp : MonoBehaviour
     //
     protected virtual void Awake()
     {
-        mUi = GetComponent<CallAppUi>();
-        mMediaConfig = CreateMediaConfig();
-        mMediaConfigInUse = mMediaConfig;
+        if (!isMobile())
+        {
+            mUi = GetComponent<CallAppUi>();
+            mMediaConfig = CreateMediaConfig();
+            mMediaConfigInUse = mMediaConfig;
+        }
     }
 
     protected virtual void Start()
     {
-        //to trigger android permission requests
-        StartCoroutine(ExampleGlobals.RequestPermissions());
-        UnityCallFactory.EnsureInit(OnCallFactoryReady, OnCallFactoryFailed);
+        if (!isMobile())
+        {
+            //to trigger android permission requests
+            StartCoroutine(ExampleGlobals.RequestPermissions());
+            UnityCallFactory.EnsureInit(OnCallFactoryReady, OnCallFactoryFailed);
+        }
     }
     
 
@@ -281,6 +298,7 @@ public class CallApp : MonoBehaviour
                 Debug.Log("New connection with id: " + mRemoteUserId
                     + " audio:" + mCall.HasAudioTrack(mRemoteUserId)
                     + " video:" + mCall.HasVideoTrack(mRemoteUserId));
+                mUi.OnJoined();
                 break;
             case CallEventType.CallEnded:
                 //Call was ended / one of the users hung up -> reset the app
