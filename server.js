@@ -64,6 +64,7 @@ io.on('connection', function(socket){
 				   timeOut:0,
 				   isDead:false,
 				   moji:'0',
+				   interact:'0',
 				   msg:""
 				   };//new user  in clients list
 					
