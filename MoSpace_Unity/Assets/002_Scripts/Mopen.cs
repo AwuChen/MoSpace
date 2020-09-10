@@ -21,8 +21,8 @@ public class Mopen : MonoBehaviour
     public GameObject[] personalSpace;
     public GameObject[] eventSpace;
     public GameObject cinemaSpace;
-    public GameObject conferenceSpace;
-    public GameObject inCallUI;
+    public GameObject callApp;
+    public GameObject conferenceApp;
 
     public CallAppUi callScript;
     bool joinedOnce = false;
@@ -145,9 +145,9 @@ public class Mopen : MonoBehaviour
             }
         }
 
-        if (con && other.tag == "LocalPlayer" && !conferenceSpace.activeSelf)
+        if (con && other.tag == "LocalPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf && callScript.uRoomNameInputField.text != name)
         {
-            conferenceSpace.SetActive(true);
+            callApp.SetActive(true);
             callScript.uRoomNameInputField.text = name;
             callScript.JoinButtonPressed();
         }
