@@ -468,9 +468,9 @@ public class PlayerManager : MonoBehaviour {
     public void Interact(string obj)
     {
         if (obj == "CPK")
-            intSpaceCount = 0;
-        else if (obj == "vinyl")
             intSpaceCount = 1;
+        else if (obj == "vinyl")
+            intSpaceCount = 2;
         UpdateStatusToServer(transform);
     }
 

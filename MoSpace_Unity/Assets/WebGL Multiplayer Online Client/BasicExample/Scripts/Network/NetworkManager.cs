@@ -505,7 +505,8 @@ public class NetworkManager : MonoBehaviour {
 
     public void UpdateInteract(int intCount)
     {
-        interactiveSpace[intCount].SetActive(true);
+        if(interactiveSpace[intCount] != null)
+            interactiveSpace[intCount].SetActive(true);
     }
 
     /// <summary>
