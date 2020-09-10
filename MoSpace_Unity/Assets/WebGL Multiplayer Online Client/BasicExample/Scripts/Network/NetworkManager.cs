@@ -65,6 +65,8 @@ public class NetworkManager : MonoBehaviour {
     public AudioSource notificationSound;
     string myName;
 
+    public GameObject[] interactiveSpace;
+
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -487,8 +489,10 @@ public class NetworkManager : MonoBehaviour {
 
             netPlayer.UpdateMoji(int.Parse(pack[8]));
 
-			//IsAtack?
-			if (bool.Parse (pack [8]))
+            UpdateInteract(int.Parse(pack[9]));
+
+            //IsAtack?
+            if (bool.Parse (pack [8]))
 			{
 				netPlayer.UpdateAnimator ("IsAtack");
 			}
@@ -499,12 +503,16 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
+    public void UpdateInteract(int intCount)
+    {
+        interactiveSpace[intCount].SetActive(true);
+    }
 
-	/// <summary>
-	/// Emits the local player animation to Server.js.
-	/// </summary>
-	/// <param name="_animation">Animation.</param>
-	public void EmitAnimation(string _animation)
+    /// <summary>
+    /// Emits the local player animation to Server.js.
+    /// </summary>
+    /// <param name="_animation">Animation.</param>
+    public void EmitAnimation(string _animation)
 	{
 		//hash table <key, value>
 		Dictionary<string, string> data = new Dictionary<string, string>();

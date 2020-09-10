@@ -81,6 +81,9 @@ public class PlayerManager : MonoBehaviour {
     bool runOnce = false;
     Transform cubeTrans;
 
+    [Space]
+
+    int intSpaceCount = 0;
 
     void Start()
     {
@@ -462,6 +465,15 @@ public class PlayerManager : MonoBehaviour {
         
     }
 
+    public void Interact(string obj)
+    {
+        if (obj == "CPK")
+            intSpaceCount = 0;
+        else if (obj == "vinyl")
+            intSpaceCount = 1;
+        UpdateStatusToServer(transform);
+    }
+
 
     void UpdateStatusToServer (Transform cube)
 	{
@@ -481,6 +493,8 @@ public class PlayerManager : MonoBehaviour {
 		data["rotation"] = transform.rotation.x+","+transform.rotation.y+","+transform.rotation.z+","+transform.rotation.w;
 
         data["moji"] = mojiCount.ToString();
+
+        data["interact"] = intSpaceCount.ToString();
 
         NetworkManager.instance.EmitMoveAndRotate(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
         print("updatedPos");
@@ -603,6 +617,9 @@ public class PlayerManager : MonoBehaviour {
         }
 
     }
+
+
+
 
     public void UpdateAnimator(string _animation)
 	{
