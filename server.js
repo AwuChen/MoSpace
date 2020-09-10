@@ -146,7 +146,7 @@ io.on('connection', function(socket){
 	   currentUser.interact = data.interact;
 	  
 	   // send current user position and  rotation in broadcast to all clients in game
-       socket.broadcast.emit('UPDATE_MOVE_AND_ROTATE', currentUser.id,currentUser.position,currentUser.rotation,currentUser.moji);
+       socket.broadcast.emit('UPDATE_MOVE_AND_ROTATE', currentUser.id,currentUser.position,currentUser.rotation,currentUser.moji,currentUser.interact);
       console.log('[INFO] currentUser.position '+currentUser.position);
       console.log('[INFO] currentUser.moji '+currentUser.moji);
        }
