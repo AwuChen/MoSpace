@@ -104,6 +104,13 @@
   	<script src="/socket.io/socket.io.js"></script>
 	<script src="client.js"></script>
   <script>
+
+  	//any js errors are handled like regular errors at this point
+
+	UnityLoader.Error.handler = function(e, t){
+	//do something with the error here if you wish.
+	//i personally just leave this an empty function, and it seems to default to a regular JS error.
+	}
   UnityLoader.compatibilityCheck=function(e,t,r){t();};
   var gameInstance = UnityLoader.instantiate("gameContainer", "Build/public.json", {onProgress: UnityProgress});
   function UnityProgress(gameInstance, progress) {
