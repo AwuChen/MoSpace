@@ -13,7 +13,7 @@ public class WorldUpdate : MonoBehaviour
     {
         if (LP == null)
         {
-            LP = GameObject.Find("LocalPlayer");
+            LP = GameObject.FindGameObjectWithTag("LocalPlayer");
         }
         if (LP != null)
         {
