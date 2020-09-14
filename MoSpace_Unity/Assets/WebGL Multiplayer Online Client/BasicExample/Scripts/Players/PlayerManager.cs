@@ -467,11 +467,16 @@ public class PlayerManager : MonoBehaviour {
 
     public void Interact(string obj)
     {
-        if (obj == "CPK")
-            intSpaceCount = 1;
-        else if (obj == "vinyl")
-            intSpaceCount = 2;
-        UpdateStatusToServer(transform);
+        if (isLocalPlayer)
+        {
+            if (obj == "CPK")
+                intSpaceCount = 1;
+            else if (obj == "vinyl")
+                intSpaceCount = 2;
+            else if (obj == "puzzle")
+                intSpaceCount = 3;
+            UpdateStatusToServer(transform);
+        }
     }
 
 

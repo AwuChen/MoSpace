@@ -52,13 +52,14 @@ public class GM : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
     }
 
     public void RotateRightPivot()
     {
+        print("rotated right pivot");
         pivots[1].DOComplete();
         pivots[1].DORotate(new Vector3(0, 0, 90), .6f).SetEase(Ease.OutBack);
     }

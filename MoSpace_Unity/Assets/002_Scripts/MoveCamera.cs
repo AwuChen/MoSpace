@@ -38,20 +38,42 @@ public class MoveCamera : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.RightArrow))
         {
-            if (mCurrentIndex < Positions.Length - 1)
+            if (mCurrentIndex < Positions.Length - 1 && mCurrentIndex < 2)
                 mCurrentIndex++;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && mCurrentIndex != 3)
         {
-            if (mCurrentIndex > 0)
+            if (mCurrentIndex > 0 )
                 mCurrentIndex--;
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (mCurrentIndex != 3)
+                mCurrentIndex = 3;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (mCurrentIndex != 1)
+                mCurrentIndex = 1;
         }
 
         transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
 
     }
 
+    public void MoveUp()
+    {
+        if (mCurrentIndex != 3)
+            mCurrentIndex = 3;
+    }
+    public void MoveDown()
+    {
+        if (mCurrentIndex != 1)
+            mCurrentIndex = 1;
+    }
     public void MoveRight()
     {
         if (isMobile())
@@ -62,8 +84,6 @@ public class MoveCamera : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
         }
     }
-
-
     public void MoveLeft()
     {
         if (isMobile())
