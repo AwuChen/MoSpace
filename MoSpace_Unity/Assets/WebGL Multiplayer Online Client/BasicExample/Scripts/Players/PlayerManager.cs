@@ -264,6 +264,8 @@ public class PlayerManager : MonoBehaviour {
         if (clickedCube.GetComponent<Walkable>().isButton)
         {
             s.AppendCallback(() => GM.instance.RotateRightPivot());
+            intSpaceCount = 4;
+            UpdateStatusToServer(transform);
         }
         s.AppendCallback(() => Clear());
     }
@@ -475,6 +477,10 @@ public class PlayerManager : MonoBehaviour {
             intSpaceCount = 2;
         else if (obj == "puzzle")
             intSpaceCount = 3;
+        else if (obj == "1")
+            intSpaceCount = 5;
+        else if (obj == "-1")
+            intSpaceCount = 6;
         UpdateStatusToServer(transform);
 
     }

@@ -71,6 +71,12 @@ public class GM : MonoBehaviour
         pivots[1].DOComplete();
         pivots[1].DORotate(new Vector3(0, 0, 0), .6f).SetEase(Ease.OutBack);
     }
+
+    public void RotateMaze(int multiplier)
+    {
+        pivots[0].DOComplete();
+        pivots[0].DORotate(new Vector3(0, 90 * multiplier, 0), .6f, RotateMode.WorldAxisAdd).SetEase(Ease.OutBack);
+    }
 }
 
 [System.Serializable]

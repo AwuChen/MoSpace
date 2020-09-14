@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Byn.Unity.Examples;
 
 public class Mopen : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Mopen : MonoBehaviour
     public bool per = false;
     public bool cin = false;
     public bool evt = false;
+    public bool call = false;
     public bool con = false;
 
     bool kSwitch = false;
@@ -25,6 +27,7 @@ public class Mopen : MonoBehaviour
     public GameObject conferenceApp;
 
     public CallAppUi callScript;
+    public ConferenceApp conScript;
     bool joinedOnce = false;
     void Start()
     {
@@ -145,11 +148,18 @@ public class Mopen : MonoBehaviour
             }
         }
 
-        if (con && other.tag == "LocalPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf && callScript.uRoomNameInputField.text != name)
+        if (call && other.tag == "LocalPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf && callScript.uRoomNameInputField.text != name)
         {
             callApp.SetActive(true);
             callScript.uRoomNameInputField.text = name;
             callScript.JoinButtonPressed();
+        }
+
+        if (con && other.tag == "LocalPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf)
+        {
+            conferenceApp.SetActive(true);
+            conScript.uRoomName.text = name;
+            conScript.JoinButtonPressed();
         }
     }
 

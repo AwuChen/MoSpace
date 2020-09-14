@@ -9,6 +9,22 @@ public class WorldUpdate : MonoBehaviour
     {
 
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (LP != null)
+            {
+                int multiplier = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
+
+                LP.GetComponent<PlayerManager>().Interact(multiplier.ToString());
+
+            }
+        }
+    }
+
+
     public void UpdateWorld(string obj)
     {
         if (LP == null)

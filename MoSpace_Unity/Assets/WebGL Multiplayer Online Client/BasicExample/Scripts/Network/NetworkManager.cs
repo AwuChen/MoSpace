@@ -66,7 +66,7 @@ public class NetworkManager : MonoBehaviour {
     string myName;
 
     public GameObject[] interactiveSpace;
-
+    public GM gManager;
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -100,11 +100,11 @@ public class NetworkManager : MonoBehaviour {
 
 
 
-	/// <summary>
-	/// Prints the pong message which arrived from server.
-	/// </summary>
-	/// <param name="_msg">Message.</param>
-	public void OnPrintPongMsg(string data)
+    /// <summary>
+    /// Prints the pong message which arrived from server.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    public void OnPrintPongMsg(string data)
 	{
 
 		/*
@@ -507,6 +507,12 @@ public class NetworkManager : MonoBehaviour {
     {
         if (interactiveSpace[intCount] != null)
             interactiveSpace[intCount].SetActive(true);
+        else if (gManager != null && intCount == 4)
+            gManager.RotateRightPivot();
+        else if (gManager != null && intCount == 5)
+            gManager.RotateMaze(1);
+        else if (gManager != null && intCount == 6)
+            gManager.RotateMaze(-1);
     }
 
     /// <summary>
