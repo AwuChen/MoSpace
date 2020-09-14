@@ -159,7 +159,7 @@ public class Mopen : MonoBehaviour
         {
             conferenceApp.SetActive(true);
             conScript.uRoomName.text = name;
-            conScript.JoinButtonPressed();
+            conScript.Joined();
         }
     }
 
