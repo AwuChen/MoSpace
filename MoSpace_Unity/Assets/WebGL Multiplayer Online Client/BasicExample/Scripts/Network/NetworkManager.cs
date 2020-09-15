@@ -489,7 +489,7 @@ public class NetworkManager : MonoBehaviour {
 
             netPlayer.UpdateMoji(int.Parse(pack[8]));
 
-            UpdateInteract(int.Parse(pack[9]));
+            
 
             //IsAtack?
             if (bool.Parse (pack [8]))
@@ -499,16 +499,14 @@ public class NetworkManager : MonoBehaviour {
 
             Debug.Log("Update Player Pos & Rot");
         }
+        UpdateInteract(int.Parse(pack[9]));
 
-
-	}
+    }
 
     public void UpdateInteract(int intCount)
     {
         if (interactiveSpace[intCount] != null)
             interactiveSpace[intCount].SetActive(true);
-        else if (gManager != null && intCount == 4)
-            gManager.RotateRightPivot();
         else if (gManager != null && intCount == 5)
             gManager.RotateMaze(1);
         else if (gManager != null && intCount == 6)

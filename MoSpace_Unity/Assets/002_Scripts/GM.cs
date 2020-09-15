@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GM : MonoBehaviour
 {
+    public UnityEvent activate;
+    public UnityEvent deactivate;
+    bool activated = false;
+
     public static GM instance;
 
     public PlayerManager player;
@@ -57,6 +62,19 @@ public class GM : MonoBehaviour
 
     }
 
+    public void ActivateEvent()
+    {
+        if (!activated)
+        {
+            activate.Invoke();
+            activated = true;
+        }
+        else if (activated)
+        {
+            deactivate.Invoke();
+            activated = false;
+        }
+    }
     public void RotateRightPivot()
     {
         print("rotated right pivot");

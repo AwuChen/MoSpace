@@ -207,6 +207,8 @@ public class CallAppUi : MonoBehaviour
 
     public bool uLoadSettings = true;
 
+    public UnityEngine.UI.Text pName;
+
     protected virtual void Awake()
     {
         if (!isMobile())
@@ -657,7 +659,7 @@ public class CallAppUi : MonoBehaviour
     {
         //get the message written into the text field
         string msg = uMessageInputField.text;
-        SendMsg(msg);
+        SendMsg(pName.text + ": " + msg);
     }
 
     /// <summary>
@@ -669,7 +671,7 @@ public class CallAppUi : MonoBehaviour
         if (Input.GetKey(KeyCode.Return))
         {
             string msg = uMessageInputField.text;
-            SendMsg(msg);
+            SendMsg(pName.text + ": " + msg);
         }
     }
 

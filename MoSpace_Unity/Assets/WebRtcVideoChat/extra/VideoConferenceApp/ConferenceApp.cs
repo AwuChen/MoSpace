@@ -160,6 +160,8 @@ namespace Byn.Unity.Examples
 
         }
 
+        public UnityEngine.UI.Text pName;
+
         /// <summary>
         /// Dictionary to resolve connection ID with their specific data
         /// </summary>
@@ -504,7 +506,8 @@ namespace Byn.Unity.Examples
         {
             //get the message written into the text field
             string msg = uMessageField.text;
-            SendMsg(msg);
+            SendMsg(pName.text + ": " + msg);
+            ////
         }
 
         /// <summary>
@@ -516,7 +519,7 @@ namespace Byn.Unity.Examples
             if (Input.GetKey(KeyCode.Return))
             {
                 string msg = uMessageField.text;
-                SendMsg(msg);
+                SendMsg(pName.text + ": " + msg);
             }
         }
 
