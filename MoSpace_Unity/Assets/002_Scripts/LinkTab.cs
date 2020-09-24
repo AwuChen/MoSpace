@@ -4,23 +4,22 @@ using UnityEngine.UI;
 
 public class LinkTab : MonoBehaviour 
 {
+    public string url;
 
-	public InputField Field;
-    public string link;
-    public void OpenLink()
+	public void OpenLink()
 	{
-		Application.OpenURL(Field.text);
+		Application.OpenURL(url);
 	}
 
 	public void OpenLinkJS()
 	{
-		Application.ExternalEval("window.open('"+link+"');");
-	}
+		Application.ExternalEval("window.open('"+url+"');");
+    }
 
 	public void OpenLinkJSPlugin()
 	{
 		#if !UNITY_EDITOR
-		openWindow(Field.text);
+		openWindow(url);
 		#endif
 	}
 
