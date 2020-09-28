@@ -60,6 +60,7 @@ public class NetworkManager : MonoBehaviour {
 
     string playerHistory;
 
+    public GameObject text;
     public TextMeshPro tmp;
     public InputField inputText;
     public AudioSource notificationSound;
@@ -67,6 +68,8 @@ public class NetworkManager : MonoBehaviour {
 
     public GameObject[] interactiveSpace;
     public GM gManager;
+
+    
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -162,6 +165,8 @@ public class NetworkManager : MonoBehaviour {
             tmp.text = tmp.text + "\n" + myName + ": " + inputText.text.ToString();
 
             inputText.text = "";
+
+            text.SetActive(false);
         }
 
     }
