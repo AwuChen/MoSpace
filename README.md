@@ -1,6 +1,6 @@
 # MoSpace
 https://www.mospace.io/
 
-Think Myspace but in 3D 
+Nurturing intimate relationships via virtual spaces. 
 
-MoSpace is a virtual, 3D-spatial social network that allows one to connect and grow with their most intimate circles of friends, family members, and romantic partner across long distance relationships. 
+MoSpace is a virtual cohabitation space designed for people to maintain long-distance relationships with their most intimate circle of friends, family members, and romantic partners.  
