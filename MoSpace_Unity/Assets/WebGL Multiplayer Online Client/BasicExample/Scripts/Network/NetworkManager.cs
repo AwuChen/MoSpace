@@ -135,6 +135,14 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
+    public void InputOnEndEdit()
+    {
+        if (Input.GetKey(KeyCode.Return))
+        {
+            GetHistory();
+        }
+    }
+
     //send the getHistory call to server
     public void GetHistory()
     {
@@ -152,6 +160,8 @@ public class NetworkManager : MonoBehaviour {
             Application.ExternalCall("socket.emit", "GET_HISTORY", new JSONObject(data));
 
             tmp.text = tmp.text + "\n" + myName + ": " + inputText.text.ToString();
+
+            inputText.text = "";
         }
 
     }

@@ -482,12 +482,12 @@ public class PlayerManager : MonoBehaviour {
             intSpaceCount = 2;
         else if (obj == "puzzle")
             intSpaceCount = 3;
-        else if (obj == "harrison")
-            intSpaceCount = 4;
-        else if (obj == "1")
-            intSpaceCount = 5;
-        else if (obj == "-1")
-            intSpaceCount = 6;
+        //else if (obj == "art")
+        //    intSpaceCount = 4;
+        //else if (obj == "1")
+        //    intSpaceCount = 5;
+        //else if (obj == "-1")
+        //    intSpaceCount = 6;
         UpdateStatusToServer(transform);
 
     }

@@ -18,7 +18,7 @@ public class WorldUpdate : MonoBehaviour
             {
                 int multiplier = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
 
-                LP.GetComponent<PlayerManager>().Interact(multiplier.ToString());
+                //LP.GetComponent<PlayerManager>().Interact(multiplier.ToString());
             }
             if (LP == null)
             {
