@@ -1343,7 +1343,7 @@ namespace RenderHeads.Media.AVProVideo
         public void UpdateURL(string URL)
         {
             m_VideoPath = URL;
-            Play();
+            Load
         }
 
 		public void Pause()
