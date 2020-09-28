@@ -9,7 +9,7 @@ var http     = require('http').Server(app);// create a http web server using the
 var io       = require('socket.io')(http);// import socketio communication module
 var shortId 		= require('shortid');//import shortid module
 
-const cors 	 = require('cors');
+var	cors 	 = require('cors');
 
 app.use(cors());
 app.use("/public/TemplateData",express.static(__dirname + "/public/TemplateData"));
