@@ -12,19 +12,19 @@ public class WorldUpdate : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (LP != null)
-            {
-                int multiplier = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
+        //if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    if (LP != null)
+        //    {
+        //        int multiplier = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
 
-                //LP.GetComponent<PlayerManager>().Interact(multiplier.ToString());
-            }
-            if (LP == null)
-            {
-                LP = GameObject.FindGameObjectWithTag("LocalPlayer");
-            }
-        }
+        //        //LP.GetComponent<PlayerManager>().Interact(multiplier.ToString());
+        //    }
+        //    if (LP == null)
+        //    {
+        //        LP = GameObject.FindGameObjectWithTag("LocalPlayer");
+        //    }
+        //}
     }
 
 

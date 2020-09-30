@@ -26,6 +26,7 @@ io.on('connection', function(socket){
   
   //to store current client connection
   var currentUser;
+  var maze;
 	
 	
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
@@ -65,15 +66,17 @@ io.on('connection', function(socket){
 				   isDead:false,
 				   moji:'0',
 				   interact:'0',
-				   msg:""
+				   msg:"",
+				   multiplier:'0',
 				   };//new user  in clients list
-					
+		
+				
 		console.log('[INFO] player '+currentUser.name+': logged!');
 		console.log('[INFO] currentUser.position '+currentUser.position);	
 
 		 //add currentUser in clients list
 		 clients.push(currentUser);
-		 
+
 		 //add client in search engine
 		 clientLookup[currentUser.id] = currentUser;
 		 
@@ -149,6 +152,20 @@ io.on('connection', function(socket){
        socket.broadcast.emit('UPDATE_MOVE_AND_ROTATE', currentUser.id,currentUser.position,currentUser.rotation,currentUser.moji,currentUser.interact);
       console.log('[INFO] currentUser.position '+currentUser.position);
       console.log('[INFO] currentUser.moji '+currentUser.moji);
+       }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('ROTATE_MAZE', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.multiplier;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_MAZE_ROTATE', currentUser.multiplier);
+       console.log('[INFO] maze multiplier '+currentUser.multiplier);
        }
 	});//END_SOCKET_ON
 	

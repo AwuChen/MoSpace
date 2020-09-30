@@ -10,10 +10,12 @@ public class GM : MonoBehaviour
     public UnityEvent activate;
     public UnityEvent deactivate;
     bool activated = false;
+    bool isWalking = false;
 
     public static GM instance;
 
-    public PlayerManager player;
+    public GameObject player;
+    public GameObject[] players;
     public List<PathCondition> pathConditions = new List<PathCondition>();
     public List<Transform> pivots;
 
@@ -24,9 +26,14 @@ public class GM : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        InvokeRepeating("PlayerAccount", 1.0f, 1f);
+    }
+
     void Update()
     {
-        foreach(PathCondition pc in pathConditions)
+        foreach (PathCondition pc in pathConditions)
         {
             int count = 0;
             for (int i = 0; i < pc.conditions.Count; i++)
@@ -39,15 +46,31 @@ public class GM : MonoBehaviour
             foreach(SinglePath sp in pc.paths)
                 sp.block.possiblePaths[sp.index].active = (count == pc.conditions.Count);
         }
-
-        //if (player.walking)
-        //    return;
+        if (players.Length > 0)
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i].GetComponent<PlayerManager>().walking)
+                {
+                    isWalking = true;
+                }
+                else
+                {
+                    isWalking = false;
+                }
+            }
+        }
+        if (player != null)
+        {
+            if (player.GetComponent<PlayerManager>().walking || isWalking)
+                return;
+        }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             int multiplier = Input.GetKey(KeyCode.RightArrow) ? 1 : -1;
-            pivots[0].DOComplete();
-            pivots[0].DORotate(new Vector3(0, 90 * multiplier, 0), .6f, RotateMode.WorldAxisAdd).SetEase(Ease.OutBack);
+            RotateMaze(multiplier);
+            NetworkManager.instance.UpdateMazeRotation(multiplier);
         }
 
         foreach(Transform t in objectsToHide)
@@ -60,6 +83,15 @@ public class GM : MonoBehaviour
             //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
+    }
+
+    public void PlayerAccount()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("LocalPlayer");
+        }
+        players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
     }
 
     public void ActivateEvent()
@@ -77,7 +109,6 @@ public class GM : MonoBehaviour
     }
     public void RotateRightPivot()
     {
-        print("rotated right pivot");
         pivots[1].DOComplete();
         pivots[1].DORotate(new Vector3(0, 0, 90), .6f).SetEase(Ease.OutBack);
     }

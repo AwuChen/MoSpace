@@ -246,6 +246,11 @@ public class PlayerManager : MonoBehaviour {
         }
         finalPath.Insert(0, clickedCube);
         FollowPath();
+        // added this to fix issue with player ghosting
+        if (isLocalPlayer)
+        {
+            UpdateStatusToServer(clickedCube);
+        }
     }
 
     void FollowPath()
@@ -285,6 +290,16 @@ public class PlayerManager : MonoBehaviour {
         walking = false;
         runOnce = false;
         GetComponent<BoxCollider>().enabled = true;
+        //added this for network player 
+        RayCastDown();
+        if (currentCube.GetComponent<Walkable>().movingGround)
+        {
+            transform.parent = currentCube.parent;
+        }
+        else
+        {
+            transform.parent = null;
+        }
     }
 
     private void OnDrawGizmos()
@@ -425,11 +440,11 @@ public class PlayerManager : MonoBehaviour {
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.black, .3f).SetDelay(.2f));
                     s.Append(indicatorC.GetComponent<Renderer>().material.DOColor(Color.clear, .3f));
                     Destroy(((indicatorC as Transform).gameObject), 1);
-                    if (clickedCube != null)
-                    {
-                        cubeTrans = clickedCube;
-                        UpdateStatusToServer(cubeTrans);
-                    }
+                    //if (clickedCube != null)
+                    //{
+                    //    cubeTrans = clickedCube;
+                    //    UpdateStatusToServer(cubeTrans);
+                    //}
                 }
                 //else if (mouseHit.transform.GetComponent<Walkable>(). != null)
             }
@@ -556,6 +571,8 @@ public class PlayerManager : MonoBehaviour {
             // this is because of the history error 
             // if all player wait until everyone is here then begin to move then there is no issue 
             //RayCastDown();
+            
+
             Vector3 downwardPlayer = transform.TransformDirection(Vector3.down);
             Vector3 targetPositionPlayer = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             RaycastHit playerHit;

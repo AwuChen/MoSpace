@@ -101,7 +101,7 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-
+   
 
     /// <summary>
     /// Prints the pong message which arrived from server.
@@ -457,7 +457,55 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-	public void EmitMoveAndRotate( Dictionary<string, string> data)
+    public void UpdateMazeRotation(int multiplier)
+    {
+        Debug.Log("Right at the start of Update Status to Server");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["multiplier"] = multiplier.ToString();
+
+        EmitMazeRotate(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedRot");
+        Debug.Log("Right at the end of Update Status to Server");
+
+    }
+
+    public void EmitMazeRotate(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "ROTATE_MAZE", new JSONObject(data));
+    }
+
+    /// <summary>
+    /// Update the network player position and rotation to local player.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    void OnUpdateMazeRotate(string data)
+    {
+        /*
+		 * data.pack[0] = id (network player id)
+		 * data.pack[1] = position.x
+		 * data.pack[2] = position.y
+		 * data.pack[3] = position.z
+		 * data.pack[4] = rotation.x
+		 * data.pack[5] = rotation.y
+		 * data.pack[6] = rotation.z
+		 * data.pack[7] = rotation.w
+		*/
+        
+        gManager.RotateMaze(int.Parse(data));
+    }
+
+    public void EmitMoveAndRotate( Dictionary<string, string> data)
 	{
 
 		JSONObject jo = new JSONObject (data);
@@ -466,13 +514,15 @@ public class NetworkManager : MonoBehaviour {
 		Application.ExternalCall("socket.emit", "MOVE_AND_ROTATE",new JSONObject(data));
     }
 
+    
 
 
-	/// <summary>
-	/// Update the network player position and rotation to local player.
-	/// </summary>
-	/// <param name="_msg">Message.</param>
-	void OnUpdateMoveAndRotate(string data)
+
+    /// <summary>
+    /// Update the network player position and rotation to local player.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    void OnUpdateMoveAndRotate(string data)
 	{
 		/*
 		 * data.pack[0] = id (network player id)
@@ -522,10 +572,6 @@ public class NetworkManager : MonoBehaviour {
     {
         if (interactiveSpace[intCount] != null)
             interactiveSpace[intCount].SetActive(true);
-        if (gManager != null && intCount == 5)
-            gManager.RotateMaze(1);
-        if (gManager != null && intCount == 6)
-            gManager.RotateMaze(-1);
     }
 
     /// <summary>
