@@ -119,32 +119,16 @@ public class Mopen : MonoBehaviour
         //event
         if (evt)
         {
-            if (other.tag == "LocalPlayer")
+            if (other.tag == "LocalPlayer" || other.tag == "NetworkPlayer")
             {
-                print("collided");
-                if (!kSwitch)
+
+                for (int i = 0; i < eventSpace.Length; i++)
                 {
-                    for (int i = 0; i < eventSpace.Length; i++)
-                    {
-                        eventSpace[i].SetActive(true);
-                    }
-                    for (int i = 0; i < privateSpace.Length; i++)
-                    {
-                        privateSpace[i].SetActive(false);
-                    }
-                    kSwitch = true;
+                    eventSpace[i].SetActive(true);
                 }
-                else
+                for (int i = 0; i < privateSpace.Length; i++)
                 {
-                    for (int i = 0; i < eventSpace.Length; i++)
-                    {
-                        eventSpace[i].SetActive(false);
-                    }
-                    for (int i = 0; i < privateSpace.Length; i++)
-                    {
-                        privateSpace[i].SetActive(true);
-                    }
-                    kSwitch = false;
+                    privateSpace[i].SetActive(false);
                 }
             }
         }
@@ -164,9 +148,25 @@ public class Mopen : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    
+    void OnTriggerExit(Collider other)
     {
-        
+
+        if (evt)
+        {
+            if (other.tag == "LocalPlayer" || other.tag == "NetworkPlayer")
+            {
+
+                for (int i = 0; i < eventSpace.Length; i++)
+                {
+                    eventSpace[i].SetActive(false);
+                }
+                for (int i = 0; i < privateSpace.Length; i++)
+                {
+                    privateSpace[i].SetActive(false);
+                }
+            }
+        }
         //private 
         if (pri)
         {
@@ -184,8 +184,6 @@ public class Mopen : MonoBehaviour
                 other.gameObject.GetComponent<PlayerManager>().HidePlayer(false);
             }
         }
-
-
     }
 
 }

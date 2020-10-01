@@ -425,7 +425,7 @@ public class PlayerManager : MonoBehaviour {
             {
                 if (mouseHit.transform.GetComponent<Walkable>() != null)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    //GetComponent<BoxCollider>().enabled = false;
                     clickedCube = mouseHit.transform;
                     DOTween.Kill(gameObject.transform);
                     finalPath.Clear();
