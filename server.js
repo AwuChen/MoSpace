@@ -17,6 +17,7 @@ var clients			= [];// to storage clients
 var clientLookup = {};// clients search engine
 var sockets = {};//// to storage sockets
 // have the array here 
+var currentUserPIC = "";
 
 //open a connection with the specific client
 io.on('connection', function(socket){
@@ -180,6 +181,29 @@ io.on('connection', function(socket){
       console.log('[INFO] history '+ pack.RoomNum);
 	});
 	
+	//create a callback fuction to listening SaveChat() method in NetworkMannager.cs unity script
+	socket.on('SAVE_PIC', function (_data)
+	{
+     
+	   var data = JSON.parse(_data);
+
+	   
+	   console.log("SAVED into pic" + " -pic: " + data.pic);
+	   if(currentUserPIC != data.pic)
+	   {
+	   		currentUserPIC = data.pic;
+	   		socket.broadcast.emit('SEND_PIC', currentUserPIC);
+	   }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening SaveChat() method in NetworkMannager.cs unity script
+	socket.on('CHECK_PIC', function ()
+	{
+		if(currentUserPIC != "")
+		{
+	   		socket.emit('SEND_PIC', currentUserPIC);
+		}
+	});//END_SOCKET_ON
 
 	//create a callback fuction to listening EmitAnimation() method in NetworkMannager.cs unity script
 	socket.on('ANIMATION', function (_data)

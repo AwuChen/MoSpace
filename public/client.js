@@ -49,6 +49,13 @@ window.addEventListener('load', function() {
 		gameInstance.SendMessage ('NetworkManager', 'OnUpdateMazeRotate',multiplier);
 		//execInUnity('Update_messages', currentUser);
 	});
+
+	socket.on('SEND_PIC', function(message) {
+	     var currentUserAtr = message;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdatePic',currentUserAtr);
+		//execInUnity('Update_messages', currentUser);
+	});
+
 	
 	socket.on('REPLAY', function(id,position,rotation) {
 	     var currentUserAtr = id+','+position+','+rotation;

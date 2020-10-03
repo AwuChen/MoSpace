@@ -68,7 +68,7 @@ public class NetworkManager : MonoBehaviour {
 
     public GameObject[] interactiveSpace;
     public GM gManager;
-
+    public ClickAndGetImage clickImage;
     
     void Awake()
 	{
@@ -514,7 +514,25 @@ public class NetworkManager : MonoBehaviour {
 		Application.ExternalCall("socket.emit", "MOVE_AND_ROTATE",new JSONObject(data));
     }
 
-    
+    public void SavePic(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "SAVE_PIC", new JSONObject(data));
+    }
+
+    public void CheckPic()
+    {
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "CHECK_PIC");
+    }
+
+    void OnUpdatePic(string data)
+    {
+        clickImage.ReceiveIncommingPhoto(data);
+    }
 
 
 
