@@ -9,6 +9,7 @@ public class GM : MonoBehaviour
 {
     public UnityEvent activate;
     public UnityEvent deactivate;
+    public UnityEvent key;
     bool activated = false;
     bool isWalking = false;
 
@@ -106,6 +107,11 @@ public class GM : MonoBehaviour
             deactivate.Invoke();
             activated = false;
         }
+    }
+
+    public void ActivateKey()
+    {
+        key.Invoke();
     }
     public void RotateRightPivot()
     {

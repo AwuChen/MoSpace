@@ -236,6 +236,11 @@ public class PlayerManager : MonoBehaviour {
     void BuildPath()
     {
         Transform cube = clickedCube;
+        // added this to fix issue with player ghosting
+        if (isLocalPlayer)
+        {
+            UpdateStatusToServer(clickedCube);
+        }
         while (cube != currentCube)
         {
             finalPath.Add(cube);
@@ -246,11 +251,7 @@ public class PlayerManager : MonoBehaviour {
         }
         finalPath.Insert(0, clickedCube);
         FollowPath();
-        // added this to fix issue with player ghosting
-        if (isLocalPlayer)
-        {
-            UpdateStatusToServer(clickedCube);
-        }
+        
     }
 
     void FollowPath()
@@ -268,11 +269,15 @@ public class PlayerManager : MonoBehaviour {
         }
         if (clickedCube.GetComponent<Walkable>().isButton)
         {
-            if (clickedCube.name == "Harrison")
+            if (clickedCube.name == "Surprise")
             {
                 s.AppendCallback(() => GM.instance.ActivateEvent());
             }
-            else
+            if (clickedCube.name == "Key")
+            {
+                s.AppendCallback(() => GM.instance.ActivateKey());
+            }
+            if (clickedCube.name == "17button")
             {
                 s.AppendCallback(() => GM.instance.RotateRightPivot());
             }
@@ -289,7 +294,7 @@ public class PlayerManager : MonoBehaviour {
         finalPath.Clear();
         walking = false;
         runOnce = false;
-        GetComponent<BoxCollider>().enabled = true;
+        //GetComponent<BoxCollider>().enabled = true;
         //added this for network player 
         RayCastDown();
         if (currentCube.GetComponent<Walkable>().movingGround)
@@ -597,7 +602,7 @@ public class PlayerManager : MonoBehaviour {
 
             Vector3 downward = transform.TransformDirection(Vector3.down);
             RaycastHit targetBlock;
-            Vector3 targetPosition = new Vector3(position.x, position.y + 1f, position.z);
+            Vector3 targetPosition = new Vector3(position.x, position.y + 3f, position.z);
             Physics.Raycast(targetPosition, downward, out targetBlock);
             Debug.Log("found cube at " + position);
             clickedCube = targetBlock.transform;
@@ -618,6 +623,8 @@ public class PlayerManager : MonoBehaviour {
                 }
                 else
                 {
+                    // added this awu 
+                    runOnce = false;
                     print(currentCube + " == " + clickedCube);
                 }
             }

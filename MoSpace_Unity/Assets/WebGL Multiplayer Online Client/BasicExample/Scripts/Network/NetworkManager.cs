@@ -575,10 +575,10 @@ public class NetworkManager : MonoBehaviour {
             UpdateInteract(int.Parse(pack[9]));
 
             //IsAtack?
-            if (bool.Parse (pack [8]))
-			{
-				netPlayer.UpdateAnimator ("IsAtack");
-			}
+   //         if (bool.Parse (pack [8]))
+			//{
+			//	netPlayer.UpdateAnimator ("IsAtack");
+			//}
 
             Debug.Log("Update Player Pos & Rot");
         }
