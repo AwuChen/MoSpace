@@ -52,10 +52,7 @@ public class FinalReveal : MonoBehaviour
         {
             individualVote.text = nManager.finalVote;
             
-            for (int i = 0; i < finalVotes.Length; i++)
-            {
-                finalVotes[i].text = nManager.finalVotes[i];
-            }
+           
             // find the majority vote from nManager.finalVotes[i]
             FindMajorityVote();
 
@@ -68,7 +65,7 @@ public class FinalReveal : MonoBehaviour
                 winner.text = "writer";
             }
             
-            winner.text = collectiveScore.ToString();
+            //winner.text = collectiveScore.ToString();
             //nManager.UpdateCollectiveScore(collectiveScore);
         }
     }
@@ -85,19 +82,20 @@ public class FinalReveal : MonoBehaviour
         int iBest = -1;  // index of first number in most popular subset
         int nBest = -1;  // popularity of most popular number
                          // for each subset of numbers
-        for (int i = 0; i < finalVotes.Length; i++)
+        for (int i = 0; i < nManager.finalVotes.Length;)
         {
             int ii = i; // ii = index of first number in subset
             int nn = 0; // nn = count of numbers in subset
                         // for each number in subset, count it
-            for (; i < finalVotes.Length && finalVotes[i] == finalVotes[ii]; i++, nn++) { }
+            for (; i < nManager.finalVotes.Length && nManager.finalVotes[i] == nManager.finalVotes[ii]; i++, nn++) { }
             // if the subset has more numbers than the best so far
             // remember it as the new best
             if (nBest < nn) { nBest = nn; iBest = ii; }
         }
-        if (nBest != 1)
+
+        if(!IsArrayUnique())
         {
-            collectiveVote.text = finalVotes[iBest].text;
+            collectiveVote.text = nManager.finalVotes[iBest];
         }
         else
         {
@@ -105,6 +103,24 @@ public class FinalReveal : MonoBehaviour
         }
 
         // print the most popular value and how popular it is
-        Debug.Log(finalVotes[iBest].text.ToString() + nBest);
+        Debug.Log(nManager.finalVotes[iBest].ToString() + nBest);
+    }
+
+    public bool IsArrayUnique()
+    {
+        for (var i = 0; i < nManager.finalVotes.Length; i++)
+        {
+            for (var j = 0; j < nManager.finalVotes.Length; j++)
+            {
+                if (i != j)
+                {
+                    if (nManager.finalVotes[i].ToString().Equals(nManager.finalVotes[j].ToString()))
+                    {
+                        return false; // means there are duplicate values
+                    }
+                }
+            }
+        }
+        return true; // means there are no duplicate values.
     }
 }
