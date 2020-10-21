@@ -11,10 +11,9 @@ public class FinalReveal : MonoBehaviour
     public Text subjectReveal;
     public Text[] initialVotes;
     public Text[] finalVotes;
-    public Text initialVote;
-    public Text finalVote;
-    public Text coScore;
-    public Text wrScore;
+    public Text individualVote;
+    public Text collectiveVote;
+    public Text winner;
     int collectiveScore;
     int writerScore;
     
@@ -26,37 +25,50 @@ public class FinalReveal : MonoBehaviour
         subjectReveal.text = nManager.subjectReveal;
         if (isWriter)
         {
-            for (int i = 0; i < initialVotes.Length; i++)
+            //for (int i = 0; i < initialVotes.Length; i++)
+            //{
+            //    initialVotes[i].text = nManager.initialVotes[i];
+            //}
+            //for (int i = 0; i < finalVotes.Length; i++)
+            //{
+            //    finalVotes[i].text = nManager.finalVotes[i];
+            //}
+            
+            // find the majority vote from nManager.finalVotes[i]
+            FindMajorityVote();
+
+            if (subjectReveal.text == collectiveVote.text)
             {
-                initialVotes[i].text = nManager.initialVotes[i];
+                winner.text = "collective";
             }
+            else
+            {
+                winner.text = "writer";
+            }
+
+            
+        }
+        else
+        {
+            individualVote.text = nManager.finalVote;
+            
             for (int i = 0; i < finalVotes.Length; i++)
             {
                 finalVotes[i].text = nManager.finalVotes[i];
             }
-            for (int i = 0; i < initialVotes.Length; i++)
+            // find the majority vote from nManager.finalVotes[i]
+            FindMajorityVote();
+
+            if (subjectReveal.text == collectiveVote.text)
             {
-                if (subjectReveal.text != initialVotes[i].ToString())
-                {
-                    writerScore++;
-                }
-            }
-            wrScore.text = writerScore.ToString();
-            //nManager.UpdateWriterScore(writerScore);
-        }
-        else
-        {
-            initialVote.text = nManager.initialVote;
-            finalVote.text = nManager.finalVote;
-            if (subjectReveal.text == initialVote.text)
-            {
-                collectiveScore++;
+                winner.text = "collective";
             }
             else
             {
-                collectiveScore--;
+                winner.text = "writer";
             }
-            coScore.text = collectiveScore.ToString();
+            
+            winner.text = collectiveScore.ToString();
             //nManager.UpdateCollectiveScore(collectiveScore);
         }
     }
@@ -65,5 +77,34 @@ public class FinalReveal : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void FindMajorityVote()
+    {
+        // assuming n > 0
+        int iBest = -1;  // index of first number in most popular subset
+        int nBest = -1;  // popularity of most popular number
+                         // for each subset of numbers
+        for (int i = 0; i < finalVotes.Length; i++)
+        {
+            int ii = i; // ii = index of first number in subset
+            int nn = 0; // nn = count of numbers in subset
+                        // for each number in subset, count it
+            for (; i < finalVotes.Length && finalVotes[i] == finalVotes[ii]; i++, nn++) { }
+            // if the subset has more numbers than the best so far
+            // remember it as the new best
+            if (nBest < nn) { nBest = nn; iBest = ii; }
+        }
+        if (nBest != 1)
+        {
+            collectiveVote.text = finalVotes[iBest].text;
+        }
+        else
+        {
+            collectiveVote.text = "N/A";
+        }
+
+        // print the most popular value and how popular it is
+        Debug.Log(finalVotes[iBest].text.ToString() + nBest);
     }
 }

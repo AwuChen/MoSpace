@@ -529,12 +529,12 @@ public class NetworkManager : MonoBehaviour {
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
-        data["subject"] = subjectText.text.ToString();
-        subjectReveal = subjectText.text.ToString();
+        data["subject"] = (subjectText.text.ToString()).ToLower();
+        subjectReveal = (subjectText.text.ToString()).ToLower();
 
         EmitSubject(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
         print("updatedSub");
-        Debug.Log("Right at the end of Update Subject: " + subjectText.text.ToString());
+        Debug.Log("Right at the end of Update Subject: " + (subjectText.text.ToString()).ToLower());
 
     }
 
@@ -610,12 +610,12 @@ public class NetworkManager : MonoBehaviour {
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
-        data["final"] = finalText.text.ToString();
-        finalVote = finalText.text.ToString();
+        data["final"] = (finalText.text.ToString()).ToLower();
+        finalVote = (finalText.text.ToString()).ToLower();
 
         EmitFinal(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
         print("updatedFin");
-        Debug.Log("Right at the end of Update Final: " + finalText.text.ToString());
+        Debug.Log("Right at the end of Update Final: " + (finalText.text.ToString()).ToLower());
 
     }
 
