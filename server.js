@@ -169,6 +169,49 @@ io.on('connection', function(socket){
        console.log('[INFO] maze multiplier '+currentUser.multiplier);
        }
 	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('SUBJECT', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.subject;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_SUBJECT', currentUser.multiplier);
+       console.log('[INFO] Subject Reveal '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('INITIAL', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.initial;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_INITIAL', currentUser.multiplier);
+       console.log('[INFO] Initial Vote '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('FINAL', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.final;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_FINAL', currentUser.multiplier);
+       console.log('[INFO] Final Vote '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
 	
 	//create a callback fuction to listening GetHistory() method in NetworkMannager.cs unity script
 	socket.on('GET_HISTORY', function (_pack)

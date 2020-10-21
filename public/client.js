@@ -50,6 +50,24 @@ window.addEventListener('load', function() {
 		//execInUnity('Update_messages', currentUser);
 	});
 
+	socket.on('UPDATE_SUBJECT', function(multiplier) {
+	     //var currentUserAtr = multiplier;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdateSubject',multiplier);
+		//execInUnity('Update_messages', currentUser);
+	});
+
+	socket.on('UPDATE_INITIAL', function(multiplier) {
+	     //var currentUserAtr = multiplier;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdateInitial',multiplier);
+		//execInUnity('Update_messages', currentUser);
+	});
+
+	socket.on('UPDATE_FINAL', function(multiplier) {
+	     //var currentUserAtr = multiplier;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdateFinal',multiplier);
+		//execInUnity('Update_messages', currentUser);
+	});
+
 	socket.on('SEND_PIC', function(message) {
 	     var currentUserAtr = message;
 		gameInstance.SendMessage ('NetworkManager', 'OnUpdatePic',currentUserAtr);

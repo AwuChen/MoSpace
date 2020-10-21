@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/003_Scenes/NetworkingDemo.unity
-    guid: da8e98e4ad3fbfb4588ace2266553823
+    path: Assets/003_Scenes/StoryAmongUs.unity
+    guid: ef6d61918d181574a94b7d5f5614fea3
   m_configObjects: {}
