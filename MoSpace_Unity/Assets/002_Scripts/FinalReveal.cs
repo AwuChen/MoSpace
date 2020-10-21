@@ -29,11 +29,11 @@ public class FinalReveal : MonoBehaviour
             //{
             //    initialVotes[i].text = nManager.initialVotes[i];
             //}
-            //for (int i = 0; i < finalVotes.Length; i++)
-            //{
-            //    finalVotes[i].text = nManager.finalVotes[i];
-            //}
-            
+            for (int i = 0; i < finalVotes.Length; i++)
+            {
+                finalVotes[i].text = nManager.finalVotes[i];
+            }
+
             // find the majority vote from nManager.finalVotes[i]
             FindMajorityVote();
 
