@@ -207,7 +207,7 @@ io.on('connection', function(socket){
 	  {
 	   currentUser.multiplier = data.final;
 	   // send current maze rotation in broadcast to all clients in game
-       socket.broadcast.emit('UPDATE_FINAL', currentUser.multiplier);
+       socket.broadcast.emit('UPDATE_FINAL', currentUser.name, currentUser.multiplier);
        console.log('[INFO] Final Vote '+currentUser.multiplier);
        }
 	});//END_SOCKET_ON

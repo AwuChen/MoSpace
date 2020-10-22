@@ -62,9 +62,9 @@ window.addEventListener('load', function() {
 		//execInUnity('Update_messages', currentUser);
 	});
 
-	socket.on('UPDATE_FINAL', function(multiplier) {
-	     //var currentUserAtr = multiplier;
-		gameInstance.SendMessage ('NetworkManager', 'OnUpdateFinal',multiplier);
+	socket.on('UPDATE_FINAL', function(name,multiplier) {
+	    var currentUserAtr = name+','+multiplier;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdateFinal',currentUserAtr);
 		//execInUnity('Update_messages', currentUser);
 	});
 
