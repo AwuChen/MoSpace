@@ -14,7 +14,8 @@ public class TextCommand : MonoBehaviour
     {
         for (int i = 0; i < spaces.Length; i++)
         {
-            if ((UserInput.text.ToString()).ToLower() == spaces[i].name.ToLower())
+            Debug.Log(UserInput.text + spaces[i].name);
+            if (UserInput.text == spaces[i].name)
             {
                 
                 if (spaces[i].activeSelf)
