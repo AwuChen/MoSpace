@@ -72,7 +72,7 @@ public class FinalReveal : MonoBehaviour
             }
             else
             {
-                winner.text = "GG\n(good guess)";
+                winner.text = "No one, GG\n(good guess)";
             }
             Debug.Log(subjectVote.text + subjectReveal.text);
 
@@ -101,7 +101,7 @@ public class FinalReveal : MonoBehaviour
                 winner.text = "writer & subject";
             }else
             {
-                winner.text = "GG\n(good guess)";
+                winner.text = "No one, GG\n(good guess)";
             }
             
             //winner.text = collectiveScore.ToString();
