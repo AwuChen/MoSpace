@@ -517,6 +517,23 @@ public class NetworkManager : MonoBehaviour {
         gManager.RotateMaze(int.Parse(data));
     }
 
+    public void ClearData()
+    {
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["subject"] = "";
+        subjectReveal = "";
+
+        EmitSubject(data);
+
+        Dictionary<string, string> data2 = new Dictionary<string, string>();
+
+        data2["final"] = "";
+        finalVote = "";
+
+        EmitFinal(data2);
+    }
     public void UpdateSubject()
     {
 
