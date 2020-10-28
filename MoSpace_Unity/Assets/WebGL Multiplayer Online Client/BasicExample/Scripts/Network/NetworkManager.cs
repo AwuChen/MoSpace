@@ -83,6 +83,7 @@ public class NetworkManager : MonoBehaviour {
     int finalCount = 0;
 
     public GameObject nextWriter;
+    public GameObject nextReveal;
 
     void Awake()
 	{
@@ -657,6 +658,11 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("Subject Final: " + data);
         finalVotes[finalCount] = data;
         finalCount++;
+
+        if(finalCount == networkPlayerPrefabs.Length)
+        {
+            nextReveal.SetActive(true);
+        }
     }
 
 

@@ -349,7 +349,13 @@ io.on('connection', function(socket){
     // called when the user desconnect
 	socket.on('disconnect', function ()
 	{
-     
+		if(currentUser)
+		{
+			currentUser.multiplier = "";
+	   		// send current maze rotation in broadcast to all clients in game
+       		socket.broadcast.emit('UPDATE_SUBJECT', currentUser.multiplier);
+     		socket.broadcast.emit('UPDATE_FINAL', currentUser.name, currentUser.multiplier);
+	    }
 	    if(currentUser)
 		{
 		 currentUser.isDead = true;
