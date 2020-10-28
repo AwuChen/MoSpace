@@ -82,6 +82,8 @@ public class NetworkManager : MonoBehaviour {
     public string[] finalVotes = new string[5];
     int finalCount = 0;
 
+    public GameObject nextWriter;
+
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -572,6 +574,7 @@ public class NetworkManager : MonoBehaviour {
     {
         Debug.Log("Subject Reveal: " + data);
         subjectReveal = data;
+        nextWriter.SetActive(true);
     }
 
     public void UpdateInitial()

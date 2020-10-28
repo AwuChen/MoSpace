@@ -30,7 +30,7 @@ public class FinalReveal : MonoBehaviour
         // check what subject voted for 
         for (int i = 0; i < nManager.finalVotes.Length; i++)
         {
-            if ((nManager.finalVotes[i].Split(Delimiter))[0].ToLower() == subjectReveal.text.ToString())
+            if (nManager.finalVotes[i] != "" && (nManager.finalVotes[i].Split(Delimiter))[0].ToLower() == subjectReveal.text.ToString())
             {
                 subjectVote.text = (nManager.finalVotes[i].Split(Delimiter))[1];
             }
@@ -47,8 +47,11 @@ public class FinalReveal : MonoBehaviour
             //}
             for (int i = 0; i < finalVotes.Length; i++)
             {
-                var pack = nManager.finalVotes[i].Split(Delimiter);
-                finalVotes[i].text = pack[1];
+                if (nManager.finalVotes[i] != "")
+                {
+                    var pack = nManager.finalVotes[i].Split(Delimiter);
+                    finalVotes[i].text = pack[1];
+                }
             }
 
             // find the majority vote from nManager.finalVotes[i]
@@ -126,17 +129,19 @@ public class FinalReveal : MonoBehaviour
                          // for each subset of numbers
         for (int i = 0; i < nManager.finalVotes.Length;)
         {
-            
 
-            int ii = i; // ii = index of first number in subset
-            int nn = 0; // nn = count of numbers in subset
+            if (nManager.finalVotes[i] != "")
+            {
+                int ii = i; // ii = index of first number in subset
+                int nn = 0; // nn = count of numbers in subset
 
-            
-            // for each number in subset, count it
-            for (; i < nManager.finalVotes.Length && (nManager.finalVotes[i].Split(Delimiter))[1] == (nManager.finalVotes[ii].Split(Delimiter))[1]; i++, nn++) { }
-            // if the subset has more numbers than the best so far
-            // remember it as the new best
-            if (nBest < nn) { nBest = nn; iBest = ii; }
+
+                // for each number in subset, count it
+                for (; i < nManager.finalVotes.Length && (nManager.finalVotes[i].Split(Delimiter))[1] == (nManager.finalVotes[ii].Split(Delimiter))[1]; i++, nn++) { }
+                // if the subset has more numbers than the best so far
+                // remember it as the new best
+                if (nBest < nn) { nBest = nn; iBest = ii; }
+            }
         }
 
         if(!IsArrayUnique())
@@ -156,13 +161,16 @@ public class FinalReveal : MonoBehaviour
     {
         for (var i = 0; i < nManager.finalVotes.Length; i++)
         {
-            for (var j = 0; j < nManager.finalVotes.Length; j++)
+            if (nManager.finalVotes[i] != "")
             {
-                if (i != j)
+                for (var j = 0; j < nManager.finalVotes.Length; j++)
                 {
-                    if ((nManager.finalVotes[i].Split(Delimiter))[1].ToString().Equals((nManager.finalVotes[j].Split(Delimiter))[1].ToString()))
+                    if (i != j)
                     {
-                        return false; // means there are duplicate values
+                        if ((nManager.finalVotes[i].Split(Delimiter))[1].ToString().Equals((nManager.finalVotes[j].Split(Delimiter))[1].ToString()))
+                        {
+                            return false; // means there are duplicate values
+                        }
                     }
                 }
             }
