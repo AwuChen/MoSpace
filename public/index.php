@@ -1,6 +1,7 @@
-<!doctype html>
-<html lang="en">
+<?php include ('includes/db.php')?>
+<?php include ('includes/config.php')?>
 
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="description" content="Making LDRs easier.">
@@ -30,20 +31,24 @@
       <h3>Look, we get it. Long distance relationships are super tough. We know
         because we're in them too. We're making an app unlike any other to help
         you close the distance.</h3>
-      <form action="email.php" method="post">
+      <form>
         <input type="text" placeholder="Email address" name="email" required>
         <input type="submit" value="Hear from us!">
       </form>
     </div>
   </main>
 
-  <!-- <footer>
-    <ul>
-      <li>Privacy</li>
-      <li>Terms</li>
-      <li>Contact</li>
-    </ul>
-  </footer> -->
+<?php
+  
+  //$email=$_POST["email"];
+  //echo "$email";
+  $sql = "INSERT INTO users(email) VALUES ('test');";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  
+  header("signup=success");
+?>
+
 </body>
 
 </html>
