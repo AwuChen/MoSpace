@@ -3,9 +3,9 @@
 
 <?php
   
-  $email = $_POST['email'];
+  //$email = $_POST['email'];
   
-  $sql = "INSERT INTO users(email) VALUES ('$email');";
+  $sql = "INSERT INTO users(email) VALUES ('test@email.com');";
   $stmt = $pdo->prepare($sql);
   $stmt->execute();
   
