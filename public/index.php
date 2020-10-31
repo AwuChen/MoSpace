@@ -39,12 +39,12 @@
   </main>
 
 <?php
-  
+  echo "php running";
   //$email=$_POST["email"];
   //echo "$email";
-  $sql = "INSERT INTO users(email) VALUES ('test');";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
+  // $sql = "INSERT INTO users(email) VALUES ('test');";
+  // $stmt = $pdo->prepare($sql);
+  // $stmt->execute();
   
   header("signup=success");
 ?>
