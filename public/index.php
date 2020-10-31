@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="en">
 
 <head>
@@ -15,7 +15,7 @@
 <body>
   <header>
     <div id="nav">
-      <a href="index.html"><img id="logo" src="MoSpace_logo.png"></a>
+      <a href="index.php"><img id="logo" src="MoSpace_logo.png"></a>
       <ul>
         <li><a href="#">Team</a></li>
         <li><a href="demo.html">Progress</a></li>
