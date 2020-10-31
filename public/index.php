@@ -1,5 +1,5 @@
-<?php include ('includes/db.php')?>
-<?php include ('includes/config.php')?>
+<?php include ('config/db.php')?>
+<?php include ('config/config.php')?>
 
 <html lang="en">
 <head>
@@ -31,7 +31,7 @@
       <h3>Look, we get it. Long distance relationships are super tough. We know
         because we're in them too. We're making an app unlike any other to help
         you close the distance.</h3>
-      <form>
+      <form action="" method="post">
         <input type="text" placeholder="Email address" name="email" required>
         <input type="submit" value="Hear from us!">
       </form>
@@ -40,13 +40,16 @@
 
 <?php
   echo "php running";
-  //$email=$_POST["email"];
-  //echo "$email";
-  // $sql = "INSERT INTO users(email) VALUES ('test');";
-  // $stmt = $pdo->prepare($sql);
-  // $stmt->execute();
+  if (isset($_POST['email']))
+  {
+    $email=$_POST["email"];
+    $sql = 'INSERT INTO users(email) VALUES (\'$email\');';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    header("signup=success");
+  }
   
-  header("signup=success");
 ?>
 
 </body>
