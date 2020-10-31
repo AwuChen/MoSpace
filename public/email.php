@@ -3,11 +3,11 @@
 
 <?php
   
-  $email = $_POST["email"];
+  $email=$_POST["email"];
+  echo "$email";
+  // $sql = "INSERT INTO users(email) VALUES ('$email');";
+  // $stmt = $pdo->prepare($sql);
+  // $stmt->execute();
   
-  $sql = "INSERT INTO users(email) VALUES ('$email');";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute();
-  
-  header("Location: ../index.html?signup=success");
+  // header("Location: ../index.html?signup=success");
 ?>
