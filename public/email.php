@@ -1,13 +1,11 @@
-<?php include ('includes/db.php')?>
-<?php include ('includes/config.php')?>
+<?php include ('config/db.php')?>
+<?php include ('config/config.php')?>
 
-<?php
-  
-  $email=$_POST["email"];
-  echo "$email";
-  // $sql = "INSERT INTO users(email) VALUES ('$email');";
-  // $stmt = $pdo->prepare($sql);
-  // $stmt->execute();
-  
-  // header("Location: ../index.html?signup=success");
-?>
+<html>
+<body>
+
+Welcome <br>
+Your email address is: <?php echo $_GET["email"]; ?>
+
+</body>
+</html>
