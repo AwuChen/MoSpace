@@ -8,6 +8,7 @@ const client = new Client({
 });
 
 client.connect();
+client.query('CREATE DATABASE TestUsers');
 
 var express  = require('express');//import express NodeJS framework module
 var app      = express();// create an object of the express module
