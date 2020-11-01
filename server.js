@@ -16,7 +16,7 @@ function Submit(email)
  	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
 }
 
-const io1 = require('socket.io')(5000);
+const io1 = require('socket.io')(http);
 
 io1.on('connect', socket => {
   // either with send()

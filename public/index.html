@@ -20,7 +20,7 @@
       email = document.getElementById("email").value;
       console.log(email);
 
-      const socket = io('ws://localhost:5000');
+      const socket = io('ws://heroku-url:3000');
 
       socket.on('connect', () => {
       
