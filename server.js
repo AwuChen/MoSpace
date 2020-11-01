@@ -1,4 +1,6 @@
+// Website html stuff
 const { Client } = require('pg');
+var email; 
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -8,8 +10,14 @@ const client = new Client({
 });
 
 client.connect();
-client.query('CREATE TABLE TestUsers(email VARCHAR ( 255 ));');
 
+//on call submit
+function Submit()
+{
+ 	client.query('INSERT INTO testusers(email) VALUES (\'testemail\');');
+}
+
+// Unity server stuff 
 var express  = require('express');//import express NodeJS framework module
 var app      = express();// create an object of the express module
 var http     = require('http').Server(app);// create a http web server using the http library
