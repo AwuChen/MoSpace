@@ -1,6 +1,5 @@
 // Website html stuff
-const { Client } = require('pg');
-var email; 
+const { Client } = require('pg'); 
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -12,10 +11,30 @@ const client = new Client({
 client.connect();
 
 //on call submit
-function Submit()
+function Submit(email)
 {
- 	client.query('INSERT INTO testusers(email) VALUES (\'testemail\');');
+ 	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
 }
+
+const io1 = require('socket.io')(http);
+
+io1.on('connect', socket => {
+  // either with send()
+  socket.send('Hello!');
+
+  // or with emit() and custom event names
+  socket.emit('greetings', 'Hey!', { 'ms': 'jane' }, Buffer.from([4, 3, 3, 1]));
+
+  // handle the event sent with socket.send()
+  socket.on('message', (data) => {
+    client.query('INSERT INTO testusers(email) VALUES (\''+data+'\');');
+  });
+
+  // handle the event sent with socket.emit()
+  socket.on('salutations', (elem1, elem2, elem3) => {
+    console.log(elem1, elem2, elem3);
+  });
+});
 
 // Unity server stuff 
 var express  = require('express');//import express NodeJS framework module

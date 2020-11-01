@@ -13,6 +13,34 @@
 </head>
 
 <body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    function Submit()
+    {
+      email = document.getElementById("email").value;
+      console.log(email);
+
+      const socket = io('ws://heroku-url:3000');
+
+      socket.on('connect', () => {
+      // either with send()
+      socket.send(email);
+
+      // or with emit() and custom event names
+      socket.emit('salutations', 'Hello!', { 'mr': 'john' }, Uint8Array.from([1, 2, 3, 4]));
+    });
+
+// handle the event sent with socket.send()
+socket.on('message', data => {
+  console.log(data);
+});
+
+// handle the event sent with socket.emit()
+socket.on('greetings', (elem1, elem2, elem3) => {
+  console.log(elem1, elem2, elem3);
+});
+    }
+  </script>
   <header>
     <div id="nav">
       <a href="index.html"><img id="logo" src="MoSpace_logo.png"></a>
@@ -30,9 +58,9 @@
       <h3>Look, we get it. Long distance relationships are super tough. We know
         because we're in them too. We're making an app unlike any other to help
         you close the distance.</h3>
-      <form action="../server.js" onsubmit="Submit()">
-        <input type="text" placeholder="Email address" name="email" required>
-        <input type="submit" value="Hear from us!">
+      <form onclick="Submit()">
+        <input id="email" type="text" placeholder="Email address" name="email" required>
+        <input type="button" value="Hear from us!">
       </form>
     </div>
   </main>
