@@ -20,14 +20,12 @@
       email = document.getElementById("email").value;
       console.log(email);
 
-      const socket = io('ws://heroku-url:3000');
+      const socket = io('ws://localhost:5000');
 
       socket.on('connect', () => {
-      // either with send()
-      socket.send(email);
-
+      
       // or with emit() and custom event names
-      socket.emit('salutations', 'Hello!', { 'mr': 'john' }, Uint8Array.from([1, 2, 3, 4]));
+      socket.emit('salutations', email);
     });
 
 // handle the event sent with socket.send()

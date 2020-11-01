@@ -16,23 +16,19 @@ function Submit(email)
  	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
 }
 
-const io1 = require('socket.io')(http);
+const io1 = require('socket.io')(5000);
 
 io1.on('connect', socket => {
   // either with send()
-  socket.send('Hello!');
+  socket.send('Received');
 
   // or with emit() and custom event names
-  socket.emit('greetings', 'Hey!', { 'ms': 'jane' }, Buffer.from([4, 3, 3, 1]));
-
-  // handle the event sent with socket.send()
-  socket.on('message', (data) => {
-    client.query('INSERT INTO testusers(email) VALUES (\''+data+'\');');
-  });
+  socket.emit('Received');
 
   // handle the event sent with socket.emit()
-  socket.on('salutations', (elem1, elem2, elem3) => {
-    console.log(elem1, elem2, elem3);
+  socket.on('salutations', (data2) => {
+  	client.query('INSERT INTO testusers(email) VALUES (\''+data2+'\');');
+    console.log("email: " + data2);
   });
 });
 
