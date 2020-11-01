@@ -1,8 +1,14 @@
-/*
-*@autor: Sebastiao Lucio Reis de Souza
-*@description:  java script file that works as master server of the webGL Unity Multiplayer Online Game
-*@data: 08/05/19
-*/
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+client.connect();
+
 var express  = require('express');//import express NodeJS framework module
 var app      = express();// create an object of the express module
 var http     = require('http').Server(app);// create a http web server using the http library
