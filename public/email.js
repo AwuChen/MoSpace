@@ -10,4 +10,4 @@ const client = new Client({
 
 client.connect();
 
-client.query('INSERT INTO testusers(email) VALUES ('testemail');');
+client.query('INSERT INTO testusers(email) VALUES ('testemail@gmail.com');');
