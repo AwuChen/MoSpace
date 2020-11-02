@@ -15,30 +15,29 @@
 <body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-//     function Submit()
-//     {
-//       email = document.getElementById("email").value;
-//       console.log(email);
+    function Submit()
+    {
+      email = document.getElementById("email").value;
+      console.log(email);
 
+      const socket = io('ws://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
 
-//       // const socket = io('ws://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
-
-//       // socket.on('connect', () => {
+      socket.on('connect', () => {
       
-//       // // or with emit() and custom event names
-//       // socket.emit('salutations', email);
-//     });
+      // or with emit() and custom event names
+      socket.emit('salutations', email);
+    });
 
-// // handle the event sent with socket.send()
-// socket.on('message', data => {
-//   console.log(data);
-// });
+// handle the event sent with socket.send()
+socket.on('message', data => {
+  console.log(data);
+});
 
-// // handle the event sent with socket.emit()
-// socket.on('greetings', (elem1, elem2, elem3) => {
-//   console.log(elem1, elem2, elem3);
-// });
-//     }
+// handle the event sent with socket.emit()
+socket.on('greetings', (elem1, elem2, elem3) => {
+  console.log(elem1, elem2, elem3);
+});
+    }
   </script>
   <header>
     <div id="nav">
@@ -57,9 +56,9 @@
       <h3>Look, we get it. Long distance relationships are super tough. We know
         because we're in them too. We're making an app unlike any other to help
         you close the distance.</h3>
-      <form action="email.js">
+      <form onclick="Submit()">
         <input id="email" type="text" placeholder="Email address" name="email" required>
-        <input type="Submit" value="Hear from us!">
+        <input type="button" value="Hear from us!">
       </form>
     </div>
   </main>
