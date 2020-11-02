@@ -15,19 +15,19 @@
 <body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    function Submit()
-    {
-      email = document.getElementById("email").value;
-      console.log(email);
+    // function Submit()
+    // {
+    //   email = document.getElementById("email").value;
+    //   console.log(email);
 
 
-      // const socket = io('ws://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
+    //   // const socket = io('ws://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
 
-      // socket.on('connect', () => {
+    //   // socket.on('connect', () => {
       
-      // // or with emit() and custom event names
-      // socket.emit('salutations', email);
-    });
+    //   // // or with emit() and custom event names
+    //   // socket.emit('salutations', email);
+    // });
 
 // handle the event sent with socket.send()
 socket.on('message', data => {
