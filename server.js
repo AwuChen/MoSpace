@@ -59,9 +59,9 @@ io.on('connection', function(socket){
   var currentUser;
   var maze;
 	
-  	socket.on('SAU_PING'), function(_data) {
+  	socket.on('SAU_PING', function(_data) {
   		console.log("story among us ping")
-  	}
+  	});
 	
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)
