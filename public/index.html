@@ -15,18 +15,17 @@
 <body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    var socket = io('wss://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
+
     function Submit()
     {
       email = document.getElementById("email").value;
       console.log(email);
 
       //var socket = io.connect('https://localhost', {secure: true});
-      const socket = io('wss://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
 
-      socket.on('connect', () => {
-        // or with emit() and custom event names
-        socket.emit('SAU_PING');
-      });
+      // or with emit() and custom event names
+      socket.emit('SAU_PING');
 
       // // handle the event sent with socket.send()
       // socket.on('message', data => {
