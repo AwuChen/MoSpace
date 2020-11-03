@@ -11,26 +11,26 @@ const client = new Client({
 client.connect();
 
 //on call submit
-function Submit(email)
-{
- 	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
-}
+// function Submit(email)
+// {
+//  	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
+// }
 
-const io1 = require('socket.io')(http);
+// const io1 = require('socket.io')(http);
 
-io1.on('connect', socket => {
-  // either with send()
-  socket.send('Received');
+// io1.on('connect', socket => {
+//   // either with send()
+//   socket.send('Received');
 
-  // or with emit() and custom event names
-  socket.emit('Received');
+//   // or with emit() and custom event names
+//   socket.emit('Received');
 
-  // handle the event sent with socket.emit()
-  socket.on('salutations', (data2) => {
-  	client.query('INSERT INTO testusers(email) VALUES (\''+data2+'\');');
-    console.log("email: " + data2);
-  });
-});
+//   // handle the event sent with socket.emit()
+//   socket.on('salutations', (data2) => {
+//   	client.query('INSERT INTO testusers(email) VALUES (\''+data2+'\');');
+//     console.log("email: " + data2);
+//   });
+// });
 
 // Unity server stuff 
 var express  = require('express');//import express NodeJS framework module
