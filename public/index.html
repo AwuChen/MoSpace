@@ -25,18 +25,18 @@
 
       socket.on('connect', () => {
         // or with emit() and custom event names
-        socket.emit('PING');
+        socket.emit('SAU_PING');
       });
 
-      // handle the event sent with socket.send()
-      socket.on('message', data => {
-        console.log(data);
-      });
+      // // handle the event sent with socket.send()
+      // socket.on('message', data => {
+      //   console.log(data);
+      // });
 
-      // handle the event sent with socket.emit()
-      socket.on('greetings', (elem1, elem2, elem3) => {
-        console.log(elem1, elem2, elem3);
-      });
+      // // handle the event sent with socket.emit()
+      // socket.on('greetings', (elem1, elem2, elem3) => {
+      //   console.log(elem1, elem2, elem3);
+      // });
     }
   </script>
   <header>
