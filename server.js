@@ -59,7 +59,7 @@ io.on('connection', function(socket){
   var currentUser;
   var maze;
 	
-  	socket.on('SAU_PING', function() {
+  	socket.on('SAU_PING', function(_data) {
   		console.log("story among us ping")
   	});
 	

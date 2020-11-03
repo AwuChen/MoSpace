@@ -25,7 +25,7 @@
       //var socket = io.connect('https://localhost', {secure: true});
 
       // or with emit() and custom event names
-      io.emit('SAU_PING');
+      socket.emit('SAU_PING', undefined);
 
       // // handle the event sent with socket.send()
       // socket.on('message', data => {
