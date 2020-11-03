@@ -10,28 +10,6 @@ const client = new Client({
 
 client.connect();
 
-//on call submit
-// function Submit(email)
-// {
-//  	client.query('INSERT INTO testusers(email) VALUES (\''+email+'\');');
-// }
-
-// const io1 = require('socket.io')(http);
-
-// io1.on('connect', socket => {
-//   // either with send()
-//   socket.send('Received');
-
-//   // or with emit() and custom event names
-//   socket.emit('Received');
-
-//   // handle the event sent with socket.emit()
-//   socket.on('salutations', (data2) => {
-//   	client.query('INSERT INTO testusers(email) VALUES (\''+data2+'\');');
-//     console.log("email: " + data2);
-//   });
-// });
-
 // Unity server stuff 
 var express  = require('express');//import express NodeJS framework module
 var app      = express();// create an object of the express module
@@ -59,8 +37,9 @@ io.on('connection', function(socket){
   var currentUser;
   var maze;
 	
-  	socket.on('SAUPING', function(_data) {
-  		console.log("story among us ping " + _data)
+  	socket.on('EMAIL', function(_data) {
+  		console.log("email submitted " + _data)
+  		client.query('INSERT INTO testusers(email) VALUES (\''+_data+'\');');
   	});
 	
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
