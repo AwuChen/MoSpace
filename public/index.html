@@ -25,7 +25,8 @@
       //var socket = io.connect('https://localhost', {secure: true});
 
       // or with emit() and custom event names
-      socket.send('SAU_PING', email);
+      err = socket.emit('SAUPING', email);
+      console.log(err)
 
       // // handle the event sent with socket.send()
       // socket.on('message', data => {
