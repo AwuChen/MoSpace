@@ -20,7 +20,8 @@
       email = document.getElementById("email").value;
       console.log(email);
 
-      const socket = io('ws://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
+      //var socket = io.connect('https://localhost', {secure: true});
+      const socket = io('wss://ancient-beyond-09960.herokuapp.com/socket.io/?EIO=4&transport=websocket');
 
       socket.on('connect', () => {
       
