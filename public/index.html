@@ -1,6 +1,43 @@
 
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+
+.desk{
+  
+}
+.div-only-mobile{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -150;
+  left: 0;
+}
+.three{
+  width:100px;
+  height:20px;
+}
+
+@media screen and (min-width: 1500px){
+  .desk{
+  visibility:visible;
+  }
+  .div-only-mobile{
+  visibility:hidden;
+  }
+}
+@media screen and (max-width : 906px){
+ .desk{
+  visibility:hidden;
+  }
+ .div-only-mobile{
+  visibility:visible;
+  width:75%;
+  }
+}
+</style>
+
 <head>
   <meta charset="utf-8">
   <meta name="description" content="Making LDRs easier.">
@@ -51,18 +88,29 @@
   </header>
 
   <main>
-    <div id="wrapper">
-      <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
-      <h3>Look, we get it. Long distance relationships are super tough. We know
-        because we're in them too. We're making an app unlike any other to help
-        you close the distance.</h3>
-      <form onsubmit="Submit()">
-        <input id="email" type="text" placeholder="Email address" name="email" required>
-        <input type="Submit" value="Hear from us!">
-      </form>
+    <div id ="wrapper">
+        
+        <div class="div-only-mobile">
+          <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
+          <form onsubmit="Submit()" >
+          <input id="email" type="text" placeholder="Email address" name="email" required ">
+          <div class="three"></div>
+          <input type="Submit" value="Hear from us!" >
+          </form> 
+        </div>
+          
+        <div class="desk">
+          <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
+          <h3>Look, we get it. Long distance relationships are super tough. We know
+            because we're in them too. We're making an app unlike any other to help
+            you close the distance.</h3 >
+            <form onsubmit="Submit()" >
+            <input id="email" type="text" placeholder="Email address" name="email" required ">
+            <input type="Submit" value="Hear from us!">
+            </form> 
+        </div>
     </div>
   </main>
-
   <!-- <footer>
     <ul>
       <li>Privacy</li>
