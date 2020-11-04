@@ -41,7 +41,18 @@ io.on('connection', function(socket){
   		console.log("email submitted " + _data)
   		client.query('INSERT INTO testusers(email) VALUES (\''+_data+'\');');
   	});
+
+
+  	socket.on('NAME', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+	    console.log('login from user# '+socket.id+"name: "+pack.name);
+
+  		client.query('INSERT INTO testusers(name) VALUES (\''+pack.name+'\');');
+  	});
 	
+
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)
 	{

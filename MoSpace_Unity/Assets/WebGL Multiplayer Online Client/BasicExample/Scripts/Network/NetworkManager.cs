@@ -113,7 +113,25 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-   
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void UserName()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["name"] = CanvasManager.instance.inputLogin.text;
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "NAME", new JSONObject(data));
+
+
+    }
+
 
     /// <summary>
     /// Prints the pong message which arrived from server.
