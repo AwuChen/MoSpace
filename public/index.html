@@ -53,6 +53,18 @@
   <script>
     var socket = io('wss://ancient-beyond-09960.herokuapp.com');
 
+    function MobileSubmit()
+    {
+      email = document.getElementById("mEmail").value;
+      console.log(email);
+
+      //var socket = io.connect('https://localhost', {secure: true});
+
+      // or with emit() and custom event names
+      err = socket.emit('EMAIL', email);
+      console.log(err)
+    }
+
     function Submit()
     {
       email = document.getElementById("email").value;
@@ -63,16 +75,6 @@
       // or with emit() and custom event names
       err = socket.emit('EMAIL', email);
       console.log(err)
-
-      // // handle the event sent with socket.send()
-      // socket.on('message', data => {
-      //   console.log(data);
-      // });
-
-      // // handle the event sent with socket.emit()
-      // socket.on('greetings', (elem1, elem2, elem3) => {
-      //   console.log(elem1, elem2, elem3);
-      // });
     }
   </script>
   <header>
@@ -91,9 +93,9 @@
         
         <div class="div-only-mobile">
           <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
-          <form onsubmit="Submit()" >
-          <input id="email" type="text" placeholder="Email address" name="email" required ">
-          <div class="three"></div>
+          <form onsubmit="MobileSubmit()" >
+            <input id="mEmail" type="text" placeholder="Email address" name="mEmail" required ">
+            <div class="three"></div>
           <input type="Submit" value="Hear from us!" >
           </form> 
         </div>
@@ -104,8 +106,8 @@
             because we're in them too. We're making an app unlike any other to help
             you close the distance.</h3 >
             <form onsubmit="Submit()" >
-            <input id="email" type="text" placeholder="Email address" name="email" required ">
-            <input type="Submit" value="Hear from us!">
+              <input id="email" type="text" placeholder="Email address" name="email" required ">
+              <input type="Submit" value="Hear from us!">
             </form> 
         </div>
     </div>
