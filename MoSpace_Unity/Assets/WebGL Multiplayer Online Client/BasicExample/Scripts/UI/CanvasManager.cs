@@ -15,6 +15,10 @@ public class CanvasManager : MonoBehaviour {
 
 	public InputField inputLogin;
 
+    public InputField inputWriting;
+
+    public Text textWriting;
+
 	public Text alertGameOverText;
 
 

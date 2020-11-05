@@ -38,6 +38,12 @@ window.addEventListener('load', function() {
 		//execInUnity('Update_messages', currentUser);
 	});
 
+	socket.on('UPDATE_WRITING', function(writing) {
+	    var currentUserAtr = writing;
+		gameInstance.SendMessage ('NetworkManager', 'OnUpdateWriting',currentUserAtr);
+		//execInUnity('Update_messages', currentUser);
+	});
+
 	socket.on('UPDATE_MOVE_AND_ROTATE', function(id,position,rotation,moji,interact) {
 	     var currentUserAtr = id+','+position+','+rotation+','+moji+','+interact;
 		gameInstance.SendMessage ('NetworkManager', 'OnUpdateMoveAndRotate',currentUserAtr);

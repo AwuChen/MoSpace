@@ -82,6 +82,8 @@ public class NetworkManager : MonoBehaviour {
     public string[] finalVotes = new string[5];
     int finalCount = 0;
 
+    public string sampleWriting;
+
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -130,6 +132,54 @@ public class NetworkManager : MonoBehaviour {
         Application.ExternalCall("socket.emit", "NAME", new JSONObject(data));
 
 
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void WritingEntry()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["writing"] = CanvasManager.instance.inputWriting.text;
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
+
+
+    }
+
+    void OnUpdateWriting(string data)
+    {
+
+        //var pack = sampleWriting.Split(Delimiter);
+
+        //string writing = pack[0].ToString() +": " + pack[1].ToString();
+
+        CanvasManager.instance.textWriting.text = data;
+
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void CheckInbox()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        //store "ping!!!" message in msg field
+        data["msg"] = "ping!!!!";
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "INBOX", new JSONObject(data));
     }
 
 

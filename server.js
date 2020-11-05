@@ -51,7 +51,27 @@ io.on('connection', function(socket){
 
   		client.query('INSERT INTO testusers(name) VALUES (\''+pack.name+'\');');
   	});
-	
+
+  	socket.on('WRITE', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+	    console.log('writing from '+currentUser.name+": "+pack.writing);
+
+  		client.query('INSERT INTO testusers(writing) VALUES (\''+pack.writing+'\');');
+  		//socket.broadcast.emit('UPDATE_WRITING', currentUser.name, pack.writing);
+  	});	
+
+  	socket.on('INBOX', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+  		var allWriting = client.query('SELECT * FROM testusers(writing)');
+  		console.log('INBOX: '+allWriting);
+  		socket.emit('UPDATE_WRITING', allWriting);
+  	});	
+
+
 
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)
