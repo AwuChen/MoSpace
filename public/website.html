@@ -1,39 +1,36 @@
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
-
-.desk{
-  
-}
-.div-only-mobile{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: -150;
-  left: 0;
-}
-.three{
-  width:100px;
-  height:20px;
-}
-
-@media screen and (min-width: 906px){
-  .desk{
-  visibility:visible;
+  .desk{ 
   }
   .div-only-mobile{
-  visibility:hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -150;
+    left: 0;
   }
-}
-@media screen and (max-width : 906px){
- .desk{
-  visibility:hidden;
+  .three{
+    width:100px;
+    height:20px;
   }
- .div-only-mobile{
-  visibility:visible;
-  width:75%;
+
+  @media screen and (min-width: 906px){
+    .desk{
+    visibility:visible;
+    }
+    .div-only-mobile{
+    visibility:hidden;
+    }
   }
+  @media screen and (max-width : 906px){
+   .desk{
+    visibility:hidden;
+    }
+   .div-only-mobile{
+    visibility:visible;
+    width:75%;
+    }
 }
 </style>
 
@@ -77,6 +74,7 @@
       console.log(err)
     }
   </script>
+
   <header>
     <div id="nav">
       <a href="index.html"><img id="logo" src="MoSpace_logo.png"></a>
@@ -90,7 +88,6 @@
 
   <main>
     <div id ="wrapper">
-        
         <div class="div-only-mobile">
           <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
           <form onsubmit="MobileSubmit()" >
@@ -105,7 +102,7 @@
           <h3>Look, we get it. Long distance relationships are super tough. We know
             because we're in them too. We're making an app unlike any other to help
             you close the distance.</h3 >
-            <form onsubmit="Submit()" >
+            <form onsubmit="Submit(); ;" >
               <input id="email" type="text" placeholder="Email address" name="email" required ">
               <input type="Submit" value="Hear from us!">
             </form> 
