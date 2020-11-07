@@ -25,13 +25,15 @@ function highlight() {
 // var socket = io("wss://ancient-beyond-09960.herokuapp.com");
 
 function submit() {
+	
+}
+
+function confirmation(var socket) {
 	email = document.getElementById("email").value;
 	console.log(email);
 
 	err = socket.emit("EMAIL", email);
 	console.log(err);
-}
 
-function confirmation() {
 	alert("Thank you for subscribing to our newsletter!");
 }
