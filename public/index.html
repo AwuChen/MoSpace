@@ -30,7 +30,7 @@
 		<h1>A <span id="highlight">home </span><br>for LDR couples.</h1>
 		<h3>Look, we get it. Long distance relationships are super tough. We know because we're in them too. We've designed MoSpace to safekeep the rare, precious moments between you and your partner.</h3>
 
-		<form onsubmit="submit() && confirmation();">
+		<form onsubmit="Submit(); confirmation();">
 			<input id="email" type="text" placeholder="Your email address" required>
 			<input type="submit" value="Hear from us!">
 		</form>
@@ -47,13 +47,14 @@
 	<script>
 	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
 
-		function submit() {
-			email = document.getElementById("email").value;
-			console.log(email);
+		function Submit()
+		    {
+		      email = document.getElementById("email").value;
+		      console.log(email);
 
-			err = socket.emit("EMAIL", email);
-			console.log(err);
-		}
+		      err = socket.emit('EMAIL', email);
+		      console.log(err)
+		    }
   	</script>
 	<script src="scripts_general.js"></script>
 	<script src="scripts_index.js"></script>
