@@ -20,15 +20,15 @@ function highlight() {
 	}
 }
 
-var socket = io("wss://ancient-beyond-09960.herokuapp.com");
+// var socket = io("wss://ancient-beyond-09960.herokuapp.com");
 
-function submit() {
-	email = document.getElementById("email").value;
-	console.log(email);
+// function submit() {
+// 	email = document.getElementById("email").value;
+// 	console.log(email);
 
-	err = socket.emit("EMAIL", email);
-	console.log(err);
-}
+// 	err = socket.emit("EMAIL", email);
+// 	console.log(err);
+// }
 
 function confirmation() {
 	alert("Thank you for subscribing to our newsletter!");

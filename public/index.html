@@ -44,6 +44,17 @@
 	</footer>
 
 	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
+
+		function submit() {
+			email = document.getElementById("email").value;
+			console.log(email);
+
+			err = socket.emit("EMAIL", email);
+			console.log(err);
+		}
+  	</script>
 	<script src="scripts_general.js"></script>
 	<script src="scripts_index.js"></script>
 </body>
