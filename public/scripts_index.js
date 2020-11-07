@@ -20,9 +20,9 @@ function highlight() {
 	}
 }
 
-src="/socket.io/socket.io.js"
+// src="/socket.io/socket.io.js"
 
-var socket = io("wss://ancient-beyond-09960.herokuapp.com");
+// var socket = io("wss://ancient-beyond-09960.herokuapp.com");
 
 function submit() {
 	email = document.getElementById("email").value;
