@@ -28,7 +28,7 @@ function submit() {
 	
 }
 
-function confirmation(var socket) {
+function confirmation(socket) {
 	email = document.getElementById("email").value;
 	console.log(email);
 
