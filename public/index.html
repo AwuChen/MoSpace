@@ -1,121 +1,50 @@
+<!doctype html>
 <html lang="en">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  .desk{ 
-  }
-  .div-only-mobile{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: -150;
-    left: 0;
-  }
-  .three{
-    width:100px;
-    height:20px;
-  }
-
-  @media screen and (min-width: 906px){
-    .desk{
-    visibility:visible;
-    }
-    .div-only-mobile{
-    visibility:hidden;
-    }
-  }
-  @media screen and (max-width : 906px){
-   .desk{
-    visibility:hidden;
-    }
-   .div-only-mobile{
-    visibility:visible;
-    width:75%;
-    }
-}
-</style>
-
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="Making LDRs easier.">
+	<meta charset="utf-8">
+	<meta name="description" content="A home for LDR couples">
+	<meta name="keywords" content="LDR, long distance relationship">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MoSpace</title>
+	<title>MoSpace</title>
 
-  <link href="styles.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="styles_general.css" rel="stylesheet">
+	<link href="styles_index.css" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io('wss://ancient-beyond-09960.herokuapp.com');
+	<div id="navbkgrd">
+		<nav>
+			<a href="index.html"><img id="logo" src="logo.png"></a>
+			<ul>
+				<li><a href="team.html">Team</a></li>
+				<li><a href="demo.html">Demo</a></li>
+			</ul>
+		</nav>
+	</div>
 
-    function MobileSubmit()
-    {
-      email = document.getElementById("mEmail").value;
-      console.log(email);
+	<main>
+		<h1>A <span id="highlight">home </span><br>for LDR couples.</h1>
+		<h3>Look, we get it. Long distance relationships are super tough. We know because we're in them too. We've designed MoSpace to safekeep the rare, precious moments between you and your partner.</h3>
 
-      //var socket = io.connect('https://localhost', {secure: true});
+		<form onsubmit="submit(); confirmation();">
+			<input id="email" type="text" placeholder="Your email address" required>
+			<input type="submit" value="Hear from us!">
+		</form>
 
-      // or with emit() and custom event names
-      err = socket.emit('EMAIL', email);
-      console.log(err)
-    }
+		<!-- feature -->
+		<!-- description (put under image if mobile?)-->
+		<!-- image (or 3d object?) -->
+	</main>
 
-    function Submit()
-    {
-      email = document.getElementById("email").value;
-      console.log(email);
+	<footer>
+	</footer>
 
-      //var socket = io.connect('https://localhost', {secure: true});
-
-      // or with emit() and custom event names
-      err = socket.emit('EMAIL', email);
-      console.log(err)
-    }
-  </script>
-
-  <header>
-    <div id="nav">
-      <a href="index.html"><img id="logo" src="MoSpace_logo.png"></a>
-      <ul>
-        <li><a href="#">Team</a></li>
-        <li><a href="demo.html">Demo</a></li>
-      </ul>
-      <!-- <a class="call" href="#">Hear from us!</a> -->
-    </div>
-  </header>
-
-  <main>
-    <div id ="wrapper">
-        <div class="div-only-mobile">
-          <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
-          <form onsubmit="MobileSubmit()" >
-            <input id="mEmail" type="text" placeholder="Email address" name="mEmail" required ">
-            <div class="three"></div>
-          <input type="Submit" value="Hear from us!" >
-          </form> 
-        </div>
-          
-        <div class="desk">
-          <h1>We are making <br>LDRs <span id="highlight">easier.</span></h1>
-          <h3>Look, we get it. Long distance relationships are super tough. We know
-            because we're in them too. We're making an app unlike any other to help
-            you close the distance.</h3 >
-            <form onsubmit="Submit(); ;" >
-              <input id="email" type="text" placeholder="Email address" name="email" required ">
-              <input type="Submit" value="Hear from us!">
-            </form> 
-        </div>
-    </div>
-  </main>
-  <!-- <footer>
-    <ul>
-      <li>Privacy</li>
-      <li>Terms</li>
-      <li>Contact</li>
-    </ul>
-  </footer> -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="scripts_general.js"></script>
+	<script src="scripts_index.js"></script>
 </body>
-
 </html>

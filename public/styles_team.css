@@ -1,0 +1,53 @@
+h1 {
+	font-size: 48px;
+	font-weight: 600px;
+	color: var(--color3);
+	margin-top: 250px;
+	margin: 250px 24px 0px 24px;
+}
+
+h3 {
+	max-width: 850px;
+	font-size: 28px;
+	font-weight: 400;
+	color: var(--color3);
+	margin: 14px 24px 0px 24px;
+}
+
+#team {
+	text-align: justify;
+	margin: 24px;
+}
+
+.profile {
+	display: inline-block;
+	max-width: 47.5%;
+	margin: 12px 0px;
+}
+
+.profile img {
+	display: block;
+	width: 100%;
+}
+
+.profile h5 {
+	font-size: 24px;
+	font-weight: 600;
+	color: var(--color3);
+	margin-top: 14px;
+}
+
+@media screen and (max-width: 650px) {
+	h1 {
+		font-size: 34px;
+	}
+
+	h3 {
+		font-size: 24px;
+	}
+
+	.profile h5 {
+		font-size: 18px;
+	}
+
+}
