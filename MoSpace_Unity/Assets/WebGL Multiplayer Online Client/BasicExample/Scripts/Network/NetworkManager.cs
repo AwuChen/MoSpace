@@ -69,7 +69,21 @@ public class NetworkManager : MonoBehaviour {
     public GameObject[] interactiveSpace;
     public GM gManager;
     public ClickAndGetImage clickImage;
+
     
+    public InputField subjectText;
+    public string subjectReveal = "";
+    public InputField initialText;
+    public string initialVote = "";
+    public string[] initialVotes = new string[5];
+    int initialCount = 0;
+    public InputField finalText;
+    public string finalVote = "";
+    public string[] finalVotes = new string[5];
+    int finalCount = 0;
+
+    public string sampleWriting;
+
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
@@ -101,7 +115,73 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-   
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void UserName()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["name"] = CanvasManager.instance.inputLogin.text;
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "NAME", new JSONObject(data));
+
+
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void WritingEntry()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["writing"] = CanvasManager.instance.inputWriting.text;
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
+
+
+    }
+
+    void OnUpdateWriting(string data)
+    {
+
+        //var pack = sampleWriting.Split(Delimiter);
+
+        //string writing = pack[0].ToString() +": " + pack[1].ToString();
+
+        CanvasManager.instance.textWriting.text = data;
+
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void CheckInbox()
+    {
+
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        //store "ping!!!" message in msg field
+        data["msg"] = "ping!!!!";
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "INBOX", new JSONObject(data));
+    }
+
 
     /// <summary>
     /// Prints the pong message which arrived from server.
@@ -503,6 +583,193 @@ public class NetworkManager : MonoBehaviour {
 		*/
         
         gManager.RotateMaze(int.Parse(data));
+    }
+
+    public void UpdateSubject()
+    {
+
+        Debug.Log("Right at the start of Update Subject");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["subject"] = (subjectText.text.ToString()).ToLower();
+        subjectReveal = (subjectText.text.ToString()).ToLower();
+
+        EmitSubject(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedSub");
+        Debug.Log("Right at the end of Update Subject: " + (subjectText.text.ToString()).ToLower());
+
+    }
+
+    public void EmitSubject(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "SUBJECT", new JSONObject(data));
+    }
+
+    /// <summary>
+    /// Update the network player position and rotation to local player.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    void OnUpdateSubject(string data)
+    {
+        Debug.Log("Subject Reveal: " + data);
+        subjectReveal = data;
+    }
+
+    public void UpdateInitial()
+    {
+
+        Debug.Log("Right at the start of Update Initial");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["initial"] = initialText.text.ToString();
+        initialVote = initialText.text.ToString();
+
+        EmitInitial(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedIni");
+        Debug.Log("Right at the end of Update Initial: " + initialText.text.ToString());
+
+    }
+
+    public void EmitInitial(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "INITIAL", new JSONObject(data));
+    }
+
+    /// <summary>
+    /// Update the network player position and rotation to local player.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    void OnUpdateInitial(string data)
+    {
+        Debug.Log("Subject Initial: " + data);
+        initialVotes[initialCount] = data;
+        initialCount++;
+    }
+
+    public void UpdateFinal()
+    {
+
+        Debug.Log("Right at the start of Update Final");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        data["final"] = (finalText.text.ToString()).ToLower();
+        finalVote = (finalText.text.ToString()).ToLower();
+
+        EmitFinal(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedFin");
+        Debug.Log("Right at the end of Update Final: " + (finalText.text.ToString()).ToLower());
+
+    }
+
+    public void EmitFinal(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "FINAL", new JSONObject(data));
+    }
+
+    /// <summary>
+    /// Update the network player position and rotation to local player.
+    /// </summary>
+    /// <param name="_msg">Message.</param>
+    void OnUpdateFinal(string data)
+    {
+        Debug.Log("Subject Final: " + data);
+        finalVotes[finalCount] = data;
+        finalCount++;
+    }
+
+
+
+    public void UpdateCollectiveScore(int score)
+    {
+
+        Debug.Log("Right at the start of Update Status to Server");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        
+        data["coscore"] = score.ToString();
+
+
+        EmitCoScore(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedRot");
+        Debug.Log("Right at the end of Update Status to Server");
+
+    }
+
+    public void EmitCoScore(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "COSCORE", new JSONObject(data));
+    }
+
+    public void UpdateWriterScore(int score)
+    {
+
+        Debug.Log("Right at the start of Update Status to Server");
+
+        if (NetworkManager.instance == null)
+        {
+            Debug.Log("NetworkManager is null");
+        }
+        //hash table <key, value>
+        Dictionary<string, string> data = new Dictionary<string, string>();
+
+        
+        
+        data["wrscore"] = score.ToString();
+
+
+        EmitWrScore(data);//call method NetworkSocketIO.EmitPosition for transmit new  player position to all clients in game
+        print("updatedRot");
+        Debug.Log("Right at the end of Update Status to Server");
+
+    }
+
+    public void EmitWrScore(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "WRSCORE", new JSONObject(data));
     }
 
     public void EmitMoveAndRotate( Dictionary<string, string> data)

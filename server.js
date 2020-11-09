@@ -1,8 +1,16 @@
-/*
-*@autor: Sebastiao Lucio Reis de Souza
-*@description:  java script file that works as master server of the webGL Unity Multiplayer Online Game
-*@data: 08/05/19
-*/
+// Website html stuff
+const { Client } = require('pg'); 
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+client.connect();
+
+// Unity server stuff 
 var express  = require('express');//import express NodeJS framework module
 var app      = express();// create an object of the express module
 var http     = require('http').Server(app);// create a http web server using the http library
@@ -29,7 +37,42 @@ io.on('connection', function(socket){
   var currentUser;
   var maze;
 	
-	
+  	socket.on('EMAIL', function(_data) {
+  		console.log("email submitted " + _data)
+  		client.query('INSERT INTO testusers(email) VALUES (\''+_data+'\');');
+  	});
+
+
+  	socket.on('NAME', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+	    console.log('login from user# '+socket.id+"name: "+pack.name);
+
+  		client.query('INSERT INTO testusers(name) VALUES (\''+pack.name+'\');');
+  	});
+
+  	socket.on('WRITE', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+	    console.log('writing from '+currentUser.name+": "+pack.writing);
+
+  		client.query('INSERT INTO testusers(writing) VALUES (\''+pack.writing+'\');');
+  		//socket.broadcast.emit('UPDATE_WRITING', currentUser.name, pack.writing);
+  	});	
+
+  	socket.on('INBOX', function(_pack) {
+
+  		var pack = JSON.parse(_pack);	
+
+  		var allWriting = client.query('SELECT * FROM testusers(writing)');
+  		console.log('INBOX: '+allWriting);
+  		socket.emit('UPDATE_WRITING', allWriting);
+  	});	
+
+
+
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)
 	{
@@ -169,6 +212,49 @@ io.on('connection', function(socket){
        console.log('[INFO] maze multiplier '+currentUser.multiplier);
        }
 	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('SUBJECT', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.subject;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_SUBJECT', currentUser.multiplier);
+       console.log('[INFO] Subject Reveal '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('INITIAL', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.initial;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_INITIAL', currentUser.multiplier);
+       console.log('[INFO] Initial Vote '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
+	//create a callback fuction to listening EmitMoveAndRotate() method in NetworkMannager.cs unity script
+	socket.on('FINAL', function (_data)
+	{
+	  var data = JSON.parse(_data);	
+	  
+	  if(currentUser)
+	  {
+	   currentUser.multiplier = data.final;
+	   // send current maze rotation in broadcast to all clients in game
+       socket.broadcast.emit('UPDATE_FINAL', currentUser.name, currentUser.multiplier);
+       console.log('[INFO] Final Vote '+currentUser.multiplier);
+       }
+	});//END_SOCKET_ON
+
 	
 	//create a callback fuction to listening GetHistory() method in NetworkMannager.cs unity script
 	socket.on('GET_HISTORY', function (_pack)

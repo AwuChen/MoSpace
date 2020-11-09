@@ -1,0 +1,61 @@
+h1 {
+	font-size: 86px;
+	font-weight: 600;
+	color: var(--color3);
+	margin: 250px 24px 0px 24px;
+}
+
+#highlight {
+	color: var(--color2);
+}
+
+h3 {
+	max-width: 850px;
+	font-size: 36px;
+	font-weight: 400;
+	color: var(--color3);
+	margin: 14px 24px 0px 24px;
+}
+
+form {
+	margin: 30px 24px;
+}
+
+input[type=text] {
+	background-color: var(--color3);
+	width: 400px;
+	height: 60px;
+	font-size: 20px;	
+	color: var(--color2);
+	padding: 0px 15px;
+}
+
+input[type=submit] {
+	background-color: var(--color2);
+	width: 160px;
+	height: 60px;
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--color3);
+	margin-left: 10px;
+}
+
+@media screen and (max-width: 650px) {
+	h1 {
+		font-size: 52px;
+	}
+
+	h3 {
+		font-size: 24px;
+	}
+
+	input[type=text] {
+		width: 100%;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		margin-top: 15px;
+		margin-left: 0px;
+	}
+}

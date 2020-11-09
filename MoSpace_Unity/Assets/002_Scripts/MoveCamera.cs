@@ -28,7 +28,7 @@ public class MoveCamera : MonoBehaviour {
         }
         else
         {
-            mCurrentIndex = 1;
+            mCurrentIndex = 4;
         }
     }
     // Update is called once per frame
@@ -62,6 +62,20 @@ public class MoveCamera : MonoBehaviour {
 
         transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
 
+    }
+
+    public void OnStart()
+    {
+        mCurrentIndex = 1;
+        Vector3 currentPos = Positions[mCurrentIndex];
+        transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
+    }
+
+    public void OnInput()
+    {
+        mCurrentIndex = 4;
+        Vector3 currentPos = Positions[mCurrentIndex];
+        transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
     }
 
     public void MoveUp()
