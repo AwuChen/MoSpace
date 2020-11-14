@@ -66,7 +66,7 @@ io.on('connection', function(socket){
 
   		var pack = JSON.parse(_pack);	
   		
-  		socket.emit('UPDATE_WRITING', checkInbox());})
+  		socket.emit('UPDATE_WRITING', checkInbox());
   		//var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
   		//var test = "test letter";
   		//console.log("Writing: " + String(inbox));
