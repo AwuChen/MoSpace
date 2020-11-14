@@ -10,9 +10,7 @@ window.addEventListener('load', function() {
 		
 		gameInstance.SendMessage("NetworkController", method, args.join(','));
 	};
-
-
-					      
+			      
 	socket.on('LOGIN_SUCCESS', function(id,name,position,rotation) {
 				      		
 	  var currentUserAtr = id+','+name+','+position+','+rotation;
