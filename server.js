@@ -65,10 +65,9 @@ io.on('connection', function(socket){
   	socket.on('INBOX', function(_pack) {
 
   		var pack = JSON.parse(_pack);	
-
   		var allWriting = client.query('SELECT writing FROM testusers;');
-  		console.log('INBOX: '+allWriting);
-  		socket.emit('UPDATE_WRITING', allWriting);
+  		allWriting.then(function(result) { console.log('INBOX: '+result); socket.emit('UPDATE_WRITING', result);})
+  		
   	});	
 
 
