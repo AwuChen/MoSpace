@@ -71,8 +71,8 @@ io.on('connection', function(socket){
   	async function checkInbox() {
 		var inbox = client.query('SELECT writing FROM testusers WHERE writing=\'Hi\';');
 		inbox.then( value => {
-    		console.log(JSON.stringify(value)); 
-    		socket.emit('UPDATE_WRITING', JSON.stringify(value));
+    		console.log(value["rows"][0]["writing"]); 
+    		socket.emit('UPDATE_WRITING', value["rows"][0]["writing"]);
   		});
 	}
 
