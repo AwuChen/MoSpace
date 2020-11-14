@@ -66,8 +66,8 @@ io.on('connection', function(socket){
 
   		var pack = JSON.parse(_pack);	
   		var allWriting = client.query('SELECT writing FROM testusers;');
-  		console.log("Writing: " + json.stringify(allWriting));
-  		socket.emit('UPDATE_WRITING', json.stringify(allWriting));
+  		console.log("Writing: " + JSON.stringify(allWriting));
+  		socket.emit('UPDATE_WRITING', JSON.stringify(allWriting));
   		
   	});	 
 
