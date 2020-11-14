@@ -76,9 +76,9 @@ io.on('connection', function(socket){
 
   	function checkInbox() {
 		var inbox = client.query('SELECT writing FROM testusers WHERE writing=\'Hi\';');
-		return inbox.then( value => {
-    		console.log('value',value) //log the returned value
-    		return value; // returning the value from a then function returns a new promise, so the spell function also returns a promise which you can handle similarly 
+		inbox.then( value => {
+    		console.log(JSON.stringify(value)); //log the returned value
+    		return JSON.stringify(value); // returning the value from a then function returns a new promise, so the spell function also returns a promise which you can handle similarly 
   		});
 	}
 
