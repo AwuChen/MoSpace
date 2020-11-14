@@ -65,10 +65,10 @@ io.on('connection', function(socket){
   	socket.on('INBOX', function(_pack) {
 
   		var pack = JSON.parse(_pack);	
-  		var allWriting = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
+  		var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
   		var test = "test letter";
-  		console.log("Writing: " + JSON.stringify(allWriting));
-  		socket.emit('UPDATE_WRITING', JSON.stringify(allWriting));
+  		console.log("Writing: " + String(inbox));
+  		socket.emit('UPDATE_WRITING', String(inbox));
   		
   	});	 
 
