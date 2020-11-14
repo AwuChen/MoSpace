@@ -82,9 +82,6 @@ io.on('connection', function(socket){
   // 		});
 	}
 
-}
-
-
 
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)
