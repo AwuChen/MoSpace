@@ -65,12 +65,24 @@ io.on('connection', function(socket){
   	socket.on('INBOX', function(_pack) {
 
   		var pack = JSON.parse(_pack);	
-  		var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
-  		var test = "test letter";
-  		console.log("Writing: " + String(inbox));
-  		socket.emit('UPDATE_WRITING', String(inbox));
+  		
+  		checkInbox().then(function(result) {console.log(result); socket.emit('UPDATE_WRITING', String(result));})
+  		//var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
+  		//var test = "test letter";
+  		//console.log("Writing: " + String(inbox));
+  		//socket.emit('UPDATE_WRITING', String(inbox));
   		
   	});	 
+
+  	function checkInbox() {
+		return client.query("SELECT writing FROM testusers WHERE writing='Hi';");
+		// return spellData.then( value => {
+  //   		console.log(value) //log the returned value
+  //   		return value; // returning the value from a then function returns a new promise, so the spell function also returns a promise which you can handle similarly 
+  // 		});
+	}
+
+}
 
 
 
