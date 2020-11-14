@@ -66,7 +66,7 @@ io.on('connection', function(socket){
 
   		var pack = JSON.parse(_pack);	
   		
-  		checkInbox().then(function(result) {console.log(result); socket.emit('UPDATE_WRITING', String(result));})
+  		checkInbox().then(function(result) {console.log(result); socket.emit('UPDATE_WRITING', result);})
   		//var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
   		//var test = "test letter";
   		//console.log("Writing: " + String(inbox));
@@ -75,11 +75,11 @@ io.on('connection', function(socket){
   	});	 
 
   	function checkInbox() {
-		return client.query("SELECT writing FROM testusers WHERE writing='Hi';");
-		// return spellData.then( value => {
-  //   		console.log(value) //log the returned value
-  //   		return value; // returning the value from a then function returns a new promise, so the spell function also returns a promise which you can handle similarly 
-  // 		});
+		var inbox = client.query("SELECT writing FROM testusers WHERE writing='Hi';");
+		return inbox.then( value => {
+    		console.log(value) //log the returned value
+    		return value; // returning the value from a then function returns a new promise, so the spell function also returns a promise which you can handle similarly 
+  		});
 	}
 
 
