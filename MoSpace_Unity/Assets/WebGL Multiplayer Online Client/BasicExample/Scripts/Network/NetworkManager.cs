@@ -154,6 +154,7 @@ public class NetworkManager : MonoBehaviour {
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
 
+        CanvasManager.instance.inputWriting.text = "";
 
     }
 
