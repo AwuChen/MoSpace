@@ -65,14 +65,21 @@ io.on('connection', function(socket){
   	socket.on('INBOX', function(_pack) {
 
   		var pack = JSON.parse(_pack);	
-  		checkInbox();
+  		var number = parseInt(pack.number);
+  		checkInbox(number);
   	});	 
 
-  	async function checkInbox() {
-		var inbox = client.query('SELECT writing FROM testusers WHERE writing=\'Hi\';');
+  	async function checkInbox(var num) {
+		var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
 		inbox.then( value => {
-    		console.log(value["rows"][0]["writing"]); 
-    		socket.emit('UPDATE_WRITING', value["rows"][0]["writing"]);
+			if(value["rows"][num]["writing"] !== null || value["rows"][num]["writing"] !== NaN || value["rows"][num]["writing"] !== undefined)
+			{
+    			console.log(value["rows"][num]["writing"]); 
+    			socket.emit('UPDATE_WRITING', value["rows"][num]["writing"]);
+    		}else{
+    			console.log("resetting inbox count");
+    			socket.emit('RESET_INBOX_COUNT')
+    		}
   		});
 	}
 
