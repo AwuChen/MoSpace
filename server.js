@@ -69,7 +69,7 @@ io.on('connection', function(socket){
   		checkInbox(number);
   	});	 
 
-  	async function checkInbox(var num) {
+  	async function checkInbox(num) {
 		var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
 		inbox.then( value => {
 			if(value["rows"][num]["writing"] !== null || value["rows"][num]["writing"] !== NaN || value["rows"][num]["writing"] !== undefined)
@@ -78,7 +78,7 @@ io.on('connection', function(socket){
     			socket.emit('UPDATE_WRITING', value["rows"][num]["writing"]);
     		}else{
     			console.log("resetting inbox count");
-    			socket.emit('RESET_INBOX_COUNT')
+    			socket.emit('RESET_INBOX_COUNT');
     		}
   		});
 	}
