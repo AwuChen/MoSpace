@@ -290,6 +290,7 @@ io.on('connection', function(socket){
 	   {
 	   		currentUserPIC = data.pic;
 	   		socket.broadcast.emit('SEND_PIC', currentUserPIC);
+	   		client.query('INSERT INTO testusers(pictures) VALUES (\''+data.pic+'\');');
 	   }
 	});//END_SOCKET_ON
 
