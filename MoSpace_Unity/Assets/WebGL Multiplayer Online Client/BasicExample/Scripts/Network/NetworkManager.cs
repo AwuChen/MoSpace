@@ -419,8 +419,7 @@ public class NetworkManager : MonoBehaviour {
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
 
-            // do something here 
-            cameraEvent.Invoke();
+            
         }
 	}
 
@@ -486,7 +485,9 @@ public class NetworkManager : MonoBehaviour {
 				//puts the local player on the list
 				networkPlayers [pack [0]] = newPlayer;
 
-			}
+                // do something here 
+                cameraEvent.Invoke();
+            }
 
 		}
 
