@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Text;
 using UnityEngine.UI;
@@ -84,6 +85,8 @@ public class NetworkManager : MonoBehaviour {
     int inboxCount = 0;
 
     public string sampleWriting;
+
+    public UnityEvent cameraEvent;
 
     void Awake()
 	{
@@ -415,7 +418,10 @@ public class NetworkManager : MonoBehaviour {
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
-		}
+
+            // do something here 
+            cameraEvent.Invoke();
+        }
 	}
 
 	/// <summary>

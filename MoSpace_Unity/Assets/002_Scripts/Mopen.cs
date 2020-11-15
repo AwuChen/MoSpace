@@ -31,7 +31,6 @@ public class Mopen : MonoBehaviour
     public ConferenceApp conScript;
     bool joinedOnce = false;
 
-    public UnityEvent cameraEvent;
     
     void Start()
     {
@@ -143,10 +142,7 @@ public class Mopen : MonoBehaviour
             callScript.JoinButtonPressed();
         }
 
-        if (con && other.tag == "NetworkPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf && conScript.uRoomName.text != name && videoCall.activeSelf)
-        {
-            cameraEvent.Invoke();
-        }
+        
     }
 
     public void EnableCamera()
