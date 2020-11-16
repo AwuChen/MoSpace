@@ -65,12 +65,23 @@ io.on('connection', function(socket){
   	socket.on('INBOX', function(_pack) {
 
   		var pack = JSON.parse(_pack);	
+  		var number = parseInt(pack.number);
+  		checkInbox(number);
+  	});	 
 
-  		var allWriting = client.query('SELECT * FROM testusers(writing)');
-  		console.log('INBOX: '+allWriting);
-  		socket.emit('UPDATE_WRITING', allWriting);
-  	});	
-
+  	async function checkInbox(num) {
+		var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
+		inbox.then( value => {
+			if(value["rows"][num]["writing"] !== null || value["rows"][num]["writing"] !== NaN || value["rows"][num]["writing"] !== undefined)
+			{
+    			console.log(value["rows"][num]["writing"]); 
+    			socket.emit('UPDATE_WRITING', value["rows"][num]["writing"]);
+    		}else{
+    			console.log("resetting inbox count");
+    			socket.emit('RESET_INBOX_COUNT');
+    		}
+  		});
+	}
 
 
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
@@ -279,6 +290,7 @@ io.on('connection', function(socket){
 	   {
 	   		currentUserPIC = data.pic;
 	   		socket.broadcast.emit('SEND_PIC', currentUserPIC);
+	   		client.query('INSERT INTO testusers(pictures) VALUES (\''+data.pic+'\');');
 	   }
 	});//END_SOCKET_ON
 

@@ -40,6 +40,7 @@ using Byn.Unity.Examples;
 public class ClickAndGetImage : MonoBehaviour
 {
     string picUrl;
+    public GameObject photo;
 
     //useful for any gameObject to access this class without the need of instances her or you declare her
     public static ClickAndGetImage instance;
@@ -67,7 +68,7 @@ public class ClickAndGetImage : MonoBehaviour
             Texture2D tex = new Texture2D(1, 1); // does the size matter?
             if (tex.LoadImage(pngData))
             {
-                Renderer renderer = GetComponent<Renderer>();
+                Renderer renderer = photo.GetComponent<Renderer>();
 
                 renderer.material.mainTexture = tex;
                 picUrl = dataUrl;

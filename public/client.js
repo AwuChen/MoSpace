@@ -10,9 +10,7 @@ window.addEventListener('load', function() {
 		
 		gameInstance.SendMessage("NetworkController", method, args.join(','));
 	};
-
-
-					      
+			      
 	socket.on('LOGIN_SUCCESS', function(id,name,position,rotation) {
 				      		
 	  var currentUserAtr = id+','+name+','+position+','+rotation;
@@ -41,6 +39,11 @@ window.addEventListener('load', function() {
 	socket.on('UPDATE_WRITING', function(writing) {
 	    var currentUserAtr = writing;
 		gameInstance.SendMessage ('NetworkManager', 'OnUpdateWriting',currentUserAtr);
+		//execInUnity('Update_messages', currentUser);
+	});
+
+	socket.on('RESET_INBOX_COUNT', function() {
+		gameInstance.SendMessage ('NetworkManager', 'OnResetInboxCount');
 		//execInUnity('Update_messages', currentUser);
 	});
 

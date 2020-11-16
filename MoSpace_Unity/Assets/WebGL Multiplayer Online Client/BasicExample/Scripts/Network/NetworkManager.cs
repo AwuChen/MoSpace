@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Text.RegularExpressions;
 using System.Text;
 using UnityEngine.UI;
@@ -81,8 +82,11 @@ public class NetworkManager : MonoBehaviour {
     public string finalVote = "";
     public string[] finalVotes = new string[5];
     int finalCount = 0;
+    int inboxCount = 0;
 
     public string sampleWriting;
+
+    public UnityEvent cameraEvent;
 
     void Awake()
 	{
@@ -150,6 +154,7 @@ public class NetworkManager : MonoBehaviour {
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
 
+        CanvasManager.instance.inputWriting.text = "";
 
     }
 
@@ -163,18 +168,37 @@ public class NetworkManager : MonoBehaviour {
         CanvasManager.instance.textWriting.text = data;
 
     }
+    
+    void OnResetInboxCount()
+    {
+        inboxCount = 0;
+    }
 
+    public void CheckNext()
+    {
+        inboxCount++;
+        CheckInbox(inboxCount);
+    }
+
+    public void CheckPrevious()
+    {
+        if (inboxCount > 0)
+        {
+            inboxCount--;
+            CheckInbox(inboxCount);
+        }
+    }
     // <summary>
     /// sends ping message to server.
     /// </summary>
-    public void CheckInbox()
+    public void CheckInbox(int num)
     {
 
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
         //store "ping!!!" message in msg field
-        data["msg"] = "ping!!!!";
+        data["number"] = num.ToString();
 
         JSONObject jo = new JSONObject(data);
 
@@ -395,7 +419,9 @@ public class NetworkManager : MonoBehaviour {
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
-		}
+
+            
+        }
 	}
 
 	/// <summary>
@@ -460,7 +486,9 @@ public class NetworkManager : MonoBehaviour {
 				//puts the local player on the list
 				networkPlayers [pack [0]] = newPlayer;
 
-			}
+                // do something here 
+                cameraEvent.Invoke();
+            }
 
 		}
 

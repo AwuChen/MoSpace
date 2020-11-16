@@ -30,6 +30,8 @@ public class Mopen : MonoBehaviour
     public CallAppUi callScript;
     public ConferenceApp conScript;
     bool joinedOnce = false;
+
+    
     void Start()
     {
         
@@ -140,13 +142,16 @@ public class Mopen : MonoBehaviour
             callScript.JoinButtonPressed();
         }
 
-        if (con && other.tag == "LocalPlayer" && !callApp.activeSelf && !conferenceApp.activeSelf && conScript.uRoomName.text != name && videoCall.activeSelf)
-        {
-            conferenceApp.SetActive(true);
-            conScript.uRoomName.text = name;
-            conScript.Joined();
-        }
+        
     }
+
+    public void EnableCamera()
+    {
+        conferenceApp.SetActive(true);
+        conScript.uRoomName.text = name;
+        conScript.Joined();
+    }
+        
 
     
     void OnTriggerExit(Collider other)
