@@ -62,23 +62,26 @@ io.on('connection', function(socket){
   		//socket.broadcast.emit('UPDATE_WRITING', currentUser.name, pack.writing);
   	});	
 
-  	socket.on('INBOX', function(_pack) {
-
-  		var pack = JSON.parse(_pack);	
-  		var number = parseInt(pack.number);
-  		checkInbox(number);
+  	socket.on('INBOX', function() {
+  		console.log("Check Inbox called"); 
+  		checkInbox();
   	});	 
 
-  	async function checkInbox(num) {
+  	async function checkInbox() {
+  		var storyCount = client.query('SELECT COUNT(*) FROM testusers WHERE writing IS NOT NULL;');
+  		console.log("STORYCOUNT: " + storyCount); 
+
 		var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
 		inbox.then( value => {
-			if(value["rows"][num]["writing"] !== null || value["rows"][num]["writing"] !== NaN || value["rows"][num]["writing"] !== undefined)
-			{
-    			console.log(value["rows"][num]["writing"]); 
-    			socket.emit('UPDATE_WRITING', value["rows"][num]["writing"]);
-    		}else{
-    			console.log("resetting inbox count");
-    			socket.emit('RESET_INBOX_COUNT');
+			var i; 
+			for(i = 0; i < parseInt(storyCount); i++ ){
+				if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== "")
+				{
+	    			console.log(value["rows"][i]["writing"]); 
+	    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
+	    		}else{
+	    			console.log("INVALID Entry");
+	    		}
     		}
   		});
 	}
