@@ -69,21 +69,25 @@ io.on('connection', function(socket){
 
   	async function checkInbox() {
   		var storyCount = client.query('SELECT COUNT(*) FROM testusers WHERE writing IS NOT NULL;');
-  		console.log("STORYCOUNT: " + storyCount); 
-
-		var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
-		inbox.then( value => {
-			var i; 
-			for(i = 0; i < parseInt(storyCount); i++ ){
-				if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== "")
-				{
-	    			console.log(value["rows"][i]["writing"]); 
-	    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
-	    		}else{
-	    			console.log("INVALID Entry");
-	    		}
-    		}
+  		
+  		storyCount.then( value => {
+  			console.log("STORYCOUNT: " + storyCount); 
+  			
+  			var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
+			inbox.then( value => {
+				var i; 
+				for(i = 0; i < parseInt(storyCount); i++ ){
+					if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== "")
+					{
+		    			console.log(value["rows"][i]["writing"]); 
+		    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
+		    		}else{
+		    			console.log("INVALID Entry");
+		    		}
+		    	}
+		    });
   		});
+  		
 	}
 
 
