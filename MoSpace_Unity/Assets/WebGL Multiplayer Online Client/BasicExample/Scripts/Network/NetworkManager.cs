@@ -85,7 +85,6 @@ public class NetworkManager : MonoBehaviour {
     int inboxCount = 0;
 
     public string sampleWriting;
-
     public UnityEvent cameraEvent;
 
     void Awake()
@@ -94,8 +93,9 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-	// Use this for initialization
-	void Start () {
+   
+    // Use this for initialization
+    void Start () {
 
 		// if don't exist an instance of this class
 		if (instance == null) {
@@ -165,45 +165,18 @@ public class NetworkManager : MonoBehaviour {
 
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
 
-        CanvasManager.instance.textWriting.text = data;
+        CanvasManager.instance.textWriting.text += "\n" + "\n" + data + "\n" + "\n";
 
     }
     
-    void OnResetInboxCount()
-    {
-        inboxCount = 0;
-    }
 
-    public void CheckNext()
-    {
-        inboxCount++;
-        CheckInbox(inboxCount);
-    }
-
-    public void CheckPrevious()
-    {
-        if (inboxCount > 0)
-        {
-            inboxCount--;
-            CheckInbox(inboxCount);
-        }
-    }
     // <summary>
     /// sends ping message to server.
     /// </summary>
-    public void CheckInbox(int num)
+    public void CheckInbox()
     {
-
-        //hash table <key, value>
-        Dictionary<string, string> data = new Dictionary<string, string>();
-
-        //store "ping!!!" message in msg field
-        data["number"] = num.ToString();
-
-        JSONObject jo = new JSONObject(data);
-
         //sends to the nodejs server through socket the json package
-        Application.ExternalCall("socket.emit", "INBOX", new JSONObject(data));
+        Application.ExternalCall("socket.emit", "INBOX");
     }
 
 

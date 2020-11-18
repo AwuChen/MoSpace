@@ -60,6 +60,7 @@ public class MessageList : MonoBehaviour
     /// <param name="text">Text to be added</param>
     public void AddTextEntry(string text)
     {
+        Debug.Log("add text entry");
         GameObject ngp = Instantiate(uEntryPrefab);
         Text t = ngp.GetComponentInChildren<Text>();
         t.text = text;
