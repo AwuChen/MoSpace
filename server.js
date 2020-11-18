@@ -78,7 +78,7 @@ io.on('connection', function(socket){
 			inbox.then( value => {
 				var i; 
 				for(i = 0; i < parseInt(storyNum); i++ ){
-					if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== "")
+					if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== ""|| value["rows"][i]["writing"] !== " ")
 					{
 		    			console.log(value["rows"][i]["writing"]); 
 		    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
