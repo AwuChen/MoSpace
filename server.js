@@ -71,8 +71,8 @@ io.on('connection', function(socket){
   		var storyCount = client.query('SELECT COUNT(*) FROM testusers WHERE writing IS NOT NULL;');
   		
   		storyCount.then( value => {
-  			console.log("STORYCOUNT: " + JSON.stringify(value)); 
-  			var storyNum = value;
+  			console.log("STORYCOUNT: " + value["rows"][0]["count"]); 
+  			var storyNum = value["rows"][0]["count"];
   			
   			var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
 			inbox.then( value => {
