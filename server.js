@@ -91,6 +91,35 @@ io.on('connection', function(socket){
   		
 	}
 
+	socket.on('ALBUM', function() {
+  		console.log("Check Album called"); 
+  		checkAlbum();
+  	});	 
+
+  	async function checkAlbum() {
+  		var imageCount = client.query('SELECT COUNT(*) FROM testusers WHERE pictures IS NOT NULL;');
+  		
+  		imageCount.then( value => {
+  			console.log("IMAGECOUNT: " + value["rows"][0]["count"]); 
+  			var imageNum = value["rows"][0]["count"];
+  			
+  			var album = client.query('SELECT pictures FROM testusers WHERE pictures IS NOT NULL;');
+			album.then( value => {
+				var i; 
+				for(i = 0; i < parseInt(imageNum); i++ ){
+					if(value["rows"][i]["pictures"] !== null || value["rows"][i]["pictures"] !== NaN || value["rows"][i]["pictures"] !== undefined || value["rows"][i]["pictures"] !== ""|| value["rows"][i]["pictures"] !== " ")
+					{
+		    			console.log(value["rows"][i]["pictures"]); 
+		    			socket.emit('UPDATE_ALBUM', value["rows"][i]["pictures"]);
+		    		}else{
+		    			console.log("INVALID Entry");
+		    		}
+		    	}
+		    });
+  		});
+  		
+	}
+
 
 	//create a callback fuction to listening EmitPing() method in NetworkMannager.cs unity script
 	socket.on('PING', function (_pack)

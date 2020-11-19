@@ -70,6 +70,7 @@ public class NetworkManager : MonoBehaviour {
     public GameObject[] interactiveSpace;
     public GM gManager;
     public ClickAndGetImage clickImage;
+    public ClickAndGetSpriteImage clickSprite;
 
     
     public InputField subjectText;
@@ -168,7 +169,17 @@ public class NetworkManager : MonoBehaviour {
         CanvasManager.instance.textWriting.text += "\n" + "\n" + data + "\n" + "\n";
 
     }
-    
+
+    void OnUpdateAlbum(string data)
+    {
+
+        //var pack = sampleWriting.Split(Delimiter);
+
+        //string writing = pack[0].ToString() +": " + pack[1].ToString();
+
+        clickSprite.ReceiveIncommingPhoto(data);
+    }
+
 
     // <summary>
     /// sends ping message to server.
@@ -177,6 +188,15 @@ public class NetworkManager : MonoBehaviour {
     {
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "INBOX");
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void CheckAlbum()
+    {
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "ALBUM");
     }
 
 
