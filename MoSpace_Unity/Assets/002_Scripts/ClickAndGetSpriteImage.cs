@@ -40,7 +40,7 @@ using Byn.Unity.Examples;
 public class ClickAndGetSpriteImage : MonoBehaviour
 {
     string picUrl;
-    public GameObject photo;
+    public Image photo;
     public Image[] spritePhoto;
     int photoCount = 0;
 
@@ -48,10 +48,14 @@ public class ClickAndGetSpriteImage : MonoBehaviour
     public static ClickAndGetImage instance;
 
 
-    // Use this for initialization
-    void Awake()
+    private void Update()
     {
-        
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity) as Image;
+        //    photos.transform.parent = GameObject.Find("StoryOutput").transform;
+        //    photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
+        //}
     }
 
     private void Start()
@@ -84,19 +88,29 @@ public class ClickAndGetSpriteImage : MonoBehaviour
                 picUrl = dataUrl;
                 SendPic(picUrl);
 
+                Image photos = Instantiate(photo, new Vector3 (0,0,0), Quaternion.identity) as Image;
+                photos.transform.parent = GameObject.Find("StoryOutput").transform;
+                photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
 
-                if (photoCount < spritePhoto.Length)
-                {
-                    // replace the current sprite with the desired sprite, but using the loaded sprite as a cut out reference via 'rect'
-                    spritePhoto[photoCount].sprite = Sprite.Create(tex, spritePhoto[photoCount].sprite.rect, new Vector2(0.5f, 0.5f));
+                photos.sprite = Sprite.Create(tex, photos.sprite.rect, new Vector2(0.5f, 0.5f));
 
-                    // update name, main texture and shader, these all seem to be required... even thou you'd think it already has a shader :|
-                    spritePhoto[photoCount].sprite.name = spritePhoto[photoCount].name + "_sprite";
-                    spritePhoto[photoCount].material.mainTexture = tex as Texture;
-                    spritePhoto[photoCount].material.shader = Shader.Find("Sprites/Default");
+                // update name, main texture and shader, these all seem to be required... even thou you'd think it already has a shader :|
+                photos.sprite.name = photos.name + "_sprite";
+                photos.material.mainTexture = tex as Texture;
+                photos.material.shader = Shader.Find("Sprites/Default");
+                //if (photoCount < spritePhoto.Length)
+                //{
 
-                    photoCount++;
-                }
+                //    // replace the current sprite with the desired sprite, but using the loaded sprite as a cut out reference via 'rect'
+                //    spritePhoto[photoCount].sprite = Sprite.Create(tex, spritePhoto[photoCount].sprite.rect, new Vector2(0.5f, 0.5f));
+
+                //    // update name, main texture and shader, these all seem to be required... even thou you'd think it already has a shader :|
+                //    spritePhoto[photoCount].sprite.name = spritePhoto[photoCount].name + "_sprite";
+                //    spritePhoto[photoCount].material.mainTexture = tex as Texture;
+                //    spritePhoto[photoCount].material.shader = Shader.Find("Sprites/Default");
+
+                //    photoCount++;
+                //}
 
             }
             else
