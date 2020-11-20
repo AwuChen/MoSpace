@@ -819,7 +819,7 @@ public class NetworkManager : MonoBehaviour {
 
     void OnUpdatePic(string data)
     {
-        clickImage.ReceiveIncommingPhoto(data);
+        clickSprite.ReceiveIncommingPhoto(data);
     }
 
 

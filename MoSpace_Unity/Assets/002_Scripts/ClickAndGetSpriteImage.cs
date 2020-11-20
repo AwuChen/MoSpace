@@ -41,7 +41,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 {
     string picUrl;
     public Image photo;
-    public Image[] spritePhoto;
+    public GameObject picture;
     int photoCount = 0;
 
     //useful for any gameObject to access this class without the need of instances her or you declare her
@@ -60,18 +60,18 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
     private void Start()
     {
-        NetworkManager.instance.CheckPic();
+        //NetworkManager.instance.CheckPic();
     }
     public void OnClick()
     {
 
         // NOTE: gameObject.name MUST BE UNIQUE!!!!
-        GetImage.GetImageFromUserAsync(gameObject.name, "ReceiveImage");
+        GetImage.GetImageFromUserAsync(gameObject.name, "SendImage");
 
     }
 
     static string s_dataUrlPrefix = "data:image/png;base64,";
-    public void ReceiveImage(string dataUrl)
+    public void SendImage(string dataUrl)
     {
         if (dataUrl.StartsWith(s_dataUrlPrefix))
         {
@@ -82,11 +82,54 @@ public class ClickAndGetSpriteImage : MonoBehaviour
             Texture2D tex = new Texture2D(1, 1); // does the size matter?
             if (tex.LoadImage(pngData))
             {
+                SendPic(dataUrl);
+                UpdateInGamePic(dataUrl);
+            }
+            else
+            {
+                Debug.LogError("could not send decode image");
+            }
+
+        }
+        else
+        {
+            Debug.LogError("Error sending image:" + dataUrl);
+        }
+    }
+
+    void UpdateInGamePic(String dataUrl)
+    {
+        if (dataUrl.StartsWith(s_dataUrlPrefix))
+        {
+            byte[] pngData = System.Convert.FromBase64String(dataUrl.Substring(s_dataUrlPrefix.Length));
+
+            // Create a new Texture (or use some old one?)
+            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            if (tex.LoadImage(pngData))
+            {
+                Renderer renderer = picture.GetComponent<Renderer>();
+                renderer.material.mainTexture = tex;
+            }
+        }
+    }
+
+    static string r_dataUrlPrefix = "data:image/png;base64,";
+    public void ReceiveImage(string dataUrl)
+    {
+        if (dataUrl.StartsWith(r_dataUrlPrefix))
+        {
+            byte[] pngData = System.Convert.FromBase64String(dataUrl.Substring(r_dataUrlPrefix.Length));
+
+
+            // Create a new Texture (or use some old one?)
+            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            if (tex.LoadImage(pngData))
+            {
                 //Renderer renderer = photo.GetComponent<Renderer>();
 
                 //renderer.material.mainTexture = tex;
-                picUrl = dataUrl;
-                SendPic(picUrl);
+                //picUrl = dataUrl;
+                //SendPic(picUrl);
 
                 Image photos = Instantiate(photo, new Vector3 (0,0,0), Quaternion.identity) as Image;
                 photos.transform.parent = GameObject.Find("StoryOutput").transform;
@@ -133,11 +176,21 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
     public void ReceiveIncommingPhoto(string msg)
     {
-        string s_dataUrlPrefix = "data:image/png;base64,";
+        string r_dataUrlPrefix = "data:image/png;base64,";
         // if photo ... 
-        if (msg.StartsWith(s_dataUrlPrefix))
+        if (msg.StartsWith(r_dataUrlPrefix))
         {
             ReceiveImage(msg);
+        }
+    }
+
+    public void UpdateInGamePhoto(string msg)
+    {
+        string r_dataUrlPrefix = "data:image/png;base64,";
+        // if photo ... 
+        if (msg.StartsWith(r_dataUrlPrefix))
+        {
+            UpdateInGamePic(msg);
         }
     }
 }
