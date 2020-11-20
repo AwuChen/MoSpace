@@ -69,7 +69,6 @@ public class NetworkManager : MonoBehaviour {
 
     public GameObject[] interactiveSpace;
     public GM gManager;
-    public ClickAndGetImage clickImage;
     public ClickAndGetSpriteImage clickSprite;
 
     
@@ -166,7 +165,7 @@ public class NetworkManager : MonoBehaviour {
 
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
 
-        CanvasManager.instance.textWriting.text += "\n" + "\n" + data + "\n" + "\n";
+        CanvasManager.instance.textWriting.text += "\n" + "\n" + data;
 
     }
 

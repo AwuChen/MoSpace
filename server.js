@@ -27,6 +27,7 @@ var sockets = {};//// to storage sockets
 // have the array here 
 var currentUserPIC = "";
 var picCount = 0; 
+var storyCount = 0;
 
 //open a connection with the specific client
 io.on('connection', function(socket){
@@ -76,13 +77,12 @@ io.on('connection', function(socket){
   			var storyNum = value["rows"][0]["count"];
   			
   			var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
-			inbox.then( value => {
-				var i; 
-				for(i = 0; i < parseInt(storyNum); i++ ){
-					if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== ""|| value["rows"][i]["writing"] !== " ")
+			inbox.then( value => { 
+				for(; storyCount < parseInt(storyNum); storyCount++ ){
+					if(value["rows"][storyCount]["writing"] !== null || value["rows"][storyCount]["writing"] !== NaN || value["rows"][storyCount]["writing"] !== undefined || value["rows"][storyCount]["writing"] !== ""|| value["rows"][storyCount]["writing"] !== " ")
 					{
-		    			console.log(value["rows"][i]["writing"]); 
-		    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
+		    			console.log(value["rows"][storyCount]["writing"]); 
+		    			socket.emit('UPDATE_WRITING', value["rows"][storyCount]["writing"]);
 		    		}else{
 		    			console.log("INVALID Entry");
 		    		}
