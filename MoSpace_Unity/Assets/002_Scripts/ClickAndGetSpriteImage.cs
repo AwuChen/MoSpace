@@ -42,6 +42,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
     string picUrl;
     public Image photo;
     public GameObject picture;
+    public GameObject imageParent;
     int photoCount = 0;
 
     //useful for any gameObject to access this class without the need of instances her or you declare her
@@ -50,10 +51,10 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity) as Image;
-        //    photos.transform.parent = GameObject.Find("StoryOutput").transform;
+        //    photos.transform.parent = imageParent.transform;
         //    photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
         //}
     }

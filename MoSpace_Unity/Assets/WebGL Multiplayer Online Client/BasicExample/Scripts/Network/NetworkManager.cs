@@ -147,12 +147,12 @@ public class NetworkManager : MonoBehaviour {
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
-        data["writing"] = CanvasManager.instance.inputWriting.text;
+        data["writing"] = CanvasManager.instance.inputWriting.text.ToString();
 
         JSONObject jo = new JSONObject(data);
 
         //sends to the nodejs server through socket the json package
-        Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
+        //Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
 
         CanvasManager.instance.inputWriting.text = "";
 
