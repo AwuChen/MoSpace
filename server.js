@@ -26,6 +26,7 @@ var clientLookup = {};// clients search engine
 var sockets = {};//// to storage sockets
 // have the array here 
 var currentUserPIC = "";
+var picCount = 0; 
 
 //open a connection with the specific client
 io.on('connection', function(socket){
@@ -105,15 +106,15 @@ io.on('connection', function(socket){
   			
   			var album = client.query('SELECT pictures FROM testusers WHERE pictures IS NOT NULL;');
 			album.then( value => {
-				var i; 
-				for(i = 0; i < parseInt(imageNum); i++ ){
-					if(value["rows"][i]["pictures"] !== null || value["rows"][i]["pictures"] !== NaN || value["rows"][i]["pictures"] !== undefined || value["rows"][i]["pictures"] !== ""|| value["rows"][i]["pictures"] !== " ")
+				if(picCount < parseInt(imageNum)){
+					if(value["rows"][picCount]["pictures"] !== null || value["rows"][picCount]["pictures"] !== NaN || value["rows"][picCount]["pictures"] !== undefined || value["rows"][picCount]["pictures"] !== ""|| value["rows"][picCount]["pictures"] !== " ")
 					{
-		    			console.log(value["rows"][i]["pictures"]); 
-		    			socket.emit('UPDATE_ALBUM', value["rows"][i]["pictures"]);
+		    			console.log(value["rows"][picCount]["pictures"]); 
+		    			socket.emit('UPDATE_ALBUM', value["rows"][picCount]["pictures"]);
 		    		}else{
 		    			console.log("INVALID Entry");
 		    		}
+		    		picCount++;
 		    	}
 		    });
   		});
