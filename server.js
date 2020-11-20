@@ -106,7 +106,7 @@ io.on('connection', function(socket){
   			
   			var album = client.query('SELECT pictures FROM testusers WHERE pictures IS NOT NULL;');
 			album.then( value => {
-				if(picCount < parseInt(imageNum)){
+				for(picCount < parseInt(imageNum); picCount++){
 					if(value["rows"][picCount]["pictures"] !== null || value["rows"][picCount]["pictures"] !== NaN || value["rows"][picCount]["pictures"] !== undefined || value["rows"][picCount]["pictures"] !== ""|| value["rows"][picCount]["pictures"] !== " ")
 					{
 		    			console.log(value["rows"][picCount]["pictures"]); 
@@ -114,7 +114,6 @@ io.on('connection', function(socket){
 		    		}else{
 		    			console.log("INVALID Entry");
 		    		}
-		    		picCount++;
 		    	}
 		    });
   		});
