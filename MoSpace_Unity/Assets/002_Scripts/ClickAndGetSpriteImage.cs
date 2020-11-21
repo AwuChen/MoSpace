@@ -133,7 +133,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
                 //SendPic(picUrl);
 
                 Image photos = Instantiate(photo, new Vector3 (0,0,0), Quaternion.identity) as Image;
-                photos.transform.parent = GameObject.Find("StoryOutput").transform;
+                photos.transform.parent = imageParent.transform;
                 photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
 
                 photos.sprite = Sprite.Create(tex, photos.sprite.rect, new Vector2(0.5f, 0.5f));
