@@ -47,7 +47,7 @@ public class ClickAndGetImage : MonoBehaviour
 
     private void Start()
     {
-        NetworkManager.instance.CheckPic();
+        
     }
     public void OnClick()
     {

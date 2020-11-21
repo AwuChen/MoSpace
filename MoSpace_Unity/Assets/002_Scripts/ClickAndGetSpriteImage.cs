@@ -155,6 +155,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
                 //    photoCount++;
                 //}
+                //UpdateInGamePic(dataUrl);
 
             }
             else

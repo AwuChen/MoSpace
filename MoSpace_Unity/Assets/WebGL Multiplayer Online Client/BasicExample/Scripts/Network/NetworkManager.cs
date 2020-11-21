@@ -152,7 +152,7 @@ public class NetworkManager : MonoBehaviour {
         JSONObject jo = new JSONObject(data);
 
         //sends to the nodejs server through socket the json package
-        //Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
+        Application.ExternalCall("socket.emit", "WRITE", new JSONObject(data));
 
         CanvasManager.instance.inputWriting.text = "";
 
@@ -164,7 +164,7 @@ public class NetworkManager : MonoBehaviour {
         //var pack = sampleWriting.Split(Delimiter);
 
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
-
+        Debug.Log("OnUpdateWriting: " + data);
         CanvasManager.instance.textWriting.text += "\n" + "\n" + data;
 
     }
@@ -177,6 +177,11 @@ public class NetworkManager : MonoBehaviour {
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
 
         clickSprite.ReceiveIncommingPhoto(data);
+    }
+
+    void OnUpdatePic(string data)
+    {
+        clickSprite.UpdateInGamePhoto(data);
     }
 
 
@@ -808,17 +813,6 @@ public class NetworkManager : MonoBehaviour {
 
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "SAVE_PIC", new JSONObject(data));
-    }
-
-    public void CheckPic()
-    {
-        //sends to the nodejs server through socket the json package
-        Application.ExternalCall("socket.emit", "CHECK_PIC");
-    }
-
-    void OnUpdatePic(string data)
-    {
-        clickSprite.ReceiveIncommingPhoto(data);
     }
 
 
