@@ -51,12 +51,12 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity) as Image;
-        //    photos.transform.parent = imageParent.transform;
-        //    photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
-        //}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity) as Image;
+            photos.transform.parent = imageParent.transform;
+            photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
+        }
     }
 
     private void Start()
