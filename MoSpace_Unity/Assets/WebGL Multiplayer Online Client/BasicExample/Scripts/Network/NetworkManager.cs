@@ -147,7 +147,7 @@ public class NetworkManager : MonoBehaviour {
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
-        data["writing"] = CanvasManager.instance.inputWriting.text.ToString();
+        data["writing"] = CanvasManager.instance.inputWriting.text.Replace("\n", "newLine");
 
         JSONObject jo = new JSONObject(data);
 
@@ -162,10 +162,10 @@ public class NetworkManager : MonoBehaviour {
     {
 
         //var pack = sampleWriting.Split(Delimiter);
-
+        string newLined = data.Replace("newLine", "\n");
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
-        Debug.Log("OnUpdateWriting: " + data);
-        CanvasManager.instance.textWriting.text += "\n" + "\n" + data;
+        Debug.Log("OnUpdateWriting: " + newLined);
+        CanvasManager.instance.textWriting.text += "\n" + "\n" + newLined;
 
     }
 
