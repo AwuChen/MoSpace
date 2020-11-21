@@ -51,12 +51,11 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity) as Image;
-            photos.transform.parent = imageParent.transform;
-            photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity, imageParent.transform) as Image;
+        //    photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
+        //}
     }
 
     private void Start()
@@ -132,16 +131,15 @@ public class ClickAndGetSpriteImage : MonoBehaviour
                 //picUrl = dataUrl;
                 //SendPic(picUrl);
 
-                Image photos = Instantiate(photo, new Vector3 (0,0,0), Quaternion.identity) as Image;
-                photos.transform.parent = imageParent.transform;
+                Image photos = Instantiate(photo, new Vector3(0, 0, 0), Quaternion.identity, imageParent.transform) as Image;
                 photos.transform.localScale = new Vector3(0.9302326f, 0.9302326f, 12.16841f);
 
                 photos.sprite = Sprite.Create(tex, photos.sprite.rect, new Vector2(0.5f, 0.5f));
 
                 // update name, main texture and shader, these all seem to be required... even thou you'd think it already has a shader :|
                 photos.sprite.name = photos.name + "_sprite";
-                photos.material.mainTexture = tex as Texture;
-                photos.material.shader = Shader.Find("Sprites/Default");
+                //photos.material.mainTexture = tex as Texture;
+                //photos.material.shader = Shader.Find("UI/Default");
                 //if (photoCount < spritePhoto.Length)
                 //{
 
