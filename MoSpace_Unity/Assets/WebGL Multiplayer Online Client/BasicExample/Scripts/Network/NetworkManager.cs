@@ -69,7 +69,7 @@ public class NetworkManager : MonoBehaviour {
 
     public GameObject[] interactiveSpace;
     public GM gManager;
-    public ClickAndGetImage clickImage;
+    public ClickAndGetSpriteImage clickSprite;
 
     
     public InputField subjectText;
@@ -147,7 +147,7 @@ public class NetworkManager : MonoBehaviour {
         //hash table <key, value>
         Dictionary<string, string> data = new Dictionary<string, string>();
 
-        data["writing"] = CanvasManager.instance.inputWriting.text;
+        data["writing"] = CanvasManager.instance.inputWriting.text.Replace("\n", "newLine");
 
         JSONObject jo = new JSONObject(data);
 
@@ -162,13 +162,28 @@ public class NetworkManager : MonoBehaviour {
     {
 
         //var pack = sampleWriting.Split(Delimiter);
+        string newLined = data.Replace("newLine", "\n");
+        //string writing = pack[0].ToString() +": " + pack[1].ToString();
+        Debug.Log("OnUpdateWriting: " + newLined);
+        CanvasManager.instance.textWriting.text += "\n" + "\n" + newLined;
+
+    }
+
+    void OnUpdateAlbum(string data)
+    {
+
+        //var pack = sampleWriting.Split(Delimiter);
 
         //string writing = pack[0].ToString() +": " + pack[1].ToString();
 
-        CanvasManager.instance.textWriting.text += "\n" + "\n" + data + "\n" + "\n";
-
+        clickSprite.ReceiveIncommingPhoto(data);
     }
-    
+
+    void OnUpdatePic(string data)
+    {
+        clickSprite.UpdateInGamePhoto(data);
+    }
+
 
     // <summary>
     /// sends ping message to server.
@@ -177,6 +192,15 @@ public class NetworkManager : MonoBehaviour {
     {
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "INBOX");
+    }
+
+    // <summary>
+    /// sends ping message to server.
+    /// </summary>
+    public void CheckAlbum()
+    {
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "ALBUM");
     }
 
 
@@ -789,17 +813,6 @@ public class NetworkManager : MonoBehaviour {
 
         //sends to the nodejs server through socket the json package
         Application.ExternalCall("socket.emit", "SAVE_PIC", new JSONObject(data));
-    }
-
-    public void CheckPic()
-    {
-        //sends to the nodejs server through socket the json package
-        Application.ExternalCall("socket.emit", "CHECK_PIC");
-    }
-
-    void OnUpdatePic(string data)
-    {
-        clickImage.ReceiveIncommingPhoto(data);
     }
 
 

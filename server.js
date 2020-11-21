@@ -24,8 +24,6 @@ app.use(express.static(__dirname+'/public'));
 var clients			= [];// to storage clients
 var clientLookup = {};// clients search engine
 var sockets = {};//// to storage sockets
-// have the array here 
-var currentUserPIC = "";
 
 //open a connection with the specific client
 io.on('connection', function(socket){
@@ -36,6 +34,8 @@ io.on('connection', function(socket){
   //to store current client connection
   var currentUser;
   var maze;
+  var picCount = 0; 
+  var entCount = 0;
 	
   	socket.on('EMAIL', function(_data) {
   		console.log("email submitted " + _data)
@@ -75,13 +75,58 @@ io.on('connection', function(socket){
   			var storyNum = value["rows"][0]["count"];
   			
   			var inbox = client.query('SELECT writing FROM testusers WHERE writing IS NOT NULL;');
-			inbox.then( value => {
-				var i; 
-				for(i = 0; i < parseInt(storyNum); i++ ){
-					if(value["rows"][i]["writing"] !== null || value["rows"][i]["writing"] !== NaN || value["rows"][i]["writing"] !== undefined || value["rows"][i]["writing"] !== ""|| value["rows"][i]["writing"] !== " ")
+			inbox.then( value => { 
+				console.log("entCount: " + entCount); 
+				console.log("storyNum: " + storyNum); 
+
+				for(; entCount < parseInt(storyNum); entCount++ ){
+					if(value["rows"][entCount]["writing"] !== null || value["rows"][entCount]["writing"] !== NaN || value["rows"][entCount]["writing"] !== undefined || value["rows"][entCount]["writing"] !== ""|| value["rows"][entCount]["writing"] !== " ")
 					{
-		    			console.log(value["rows"][i]["writing"]); 
-		    			socket.emit('UPDATE_WRITING', value["rows"][i]["writing"]);
+		    			console.log(value["rows"][entCount]["writing"]); 
+		    			socket.emit('UPDATE_WRITING', value["rows"][entCount]["writing"]);
+		    		}else{
+		    			console.log("INVALID Entry");
+		    		}
+		    	}
+		    });
+  		});
+	}
+
+	//create a callback fuction to listening SaveChat() method in NetworkMannager.cs unity script
+	socket.on('SAVE_PIC', function (_data)
+	{
+     
+	   var data = JSON.parse(_data);
+
+	   console.log("SAVED into pic");
+
+	   socket.broadcast.emit('SEND_PIC', data.pic);
+	   client.query('INSERT INTO testusers(pictures) VALUES (\''+data.pic+'\');');
+	   
+	});//END_SOCKET_ON
+
+	socket.on('ALBUM', function() {
+  		console.log("Check Album called"); 
+  		checkAlbum();
+  	});	 
+
+  	async function checkAlbum() {
+  		var imageCount = client.query('SELECT COUNT(*) FROM testusers WHERE pictures IS NOT NULL;');
+  		
+  		imageCount.then( value => {
+  			console.log("IMAGECOUNT: " + value["rows"][0]["count"]); 
+  			var imageNum = value["rows"][0]["count"];
+  			
+  			var album = client.query('SELECT pictures FROM testusers WHERE pictures IS NOT NULL;');
+			album.then( value => {
+				console.log("picCount: " + picCount); 
+				console.log("imageNum: " + imageNum); 
+
+				for(; picCount < parseInt(imageNum); picCount++){
+					if(value["rows"][picCount]["pictures"] !== null || value["rows"][picCount]["pictures"] !== NaN || value["rows"][picCount]["pictures"] !== undefined || value["rows"][picCount]["pictures"] !== ""|| value["rows"][picCount]["pictures"] !== " ")
+					{
+		    			console.log(value["rows"][picCount]["pictures"]); 
+		    			socket.emit('UPDATE_ALBUM', value["rows"][picCount]["pictures"]);
 		    		}else{
 		    			console.log("INVALID Entry");
 		    		}
@@ -285,31 +330,7 @@ io.on('connection', function(socket){
        socket.broadcast.emit('REPLAY_HISTORY', currentUser.name, pack.RoomNum);
       console.log('[INFO] history '+ pack.RoomNum);
 	});
-	
-	//create a callback fuction to listening SaveChat() method in NetworkMannager.cs unity script
-	socket.on('SAVE_PIC', function (_data)
-	{
-     
-	   var data = JSON.parse(_data);
 
-	   
-	   console.log("SAVED into pic" + " -pic: " + data.pic);
-	   if(currentUserPIC != data.pic)
-	   {
-	   		currentUserPIC = data.pic;
-	   		socket.broadcast.emit('SEND_PIC', currentUserPIC);
-	   		client.query('INSERT INTO testusers(pictures) VALUES (\''+data.pic+'\');');
-	   }
-	});//END_SOCKET_ON
-
-	//create a callback fuction to listening SaveChat() method in NetworkMannager.cs unity script
-	socket.on('CHECK_PIC', function ()
-	{
-		if(currentUserPIC != "")
-		{
-	   		socket.emit('SEND_PIC', currentUserPIC);
-		}
-	});//END_SOCKET_ON
 
 	//create a callback fuction to listening EmitAnimation() method in NetworkMannager.cs unity script
 	socket.on('ANIMATION', function (_data)
