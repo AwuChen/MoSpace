@@ -815,6 +815,15 @@ public class NetworkManager : MonoBehaviour {
         Application.ExternalCall("socket.emit", "SAVE_PIC", new JSONObject(data));
     }
 
+    public void SaveAud(Dictionary<string, string> data)
+    {
+
+        JSONObject jo = new JSONObject(data);
+
+        //sends to the nodejs server through socket the json package
+        Application.ExternalCall("socket.emit", "SAVE_AUD", new JSONObject(data));
+    }
+
 
 
     /// <summary>
