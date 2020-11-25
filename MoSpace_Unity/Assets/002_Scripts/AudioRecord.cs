@@ -19,7 +19,7 @@ public class AudioRecord : MonoBehaviour
 
     public void OnRecord()
     {
-        myAudioClip = Microphone.Start(null, false, 10, 44100);
+        //myAudioClip = Microphone.Start(null, false, 10, 44100);
     }
 
     public void OnSave()
