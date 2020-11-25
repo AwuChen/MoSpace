@@ -80,6 +80,7 @@ public class ClickAndGetAudio : MonoBehaviour
 
         AudioClip audioClip = AudioClip.Create("testSound", f.Length, 2, 44100, false, false);
         Debug.Log("AUDIO Created: " + audioClip);
+
         if (audioClip.SetData(f, 0))
         {
             Debug.Log("AUDIO setData: " + f);

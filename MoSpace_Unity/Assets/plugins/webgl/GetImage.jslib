@@ -99,8 +99,8 @@ var getImage = {
             '</style>                                                   ',
             '<div class="getimage">                                     ',
             '    <div>                                                  ',
-            '      <label for="photo">click to choose a file (image/audio)</label>  ',
-            '      <input id="photo" type="file" accept="image/*, audio/wav"/><br/>',
+            '      <label for="photo">click to choose an image</label>  ',
+            '      <input id="photo" type="file" accept="image/*"/><br/>',
             '      <a>cancel</a>                                        ',
             '    </div>                                                 ',
             '</div>                                                     ',
@@ -136,13 +136,13 @@ var getImage = {
           evt.stopPropagation();
           var fileInput = evt.target.files;
           if (!fileInput || !fileInput.length) {
-              return sendError("no file selected");
+              return sendError("no image selected");
           }
 
           var picURL = window.URL.createObjectURL(fileInput[0]);
           var img = new window.Image();
-          img.addEventListener('load', handleAudLoad);
-          img.addEventListener('error', handleAudError);
+          img.addEventListener('load', handleImageLoad);
+          img.addEventListener('error', handleImageError);
           img.src = picURL;
       }
 
@@ -156,29 +156,7 @@ var getImage = {
           sendError("Could not get image");
       }
 
-      function handleAudError(evt) {
-          sendError("Could not get audio");
-      }
-
       function handleImageLoad(evt) {
-          var img = evt.target;
-          window.URL.revokeObjectURL(img.src);
-          // We probably don't want the fullsize image. It might be 3000x2000 pixels or something too big
-          g.ctx.canvas.width  = 256;
-          g.ctx.canvas.height = 256;
-          g.ctx.drawImage(img, 0, 0, g.ctx.canvas.width, g.ctx.canvas.height);
-
-          var dataUrl = g.ctx.canvas.toDataURL();
-
-          // free the canvas memory (could probably be zero)
-          g.ctx.canvas.width  = 1;
-          g.ctx.canvas.height = 1;
-
-          sendResult(dataUrl);
-          g.busy = false;
-      }
-
-      function handleAudLoad(evt) {
           var img = evt.target;
           window.URL.revokeObjectURL(img.src);
           // We probably don't want the fullsize image. It might be 3000x2000 pixels or something too big
