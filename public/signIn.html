@@ -73,9 +73,9 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
-		function Login(ID, name, imageUrl, email)
+		function Login(ID, name, imageUrl, email, date, time)
 		    {
-		      err = socket.emit('GOOGLE_LOGIN', ID, name, imageUrl, email);
+		      err = socket.emit('GOOGLE_LOGIN', ID, name, imageUrl, email, date, time);
 		      console.log(err)
 		    }
   	</script>
