@@ -37,8 +37,8 @@ io.on('connection', function(socket){
   var picCount = 0; 
   var entCount = 0;
 
-  	socket.on('GOOGLE_LOGIN', function(ID, name, imageUrl, email) {
-  		client.query('INSERT INTO GOOGLE_ACCOUNTS(user_id, username, imageurl, email) VALUES (\''+ID+'\', \''+name+'\', \''+imageUrl+'\', \''+email+'\');');
+  	socket.on('GOOGLE_LOGIN', function(ID, name, email) {
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(user_id, username, email) VALUES (\''+ID+'\', \''+name+'\', \''+email+'\');');
   		//client.query('INSERT INTO GOOGLE_ACCOUNTS(created_on) VALUES (\''+date+'\');');
   		//client.query('INSERT INTO GOOGLE_ACCOUNTS(last_login) VALUES (\''+time+'\');');
   	});
