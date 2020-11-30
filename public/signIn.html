@@ -55,7 +55,7 @@
 			  var d = new Date();
 			  var createdOn = d.getMonth() + 1 +'/' + d.getDate(); 
 			  var loginTime = d.getHours() +':' + d.getMinutes(); 
-			  Login(id, name, email);
+			  Login(id);
 			}
 		</script>
 
@@ -78,9 +78,9 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
-		function Login(ID, name, email)
+		function Login(ID)
 		    {
-		      err = socket.emit('GOOGLE_LOGIN', ID, name, email);
+		      err = socket.emit('GOOGLE_LOGIN', ID);
 		      console.log(err)
 		    }
   	</script>
