@@ -50,7 +50,7 @@
 			  var d = new Date();
 			  var createdOn = d.getMonth() + 1 +'/' + d.getDate(); 
 			  var loginTime = d.getHours() +':' + d.getMinutes(); 
-			  Login(profile.getId(), profile.getName(), profile.getImageUrl(), profile.getEmail(), createdOn, loginTime);
+			  Login(profile.getId(), profile.getName(), profile.getImageUrl(), profile.getEmail());
 			}
 		</script>
 
@@ -73,9 +73,9 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
-		function Login(ID, name, imageUrl, email, date, time)
+		function Login(ID, name, imageUrl, email)
 		    {
-		      err = socket.emit('GOOGLE_LOGIN', ID, name, imageUrl, email, date, time);
+		      err = socket.emit('GOOGLE_LOGIN', ID, name, imageUrl, email);
 		      console.log(err)
 		    }
   	</script>

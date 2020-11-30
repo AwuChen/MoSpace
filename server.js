@@ -37,13 +37,13 @@ io.on('connection', function(socket){
   var picCount = 0; 
   var entCount = 0;
 
-  	socket.on('GOOGLE_LOGIN', function(ID, name, imageUrl, email, date, time) {
+  	socket.on('GOOGLE_LOGIN', function(ID, name, imageUrl, email) {
   		client.query('INSERT INTO GOOGLE_ACCOUNTS(user_id) VALUES (\''+ID+'\');');
   		client.query('INSERT INTO GOOGLE_ACCOUNTS(username) VALUES (\''+name+'\');');
   		client.query('INSERT INTO GOOGLE_ACCOUNTS(imageurl) VALUES (\''+imageUrl+'\');');
   		client.query('INSERT INTO GOOGLE_ACCOUNTS(email) VALUES (\''+email+'\');');
-  		client.query('INSERT INTO GOOGLE_ACCOUNTS(created_on) VALUES (\''+date+'\');');
-  		client.query('INSERT INTO GOOGLE_ACCOUNTS(last_login) VALUES (\''+time+'\');');
+  		//client.query('INSERT INTO GOOGLE_ACCOUNTS(created_on) VALUES (\''+date+'\');');
+  		//client.query('INSERT INTO GOOGLE_ACCOUNTS(last_login) VALUES (\''+time+'\');');
   	});
 	
   	socket.on('EMAIL', function(_data) {
