@@ -46,6 +46,11 @@
 			  console.log('Name: ' + profile.getName());
 			  console.log('Image URL: ' + profile.getImageUrl());
 			  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+			  var d = new Date();
+			  var createdOn = d.getMonth() + 1 +'/' + d.getDate(); 
+			  var loginTime = d.getHours() +':' + d.getMinutes(); 
+			  Login(profile.getId(), profile.getName(), profile.getImageUrl(), profile.getEmail(), createdOn, loginTime);
 			}
 		</script>
 
@@ -64,5 +69,15 @@
 
 	<footer>
 	</footer>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	    var socket = io("wss://ancient-beyond-09960.herokuapp.com");
+		function Login(ID, name, imageUrl, email)
+		    {
+		      err = socket.emit('GOOGLE_LOGIN', ID, name, imageUrl, email);
+		      console.log(err)
+		    }
+  	</script>
 </body>
 </html>

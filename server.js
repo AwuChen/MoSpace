@@ -36,6 +36,15 @@ io.on('connection', function(socket){
   var maze;
   var picCount = 0; 
   var entCount = 0;
+
+  	socket.on('GOOGLE_LOGIN', function(ID, name, imageUrl, email, date, time) {
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(user_id) VALUES (\''+ID+'\');');
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(username) VALUES (\''+name+'\');');
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(imageurl) VALUES (\''+imageUrl+'\');');
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(email) VALUES (\''+email+'\');');
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(created_on) VALUES (\''+date+'\');');
+  		client.query('INSERT INTO GOOGLE_ACCOUNTS(last_login) VALUES (\''+time+'\');');
+  	});
 	
   	socket.on('EMAIL', function(_data) {
   		console.log("email submitted " + _data)
@@ -125,7 +134,7 @@ io.on('connection', function(socket){
 				for(; picCount < parseInt(imageNum); picCount++){
 					if(value["rows"][picCount]["pictures"] !== null || value["rows"][picCount]["pictures"] !== NaN || value["rows"][picCount]["pictures"] !== undefined || value["rows"][picCount]["pictures"] !== ""|| value["rows"][picCount]["pictures"] !== " ")
 					{
-		    			console.log(value["rows"][picCount]["pictures"]); 
+		    			//console.log(value["rows"][picCount]["pictures"]); 
 		    			socket.emit('UPDATE_ALBUM', value["rows"][picCount]["pictures"]);
 		    		}else{
 		    			console.log("INVALID Entry");
