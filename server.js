@@ -38,6 +38,7 @@ io.on('connection', function(socket){
   var entCount = 0;
 
   	socket.on('GOOGLE_LOGIN', function(ID) {
+  		console.log("ID submitted " + ID)
   		client.query('INSERT INTO GOOGLE_ACCOUNTS(user_id) VALUES (\''+ID+'\');');
   		//client.query('INSERT INTO GOOGLE_ACCOUNTS(created_on) VALUES (\''+date+'\');');
   		//client.query('INSERT INTO GOOGLE_ACCOUNTS(last_login) VALUES (\''+time+'\');');
