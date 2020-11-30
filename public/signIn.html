@@ -31,9 +31,12 @@
 	</div>
 
 	<main>
-		<h1>A <span id="highlight">home </span><br>for LDR couples.</h1>
-		<h3>
+		<h1>
 			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		</h1>
+
+		<h3>
+			<a href="#" onclick="signOut();">Sign out</a>
 		</h3>
 
 		<script>
@@ -46,7 +49,6 @@
 			}
 		</script>
 
-		<a href="#" onclick="signOut();">Sign out</a>
 		<script>
 		  function signOut() {
 		    var auth2 = gapi.auth2.getAuthInstance();
