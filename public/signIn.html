@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A home for LDR couples">
+	<meta name="keywords" content="LDR, long distance relationship">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Sign In</title>
+
+	<link href="styles_general.css" rel="stylesheet">
+	<link href="styles_index.css" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<meta name="google-signin-client_id" content="141262585460-b3d8fceu5jre0vjoohs2q6g17bqqjptc.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+<body>
+	<div id="navbkgrd">
+		<nav>
+			<a href="index.html"><img id="logo" src="logo.png"></a>
+			<ul>
+				<li><a href="team.html">Team</a></li>
+				<li><a href="signIn.html">Sign In</a></li>
+				<li><a href="demo.html">Demo</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<main>
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		<script>
+			function onSignIn(googleUser) {
+			  var profile = googleUser.getBasicProfile();
+			  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			  console.log('Name: ' + profile.getName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+			}
+		</script>
+
+		<a href="#" onclick="signOut();">Sign out</a>
+		<script>
+		  function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('User signed out.');
+		    });
+		  }
+		</script>
+		<!-- feature -->
+		<!-- description (put under image if mobile?)-->
+		<!-- image (or 3d object?) -->
+	</main>
+
+	<footer>
+	</footer>
+</body>
+</html>
