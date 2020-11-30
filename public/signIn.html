@@ -6,7 +6,7 @@
 	<meta name="keywords" content="LDR, long distance relationship">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Sign In</title>
+	<title>MoSpace</title>
 
 	<link href="styles_general.css" rel="stylesheet">
 	<link href="styles_index.css" rel="stylesheet">
@@ -47,10 +47,15 @@
 			  console.log('Image URL: ' + profile.getImageUrl());
 			  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
+			  var id = profile.getId();
+			  var name = profile.getName();
+			  var imageurl = profile.getImageUrl();
+			  var email = profile.getEmail();
+
 			  var d = new Date();
 			  var createdOn = d.getMonth() + 1 +'/' + d.getDate(); 
 			  var loginTime = d.getHours() +':' + d.getMinutes(); 
-			  Login(profile.getId(), profile.getName(), profile.getImageUrl(), profile.getEmail());
+			  Login(id, name, imageurl, email);
 			}
 		</script>
 
