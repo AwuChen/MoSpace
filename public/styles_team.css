@@ -14,9 +14,7 @@ main {
 
 h3 {
     width: 80%;
-    font-size: 34px;
     font-weight: 300;
-    line-height: 44px;
     color: var(--color3);
     margin: auto;
 }
@@ -41,11 +39,11 @@ h3 {
 }
 
 #portraita {
-	display: none;
+    display: none;
 }
 
 #portraits {
-	display: none;
+    display: none;
 }
 
 #namey:hover+#portraity {
@@ -53,11 +51,11 @@ h3 {
 }
 
 #namea:hover+#portraita {
-	display: initial;
+    display: initial;
 }
 
 #names:hover+#portraits {
-	display: initial;
+    display: initial;
 }
 
 .divider {
@@ -89,13 +87,14 @@ h3 {
     margin-top: 14px;
 }
 
-@media screen and (max-width: 650px) {
-    h1 {
-        font-size: 34px;
+@media screen and (max-width: 600px) {
+    h3 {
+        font-size: 22px;
+        line-height: 28px;
     }
 
-    h3 {
-        font-size: 24px;
+    .divider {
+    	margin: 28px 0px;
     }
 
     .profile {
@@ -103,7 +102,66 @@ h3 {
     }
 
     .profile h5 {
-        font-size: 20px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+	h3 {
+        font-size: 28px;
+        line-height: 36px;
     }
 
+    .divider {
+    	margin: 48px 0px;
+    }
+
+    .profile h5 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+	h3 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .divider {
+    	margin: 48px 0px;
+    }
+
+    .profile h5 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+	h3 {
+        font-size: 34px;
+        line-height: 44px;
+    }
+
+    .divider {
+    	margin: 68px 0px;
+    }
+
+    .profile h5 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    h3 {
+        font-size: 34px;
+        line-height: 44px;
+    }
+
+    .divider {
+    	margin: 68px 0px;
+    }
+
+    .profile h5 {
+        font-size: 24px;
+    }
 }
