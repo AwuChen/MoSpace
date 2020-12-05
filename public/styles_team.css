@@ -1,57 +1,109 @@
-h1 {
-	font-size: 48px;
-	font-weight: 600px;
-	color: var(--color3);
-	margin-top: 250px;
-	margin: 250px 24px 0px 24px;
+main {
+    display: block;
+    position: relative;
+    text-align: center;
+    margin-top: 150px;
 }
 
+/*h1 {
+    font-size: 48px;
+    font-weight: 600px;
+    color: var(--color3);
+    margin: 24px 24px;
+}*/
+
 h3 {
-	max-width: 850px;
-	font-size: 28px;
-	font-weight: 400;
-	color: var(--color3);
-	margin: 14px 24px 0px 24px;
+    width: 80%;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 44px;
+    color: var(--color3);
+    margin: auto;
+}
+
+.underline {
+    text-decoration: underline;
+    color: var(--color3);
+}
+
+.underline:hover {
+    color: var(--color2);
+}
+
+.portrait {
+    position: absolute;
+    width: 250px;
+    transform: translate(-170px, 55px);
+}
+
+#portraity {
+    display: none;
+}
+
+#portraita {
+	display: none;
+}
+
+#portraits {
+	display: none;
+}
+
+#namey:hover+#portraity {
+    display: initial;
+}
+
+#namea:hover+#portraita {
+	display: initial;
+}
+
+#names:hover+#portraits {
+	display: initial;
+}
+
+.divider {
+    display: block;
+    width: 100%;
+    margin: 68px 0px;
 }
 
 #team {
-	text-align: justify;
-	margin: 24px;
+    text-align: justify;
+    margin: 56px 24px;
 }
 
 .profile {
-	display: inline-block;
-	max-width: 47.5%;
-	margin: 12px 0px;
+    display: inline-block;
+    max-width: 47.5%;
+    margin: 12px 0px;
 }
 
 .profile img {
-	display: block;
-	width: 100%;
+    display: block;
+    width: 100%;
 }
 
 .profile h5 {
-	font-size: 24px;
-	font-weight: 600;
-	color: var(--color3);
-	margin-top: 14px;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--color3);
+    margin-top: 14px;
 }
 
 @media screen and (max-width: 650px) {
-	h1 {
-		font-size: 34px;
-	}
+    h1 {
+        font-size: 34px;
+    }
 
-	h3 {
-		font-size: 24px;
-	}
+    h3 {
+        font-size: 24px;
+    }
 
-	.profile {
-		max-width: 100%;
-	}
+    .profile {
+        max-width: 100%;
+    }
 
-	.profile h5 {
-		font-size: 20px;
-	}
+    .profile h5 {
+        font-size: 20px;
+    }
 
 }
