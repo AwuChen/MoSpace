@@ -4,13 +4,13 @@ setInterval(highlight, 1500);
 
 function highlight() {
 	if (counter == 0) {
-		document.getElementById("highlight").innerHTML = "shelter";
+		document.getElementById("highlight").innerHTML = "memorial";
 	} else if (counter == 1) {
-		document.getElementById("highlight").innerHTML = "playground";
+		document.getElementById("highlight").innerHTML = "tribute";
 	} else if (counter == 2) {
-		document.getElementById("highlight").innerHTML = "hideaway";
+		document.getElementById("highlight").innerHTML = "family album";
 	} else {
-		document.getElementById("highlight").innerHTML = "home";
+		document.getElementById("highlight").innerHTML = "legacy";
 	}
 
 	if (counter < 3) {
