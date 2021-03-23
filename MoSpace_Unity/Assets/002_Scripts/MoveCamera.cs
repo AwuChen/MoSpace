@@ -36,29 +36,29 @@ public class MoveCamera : MonoBehaviour {
 
         Vector3 currentPos = Positions[mCurrentIndex];
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            if (mCurrentIndex < Positions.Length - 1 && mCurrentIndex < 2)
-                mCurrentIndex++;
-        }
+        //if (Input.GetKeyUp(KeyCode.RightArrow))
+        //{
+        //    if (mCurrentIndex < Positions.Length - 1 && mCurrentIndex < 2)
+        //        mCurrentIndex++;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && mCurrentIndex != 3)
-        {
-            if (mCurrentIndex > 0 )
-                mCurrentIndex--;
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftArrow) && mCurrentIndex != 3)
+        //{
+        //    if (mCurrentIndex > 0 )
+        //        mCurrentIndex--;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (mCurrentIndex != 3)
-                mCurrentIndex = 3;
-        }
+        //if (Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    if (mCurrentIndex != 3)
+        //        mCurrentIndex = 3;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (mCurrentIndex != 1)
-                mCurrentIndex = 1;
-        }
+        //if (Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    if (mCurrentIndex != 1)
+        //        mCurrentIndex = 1;
+        //}
 
         transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
 
