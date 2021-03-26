@@ -79,7 +79,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
 
             // Create a new Texture (or use some old one?)
-            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            Texture2D tex = new Texture2D(256, 144); // does the size matter?
             if (tex.LoadImage(pngData))
             {
                 SendPic(dataUrl);
@@ -104,7 +104,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
             byte[] pngData = System.Convert.FromBase64String(dataUrl.Substring(s_dataUrlPrefix.Length));
 
             // Create a new Texture (or use some old one?)
-            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            Texture2D tex = new Texture2D(256, 144); // does the size matter?
             if (tex.LoadImage(pngData))
             {
                 Renderer renderer = picture.GetComponent<Renderer>();
@@ -122,7 +122,7 @@ public class ClickAndGetSpriteImage : MonoBehaviour
 
 
             // Create a new Texture (or use some old one?)
-            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            Texture2D tex = new Texture2D(256, 144); // does the size matter?
             if (tex.LoadImage(pngData))
             {
                 //Renderer renderer = photo.GetComponent<Renderer>();
