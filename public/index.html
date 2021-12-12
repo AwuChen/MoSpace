@@ -4,12 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta property="og:title" content="BDayDAO" />
-    <meta property="og:description" content="Virtual gatherings for our birthdays." />
-    <meta property="og:image" content="MoSpace.jpg" />
-
-    <link rel="icon" href="favicon.png">
-    <title>BDayDAO</title>
+    <title>MoSpace</title>
     <style>
       html {
         box-sizing: border-box;
@@ -19,7 +14,7 @@
       }
       body {
         margin: 0;
-        background: black;
+        background: #444;
       }
       #gameContainer {
         width: 100vw;
@@ -98,21 +93,14 @@
   <body>
     <div id="gameContainer"></div>
     <div id="loader">
-      <img class="logo" src="logo_white.png">
+      <img class="logo" src="logo.png">
       <div class="spinner"></div>
       <div class="progress"><div class="full"></div></div>
     </div>
   </body>
 
   <script src="Build/UnityLoader.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
   <script>
-    //any js errors are handled like regular errors at this point
-  UnityLoader.Error.handler = function(e, t){
-  //do something with the error here if you wish.
-  }
-  UnityLoader.compatibilityCheck=function(e,t,r){t();};
   var gameInstance = UnityLoader.instantiate("gameContainer", "Build/public.json", {onProgress: UnityProgress});
   function UnityProgress(gameInstance, progress) {
     if (!gameInstance.Module) {
@@ -135,3 +123,4 @@
   </script>
 
 </html>
+
