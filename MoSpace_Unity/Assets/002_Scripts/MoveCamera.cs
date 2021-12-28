@@ -28,7 +28,7 @@ public class MoveCamera : MonoBehaviour {
         }
         else
         {
-            mCurrentIndex = 4;
+            mCurrentIndex = 5;
         }
     }
     // Update is called once per frame
