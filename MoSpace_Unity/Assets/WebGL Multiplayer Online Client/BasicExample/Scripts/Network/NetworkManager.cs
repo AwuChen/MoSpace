@@ -526,11 +526,10 @@ public class NetworkManager : MonoBehaviour {
 			// take a look in PlayerManager.cs script
 			PlayerManager newPlayer;
 
-			// newPlayer = GameObject.Instantiate( local player avatar or model, spawn position, spawn rotation)
-			GameObject newPlayerGameObject = GameObject.Instantiate (localPlayersPrefabs [0],
-				new Vector3(float.Parse(pack[2]), float.Parse(pack[3]),
-					float.Parse(pack[4])),Quaternion.identity);	
-			newPlayer = newPlayerGameObject.GetComponent<PlayerManager> ();
+            // newPlayer = GameObject.Instantiate( local player avatar or model, spawn position, spawn rotation)
+            newPlayer = GameObject.Instantiate(localPlayersPrefabs[0],
+                new Vector3(float.Parse(pack[2]), float.Parse(pack[3]),
+                                    float.Parse(pack[4])), Quaternion.identity).GetComponent<PlayerManager>();
 
 			Debug.Log("player instantiated");
 			newPlayer.id = pack [0];
@@ -564,7 +563,7 @@ public class NetworkManager : MonoBehaviour {
 				newPlayer.gameObject.GetComponent<PlayerHealth>().maxHealth;
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
-			moveCamera.localPlayer = newPlayerGameObject;
+            if(newPlayer.isLocalPlayer) moveCamera.localPlayer = newPlayer.gameObject;
 			moveCamera.followMode = true;
 
 			Debug.Log("player in game");
