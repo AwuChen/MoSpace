@@ -21,6 +21,7 @@ public class MoveCamera : MonoBehaviour {
     public float Speed = 2.0f;
 
     public bool followMode = true;
+    public GameObject localPlayer;
     public Vector3 offset;
 
     private void Start()
@@ -37,7 +38,6 @@ public class MoveCamera : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (followMode) {
-            GameObject localPlayer = GameObject.Find("LocalPlayer");
             transform.position = Vector3.Lerp(transform.position,localPlayer.transform.position+offset, Speed * Time.deltaTime);
         } else {
             Vector3 currentPos = Positions[mCurrentIndex];

@@ -91,13 +91,11 @@ public class NetworkManager : MonoBehaviour {
     void Awake()
 	{
 		Application.ExternalEval("socket.isReady = true;");
-
 	}
 
    
     // Use this for initialization
     void Start () {
-
 		// if don't exist an instance of this class
 		if (instance == null) {
 
@@ -525,10 +523,10 @@ public class NetworkManager : MonoBehaviour {
 			PlayerManager newPlayer;
 
 			// newPlayer = GameObject.Instantiate( local player avatar or model, spawn position, spawn rotation)
-			newPlayer = GameObject.Instantiate (localPlayersPrefabs [0],
+			GameObject newPlayerGameObject = GameObject.Instantiate (localPlayersPrefabs [0],
 				new Vector3(float.Parse(pack[2]), float.Parse(pack[3]),
-					float.Parse(pack[4])),Quaternion.identity).GetComponent<PlayerManager> ();
-
+					float.Parse(pack[4])),Quaternion.identity);
+			newPlayer = newPlayerGameObject.GetComponent<PlayerManager> ();
 
 			Debug.Log("player instantiated");
 			newPlayer.id = pack [0];
@@ -562,6 +560,7 @@ public class NetworkManager : MonoBehaviour {
 				newPlayer.gameObject.GetComponent<PlayerHealth>().maxHealth;
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
+			moveCamera.localPlayer = newPlayerGameObject;
 			moveCamera.followMode = true;
 
 			Debug.Log("player in game");
