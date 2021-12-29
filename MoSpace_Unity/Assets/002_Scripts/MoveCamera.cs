@@ -70,6 +70,10 @@ public class MoveCamera : MonoBehaviour {
 
     }
 
+    public void SetFollowMode(bool state)
+    {
+        followMode = state;
+    }
     public void OnStart()
     {
         mCurrentIndex = 1;

@@ -534,7 +534,7 @@ MonoBehaviour:
   name: 
   avatar: 
   isOnline: 0
-  isLocalPlayer: 0
+  isLocalPlayer: 1
   currentState: 0
   verticalSpeed: 3
   rotateSpeed: 60
