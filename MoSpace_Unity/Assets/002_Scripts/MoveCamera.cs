@@ -20,6 +20,9 @@ public class MoveCamera : MonoBehaviour {
 
     public float Speed = 2.0f;
 
+    public bool followMode = true;
+    public Vector3 offset;
+
     private void Start()
     {
         if (isMobile())
@@ -33,34 +36,37 @@ public class MoveCamera : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        if (followMode) {
+            GameObject localPlayer = GameObject.Find("LocalPlayer");
+            transform.position = Vector3.Lerp(transform.position,localPlayer.transform.position+offset, Speed * Time.deltaTime);
+        } else {
+            Vector3 currentPos = Positions[mCurrentIndex];
+            //if (Input.GetKeyUp(KeyCode.RightArrow))
+            //{
+            //    if (mCurrentIndex < Positions.Length - 1 && mCurrentIndex < 2)
+            //        mCurrentIndex++;
+            //}
 
-        Vector3 currentPos = Positions[mCurrentIndex];
+            //if (Input.GetKeyDown(KeyCode.LeftArrow) && mCurrentIndex != 3)
+            //{
+            //    if (mCurrentIndex > 0 )
+            //        mCurrentIndex--;
+            //}
 
-        //if (Input.GetKeyUp(KeyCode.RightArrow))
-        //{
-        //    if (mCurrentIndex < Positions.Length - 1 && mCurrentIndex < 2)
-        //        mCurrentIndex++;
-        //}
+            //if (Input.GetKeyDown(KeyCode.UpArrow))
+            //{
+            //    if (mCurrentIndex != 3)
+            //        mCurrentIndex = 3;
+            //}
 
-        //if (Input.GetKeyDown(KeyCode.LeftArrow) && mCurrentIndex != 3)
-        //{
-        //    if (mCurrentIndex > 0 )
-        //        mCurrentIndex--;
-        //}
+            //if (Input.GetKeyDown(KeyCode.DownArrow))
+            //{
+            //    if (mCurrentIndex != 1)
+            //        mCurrentIndex = 1;
+            //}
 
-        //if (Input.GetKeyDown(KeyCode.UpArrow))
-        //{
-        //    if (mCurrentIndex != 3)
-        //        mCurrentIndex = 3;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.DownArrow))
-        //{
-        //    if (mCurrentIndex != 1)
-        //        mCurrentIndex = 1;
-        //}
-
-        transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, currentPos, Speed * Time.deltaTime);
+        }
 
     }
 
