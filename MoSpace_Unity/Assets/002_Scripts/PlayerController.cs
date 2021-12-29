@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
         {
             float time = finalPath[i].GetComponent<Walkable>().isStair ? 1.5f : 1;
 
-            s.Append(transform.DOMove(finalPath[i].GetComponent<Walkable>().GetWalkPoint(), .2f * time).SetEase(Ease.Linear));
+            s.Append(transform.DOMove(finalPath[i].GetComponent<Walkable>().GetWalkPoint(), .4f * time).SetEase(Ease.Linear));
 
             if(!finalPath[i].GetComponent<Walkable>().dontRotate)
                s.Join(transform.DOLookAt(finalPath[i].position, .1f, AxisConstraint.Y, Vector3.up));
