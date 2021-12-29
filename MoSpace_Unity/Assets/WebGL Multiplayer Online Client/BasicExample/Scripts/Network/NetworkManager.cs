@@ -424,8 +424,9 @@ public class NetworkManager : MonoBehaviour {
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
+        } else {
 			moveCamera.followMode = true;
-        }
+		}
 	}
 
 	/// <summary>
