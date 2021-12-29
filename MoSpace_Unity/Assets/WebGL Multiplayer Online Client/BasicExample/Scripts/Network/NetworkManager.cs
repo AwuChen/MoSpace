@@ -86,6 +86,7 @@ public class NetworkManager : MonoBehaviour {
 
     public string sampleWriting;
     public UnityEvent cameraEvent;
+	public MoveCamera moveCamera;
 
     void Awake()
 	{
@@ -423,8 +424,7 @@ public class NetworkManager : MonoBehaviour {
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
-
-            
+			moveCamera.followMode = true;
         }
 	}
 
