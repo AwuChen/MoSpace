@@ -424,9 +424,7 @@ public class NetworkManager : MonoBehaviour {
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
 			Debug.Log("player in game");
-        } else {
-			moveCamera.followMode = true;
-		}
+        }
 	}
 
 	/// <summary>
@@ -564,8 +562,9 @@ public class NetworkManager : MonoBehaviour {
 				newPlayer.gameObject.GetComponent<PlayerHealth>().maxHealth;
 			//hide the lobby menu (the input field and join buton)
 			CanvasManager.instance.OpenScreen(1);
-			Debug.Log("player in game");
+			moveCamera.followMode = true;
 
+			Debug.Log("player in game");
 		}
 
 	}
