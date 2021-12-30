@@ -383,46 +383,38 @@ public class NetworkManager : MonoBehaviour {
 			// take a look in NetworkPlayer.cs script
 			PlayerManager newPlayer;
 
-			// newPlayer = GameObject.Instantiate( local player avatar or model, spawn position, spawn rotation)
-			GameObject newPlayerGameObject = GameObject.Instantiate (localPlayersPrefabs [0],
-				new Vector3(float.Parse(pack[2]), float.Parse(pack[3]),
-					float.Parse(pack[4])),Quaternion.identity);
-			
-			newPlayer = newPlayerGameObject.GetComponent<PlayerManager> ();
-
-			Debug.Log("player instantiated");
-			newPlayer.id = pack [0];
-			//this is local player
-			newPlayer.isLocalPlayer = true;
-
-			//now local player online in the arena
-			newPlayer.isOnline = true;
-
-			//set local player's 3D text with his name
-			newPlayer.Set3DName(pack[1]);
-
-			//puts the local player on the list
-			networkPlayers [pack [0]] = newPlayer;
-
-			myPlayer = networkPlayers [pack[0]].gameObject;
-
-			local_player_id =  pack [0];
+            // newPlayer = GameObject.Instantiate( local player avatar or model, spawn position, spawn rotation)
+            newPlayer = GameObject.Instantiate(localPlayersPrefabs[0],
+                new Vector3(float.Parse(pack[2]), float.Parse(pack[3]),
+                    float.Parse(pack[4])), Quaternion.identity).GetComponent<PlayerManager>();
+            Debug.Log("player instantiated");
+            newPlayer.id = pack[0];
+            //this is local player
+            newPlayer.isLocalPlayer = true;
+            //now local player online in the arena
+            newPlayer.isOnline = true;
+            //set local player's 3D text with his name
+            newPlayer.Set3DName(pack[1]);
+            //puts the local player on the list
+            networkPlayers[pack[0]] = newPlayer;
+            myPlayer = networkPlayers[pack[0]].gameObject;
+            local_player_id = pack[0];
 
 
 
-			//spawn camRigPref from Standard Assets\Cameras\Prefabs\MultipurposeCameraRig.prefab
-			//camRig = GameObject.Instantiate (camRigPref, new Vector3 (0f, 0f, 0f), Quaternion.identity);
+            //spawn camRigPref from Standard Assets\Cameras\Prefabs\MultipurposeCameraRig.prefab
+            //camRig = GameObject.Instantiate (camRigPref, new Vector3 (0f, 0f, 0f), Quaternion.identity);
 
-			//set local player how  being MultipurposeCameraRig target to follow him
-			//camRig.GetComponent<CameraFollow> ().SetTarget (myPlayer.transform, newPlayer.cameraTotarget);
+            //set local player how  being MultipurposeCameraRig target to follow him
+            //camRig.GetComponent<CameraFollow> ().SetTarget (myPlayer.transform, newPlayer.cameraTotarget);
 
-			//CanvasManager.instance.healthSlider.value = newPlayer.gameObject.GetComponent<PlayerHealth>().health;
+            //CanvasManager.instance.healthSlider.value = newPlayer.gameObject.GetComponent<PlayerHealth>().health;
 
-			//CanvasManager.instance.txtHealth.text = "HP " + newPlayer.gameObject.GetComponent<PlayerHealth>().health + " / " +
-			//	newPlayer.gameObject.GetComponent<PlayerHealth>().maxHealth;
-			//hide the lobby menu (the input field and join buton)
-			CanvasManager.instance.OpenScreen(1);
-			moveCamera.localPlayer = newPlayerGameObject;
+            //CanvasManager.instance.txtHealth.text = "HP " + newPlayer.gameObject.GetComponent<PlayerHealth>().health + " / " +
+            //	newPlayer.gameObject.GetComponent<PlayerHealth>().maxHealth;
+            //hide the lobby menu (the input field and join buton)
+            CanvasManager.instance.OpenScreen(1);
+			if(newPlayer.isLocalPlayer) moveCamera.localPlayer = newPlayer.gameObject;
 			moveCamera.followMode = true;
 
 			Debug.Log("player in game");
